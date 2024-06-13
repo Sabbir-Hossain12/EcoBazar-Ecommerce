@@ -18,6 +18,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::view('/dashboard','backend.layout.master');
+Route::view('/dashboard','backend.pages.home');
 
 require __DIR__.'/auth.php';
