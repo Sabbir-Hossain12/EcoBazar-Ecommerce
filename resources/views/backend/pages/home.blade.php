@@ -1,2 +1,0 @@
-@extends('backend.layout.master')
-

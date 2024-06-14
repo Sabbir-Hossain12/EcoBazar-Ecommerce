@@ -18,6 +18,20 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::view('/dashboard','backend.pages.home');
+//admin panel starts
+Route::prefix('admin')->group(function () {
+    Route::view('/dashboard', 'backend.pages.dashboard')->name('admin.dashboard');
+    Route::view('/basic-info', 'backend.pages.basic-info')->name('admin.basic');
+//categories
+    Route::view('/categories', 'backend.pages.categories')->name('admin.categories');
+//sub-categories
+    Route::view('/sub-categories', 'backend.pages.sub-categories')->name('admin.subcategories');
+//brands
+    Route::view('/brands', 'backend.pages.brands')->name('admin.brands');
+//products
+    Route::view('/products', 'backend.pages.products')->name('admin.products');
+
+});
+
 
 require __DIR__.'/auth.php';

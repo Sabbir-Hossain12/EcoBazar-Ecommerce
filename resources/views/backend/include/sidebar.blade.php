@@ -10,7 +10,7 @@
                 <li class="menu-title" data-key="t-menu">Menu</li>
 
                 <li>
-                    <a href="{{url('/dashboard')}}">
+                    <a href="{{route('admin.dashboard')}}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -19,85 +19,51 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="grid"></i>
-                        <span data-key="t-apps">Apps</span>
+                        <span data-key="t-apps">Products</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="apps-calendar.html">
-                                <span data-key="t-calendar">Calendar</span>
+                            <a href="{{route('admin.categories')}}">
+                                <span data-key="t-calendar">Categories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.subcategories')}}">
+                                <span data-key="t-calendar">Subcategories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.brands')}}">
+                                <span data-key="t-calendar">Brands</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.products')}}">
+                                <span data-key="t-calendar">Products</span>
                             </a>
                         </li>
 
-                        <li>
-                            <a href="apps-chat.html">
-                                <span data-key="t-chat">Chat</span>
-                            </a>
-                        </li>
 
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <span data-key="t-email">Email</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="apps-email-inbox.html" data-key="t-inbox">Inbox</a></li>
-                                <li><a href="apps-email-read.html" data-key="t-read-email">Read Email</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <span data-key="t-invoices">Invoices</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="apps-invoices-list.html" data-key="t-invoice-list">Invoice List</a></li>
-                                <li><a href="apps-invoices-detail.html" data-key="t-invoice-detail">Invoice Detail</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <span data-key="t-contacts">Contacts</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="apps-contacts-grid.html" data-key="t-user-grid">User Grid</a></li>
-                                <li><a href="apps-contacts-list.html" data-key="t-user-list">User List</a></li>
-                                <li><a href="apps-contacts-profile.html" data-key="t-profile">Profile</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </li>
-
+                
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="users"></i>
-                        <span data-key="t-authentication">Authentication</span>
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Basic</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="auth-login.html" data-key="t-login">Login</a></li>
-                        <li><a href="auth-register.html" data-key="t-register">Register</a></li>
-                        <li><a href="auth-recoverpw.html" data-key="t-recover-password">Recover Password</a></li>
-                        <li><a href="auth-lock-screen.html" data-key="t-lock-screen">Lock Screen</a></li>
-                        <li><a href="auth-logout.html" data-key="t-logout">Log Out</a></li>
-                        <li><a href="auth-confirm-mail.html" data-key="t-confirm-mail">Confirm Mail</a></li>
-                        <li><a href="auth-email-verification.html" data-key="t-email-verification">Email Verification</a></li>
-                        <li><a href="auth-two-step-verification.html" data-key="t-two-step-verification">Two Step Verification</a></li>
+                        <li>
+                            <a href="{{route('admin.basic')}}">
+                                <span data-key="t-calendar">Basic Info</span>
+                            </a>
+                        </li>
+
+                     
                     </ul>
                 </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="file-text"></i>
-                        <span data-key="t-pages">Pages</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="pages-starter.html" data-key="t-starter-page">Starter Page</a></li>
-                        <li><a href="pages-maintenance.html" data-key="t-maintenance">Maintenance</a></li>
-                        <li><a href="pages-comingsoon.html" data-key="t-coming-soon">Coming Soon</a></li>
-                        <li><a href="pages-timeline.html" data-key="t-timeline">Timeline</a></li>
-                        <li><a href="pages-faqs.html" data-key="t-faqs">FAQs</a></li>
-                        <li><a href="pages-pricing.html" data-key="t-pricing">Pricing</a></li>
-                        <li><a href="pages-404.html" data-key="t-error-404">Error 404</a></li>
-                        <li><a href="pages-500.html" data-key="t-error-500">Error 500</a></li>
-                    </ul>
-                </li>
+                
 
                 <li>
                     <a href="layouts-horizontal.html">
