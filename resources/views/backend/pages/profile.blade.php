@@ -1,0 +1,118 @@
+@extends('backend.layout.master')
+
+@section('backendCss')
+
+
+@endsection
+
+@section('contents')
+
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Profile</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{-- Content Starts--}}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Update Password</h4>
+                    
+                </div>
+                <div class="card-body p-4 ">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <div class="mb-3">
+                                    <label for="example-email-input" class="form-label">Email</label>
+                                    <input class="form-control" type="email" placeholder="xyz@gmail.com"
+                                           id="example-email-input" value="{{Auth::guard('admin')->user()->email}}" readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="currentPass" class="form-label">Current Password</label>
+                                    <input class="form-control"  type="password" placeholder="Enter Current Password"
+                                           id="currentPass">
+                                    <div>
+                                    <span class="text-info" id="p_check"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newPass" class="form-label">New Password</label>
+                                    <input class="form-control"  type="password" placeholder="Enter New Password"
+                                           id="newPass">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirm_newPass" class="form-label">Current Password</label>
+                                    <input class="form-control"  type="password" placeholder="Confirm Current Password"
+                                           id="confirm_newPass">
+                                </div>
+
+                                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+
+                            </div>
+                        </div>
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div>
+    
+    
+  
+@endsection
+
+@section('backendJs')
+
+<script>
+    
+    $(document).ready(function ()
+    {
+        $('#currentPass').keyup(function ()
+        {
+        let currentPass= $('#currentPass').val();
+            $.ajax(
+                {
+                    type: 'post',
+                    url: 'check-current-pass',
+                    data: {
+                        "_token": $('#token').val(),
+                        currentPass: currentPass
+                    },
+                    success: function (res) {
+                    
+                        if(res==="true")
+                        {
+                            $('#p_check').html('Correct Password');
+                        }
+                        else
+                        {
+                            
+                            $('#p_check').html('Incorrect Password');
+                        }
+                    },
+                    error: function (err)
+                    {
+                        console.log(err)
+                    }
+                }
+            )
+        })
+    })
+</script>
+@endsection

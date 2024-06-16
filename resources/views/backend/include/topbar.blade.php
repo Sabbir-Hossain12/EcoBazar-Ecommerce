@@ -169,8 +169,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href=""><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
-                    <a class="dropdown-item" href=""><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
+                    <a class="dropdown-item" href="{{route('admin.profile')}}"><i class="fa-solid fa-user  font-size-16 align-middle me-1"></i> Profile</a>
                     <div class="dropdown-divider"></div>
                     <form method="post" action="{{route('admin.logout')}}">
                         @csrf
