@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 
 
 //admin panel starts
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/dashboard', 'backend.pages.dashboard')->name('admin.dashboard');
     Route::view('/basic-info', 'backend.pages.basic-info')->name('admin.basic');
 //categories
@@ -33,5 +33,9 @@ Route::prefix('admin')->group(function () {
 
 });
 
-
+require __DIR__.'/admin.php';
 require __DIR__.'/auth.php';
+
+
+//Dummy routes
+//Route::view('/register','backend.auth.register');

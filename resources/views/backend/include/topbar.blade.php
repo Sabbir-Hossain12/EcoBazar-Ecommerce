@@ -164,7 +164,7 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{asset('public/backend')}}/assets/images/users/avatar-1.jpg"
                          alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{Auth::user()->name ?? ''}}</span>
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{Auth::guard('admin')->user()->name ?? ''}}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -172,7 +172,7 @@
                     <a class="dropdown-item" href=""><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
                     <a class="dropdown-item" href=""><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
                     <div class="dropdown-divider"></div>
-                    <form method="post" action="{{url('logout')}}">
+                    <form method="post" action="{{route('admin.logout')}}">
                         @csrf
                     <button type="submit" class="dropdown-item" ><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</button>
                     </form>
