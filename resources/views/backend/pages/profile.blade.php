@@ -88,6 +88,57 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Update Admin Details</h4>
+
+                </div>
+                <div class="card-body p-4 ">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form method="post" action="{{url('/admin/update-admin-details')}}">
+                                @csrf
+                             
+                                @if(Session::has('success_message_details'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{Session::get('success_message')}}
+                                    </div>
+                                @endif
+                                <div class="mb-3">
+                                    <label for="example-email-input" class="form-label">Email</label>
+                                    <input class="form-control" type="email" placeholder="xyz@gmail.com"
+                                           id="example-email-input" value="{{Auth::guard('admin')->user()->email}}"
+                                           readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input class="form-control" name="name" type="text"
+                                           placeholder="Enter Name"
+                                           id="name" value="{{Auth::guard('admin')->user()->name}}">
+                                   
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input class="form-control" name="phone" type="text"
+                                           placeholder="Enter Phone"
+                                           id="phone" value="{{Auth::guard('admin')->user()->phone}}">
+                                </div>
+                             
+                                <div class="d-grid pt-2 mb-2">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+
+                                
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </div> <!-- end col -->
     </div>
 

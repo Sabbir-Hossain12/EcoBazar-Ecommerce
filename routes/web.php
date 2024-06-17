@@ -25,6 +25,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/profiles', [ProfileController::class, 'create'])->name('admin.profile');
     Route::post('/check-current-pass', [ProfileController::class, 'check_curr_pass']);
     Route::post('/update-password', [ProfileController::class, 'update_password']);
+    Route::post('/update-admin-details', [ProfileController::class, 'update_admin_info']);
+
 
 
 });
