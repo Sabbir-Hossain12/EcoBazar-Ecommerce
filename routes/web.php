@@ -8,9 +8,6 @@ Route::get('/', function () {
 });
 
 
-
-
-
 //admin panel starts
 Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/dashboard', 'backend.pages.dashboard')->name('admin.dashboard');
@@ -23,13 +20,14 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/brands', 'backend.pages.brands')->name('admin.brands');
 //products
     Route::view('/products', 'backend.pages.products')->name('admin.products');
-    
+
 //    profiles
-   Route::get('/profiles',[ProfileController::class,'create'])->name('admin.profile');
-    Route::post('/check-current-pass',[ProfileController::class,'check_curr_pass']);
+    Route::get('/profiles', [ProfileController::class, 'create'])->name('admin.profile');
+    Route::post('/check-current-pass', [ProfileController::class, 'check_curr_pass']);
+    Route::post('/update-password', [ProfileController::class, 'update_password']);
+
 
 });
-
 
 
 require __DIR__.'/admin.php';
