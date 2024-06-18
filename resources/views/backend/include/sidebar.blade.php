@@ -66,9 +66,16 @@
                 
 
                 <li>
-                    <a href="layouts-horizontal.html">
+                    <a href="">
                         <i data-feather="layout"></i>
                         <span data-key="t-horizontal">Horizontal</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('admin.pages.index')}}">
+                        <i class="fa-regular fa-file"></i>
+                        <span data-key="t-dashboard">Pages</span>
                     </a>
                 </li>
 

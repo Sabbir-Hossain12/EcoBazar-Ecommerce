@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +28,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/update-password', [ProfileController::class, 'update_password']);
     Route::post('/update-admin-details', [ProfileController::class, 'update_admin_info']);
 
-
-
+//Pages
+    Route::resource('/pages', PagesController::class)->names('admin.pages');
+    Route::post('/change-pages-status', [PagesController::class, 'changePagesStatus']);
 });
 
 
