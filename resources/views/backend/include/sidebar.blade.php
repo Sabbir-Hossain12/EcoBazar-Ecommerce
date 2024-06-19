@@ -23,7 +23,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{route('admin.categories')}}">
+                            <a href="{{route('admin.admins.index')}}">
                                 <span data-key="t-calendar">Admin List</span>
                             </a>
                         </li>

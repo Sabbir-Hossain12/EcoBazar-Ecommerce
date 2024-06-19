@@ -10,11 +10,7 @@ class Admin extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+protected $guarded=[];
 
     /**
      * The attributes that should be hidden for serialization.

@@ -14,7 +14,7 @@ Route::get('/', function () {
 //admin panel starts
 Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/dashboard', 'backend.pages.dashboard')->name('admin.dashboard');
-   
+
 //categories
     Route::view('/categories', 'backend.pages.categories')->name('admin.categories');
 //sub-categories
@@ -33,13 +33,14 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 //Pages
     Route::resource('/pages', PagesController::class)->names('admin.pages');
     Route::post('/change-pages-status', [PagesController::class, 'changePagesStatus']);
-    
+
 //    Basic Info
     Route::resource('/basic-info', BasicinfoController::class)->names('admin.basic');
 
 //    Admins
     Route::resource('/admins', AdminController::class)->names('admin.admins');
-
+   
+    Route::get('/data', [AdminController::class, 'getData'])->name('admin.data');
 });
 
 
