@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\BasicinfoController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +14,7 @@ Route::get('/', function () {
 //admin panel starts
 Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/dashboard', 'backend.pages.dashboard')->name('admin.dashboard');
-    Route::view('/basic-info', 'backend.pages.basic-info')->name('admin.basic');
+   
 //categories
     Route::view('/categories', 'backend.pages.categories')->name('admin.categories');
 //sub-categories
@@ -31,6 +33,13 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 //Pages
     Route::resource('/pages', PagesController::class)->names('admin.pages');
     Route::post('/change-pages-status', [PagesController::class, 'changePagesStatus']);
+    
+//    Basic Info
+    Route::resource('/basic-info', BasicinfoController::class)->names('admin.basic');
+
+//    Admins
+    Route::resource('/admins', AdminController::class)->names('admin.admins');
+
 });
 
 
