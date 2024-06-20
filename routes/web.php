@@ -17,6 +17,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
 //categories
     Route::view('/categories', 'backend.pages.categories')->name('admin.categories');
+    
+    
 //sub-categories
     Route::view('/sub-categories', 'backend.pages.sub-categories')->name('admin.subcategories');
 //brands
@@ -39,7 +41,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
 //    Admins
     Route::resource('/admins', AdminController::class)->names('admin.admins');
-   
+    Route::post('/change-admin-status',[AdminController::class,'changeAdminStatus'])->name('admin.status');
     Route::get('/data', [AdminController::class, 'getData'])->name('admin.data');
 });
 

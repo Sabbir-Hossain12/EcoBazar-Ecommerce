@@ -1,7 +1,7 @@
 @extends('backend.layout.master')
 
 @section('backendCss')
-{{--    <meta name="csrf_token" content="{{ csrf_token() }}" />--}}
+    {{--    <meta name="csrf_token" content="{{ csrf_token() }}" />--}}
 
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
           rel="stylesheet" type="text/css">
@@ -45,13 +45,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0" id="adminTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Name</th>
                                 <th>Email</th>
-
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -83,7 +83,7 @@
                 <div class="modal-body">
                     <form name="form" id="createAdmin">
                         @csrf
-                        
+
                         <div class="mb-3">
                             <label for="Name" class="col-form-label">Name</label>
                             <input type="text" class="form-control" id="Name" name="name">
@@ -170,7 +170,11 @@
     <script src="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+
         $(document).ready(function () {
+
+
+            var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
             let adminTable = $('#adminTable').DataTable({
@@ -196,6 +200,12 @@
                     {
                         data: 'email',
 
+                    },
+                    {
+                        data: 'status',
+                        name: 'Status',
+                        orderable: false,
+                        searchable: false,
                     },
 
                     {
@@ -275,11 +285,10 @@
                             $('#eEmail').val(res.data.email);
                             $('#ePhone').val(res.data.phone);
                             $('#eType').val(res.data.type);
-                           
-                        
+
+
                         },
-                        error: function (err)
-                        {
+                        error: function (err) {
                             console.log('failed')
                         }
                     }
@@ -289,11 +298,11 @@
             // Edit Admin Data
             $('#editAdmin').submit(function (e) {
                 e.preventDefault();
-                let id= $('#id').val();
+                let id = $('#id').val();
                 let formData = new FormData(this);
 
                 $.ajax({
-                    type: "Post",
+                    type: "POST",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -326,8 +335,97 @@
                     }
                 });
             });
-            
-            });
+
+
+            // Delete Admin
+            $(document).on('click', '#deleteAdminBtn', function () {
+                let id = $(this).data('id');
+
+                swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this !",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+
+                            $.ajax({
+                                type: 'DELETE',
+
+                                url: "{{ url('admin/admins') }}/" + id,
+                                data: {
+                                    '_token': token
+                                },
+                                success: function (res) {
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Admin has been deleted.",
+                                        icon: "success"
+                                    });
+
+                                    adminTable.ajax.reload();
+                                },
+                                error: function (err) {
+                                    console.log('error')
+                                }
+                            })
+
+
+                        } else {
+                            swal.fire('Your Data is Safe');
+                        }
+
+                    })
+
+
+            })
+
+            // Change Admin Status
+            $(document).on('click', '#adminStatus', function () {
+                let id = $(this).data('id');
+                let status = $(this).data('status')
+                console.log(id + status)
+                $.ajax(
+                    {
+                        type: 'post',
+                        url: "{{route('admin.status')}}",
+                        data: {
+                            '_token': token,
+                            id: id,
+                            status: status
+
+                        },
+                        success: function (res) {
+                            adminTable.ajax.reload();
+
+                            if (res.status == 1) {
+
+                                swal.fire(
+                                    {
+                                        title: 'Status Changed to Active',
+                                        icon: 'success'
+                                    })
+                            } else {
+                                swal.fire(
+                                    {
+                                        title: 'Status Changed to Inactive',
+                                        icon: 'success'
+                                    })
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    }
+                )
+            })
+        });
     </script>
 
 @endsection

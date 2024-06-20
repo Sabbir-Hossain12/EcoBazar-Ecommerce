@@ -27,11 +27,26 @@ class AdminController extends Controller
 
 
         return DataTables::of($admin)
+            ->addColumn('status', function ($admin) {
+                if ($admin->status == 1) {
+                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$admin->id.'" data-status="'.$admin->status.'"> <i
+                                                        class="fa-solid fa-toggle-on fa-2x"></i>
+                                            </a>';
+                } else {
+                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$admin->id.'" data-status="'.$admin->status.'"> <i
+                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                                            </a>';
+                }
+            })
             ->addColumn('action', function ($admin) {
                 return '<div class="d-flex gap-3"> <a class="editButton" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
-                                                             <a href="javascript:void(0)" data-id="'.$admin->id.'"> <i class="fas fa-trash"></i></a>
+                                                             <a href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
+            ->rawColumns(['action','status'])
+            
             ->make(true);
     }
 
@@ -53,7 +68,7 @@ class AdminController extends Controller
         $admin->email = $request->email;
         $admin->phone = $request->phone;
         $admin->type = $request->type;
-        $admin->password = Hash::make($request->password);
+        $admin->password = $request->password;
 
         $admin->save();
 
@@ -96,14 +111,12 @@ class AdminController extends Controller
             $admin->phone = $request->phone;
             $admin->type = $request->type;
             $admin->password = Hash::make($request->password);
-            
+
             $admin->save();
 
             return response()->json(['message' => 'success'], 200);
-
         }
         return response()->json(['message' => 'failed'], 404);
-
     }
 
     /**
@@ -111,6 +124,32 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $admin = Admin::findOrFail($id);
+
+        if ($admin) {
+            $admin->delete();
+
+            return response()->json(['messsage' => 'success'], 200);
+        }
+        return response()->json(['messsage' => 'error'], 402);
+    }
+
+    public function changeAdminStatus(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+
+
+        if ($status == 1) {
+            $stat = 0;
+        } else {
+            $stat = 1;
+        }
+
+        $page = Admin::findOrFail($id);
+        $page->status = $stat;
+        $page->save();
+
+        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
     }
 }

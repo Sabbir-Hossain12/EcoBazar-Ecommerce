@@ -58,9 +58,10 @@
                     </ul>
                 </li>
 
+{{--Products--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="grid"></i>
+                        <i class="fa-solid fa-shop"></i>
                         <span data-key="t-apps">Products</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -89,6 +90,89 @@
                     </ul>
                 </li>
 
+{{--Order Panel--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span data-key="t-apps">Order Panel</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Invoiced</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Delivered</span>
+                            </a>
+                        </li>
+                     
+
+
+                    </ul>
+                </li>
+                {{--Courier Panel--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-truck"></i>
+                        <span data-key="t-apps">Courier Panel</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Couriers List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">City</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Zone</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </li>
+                
+                {{--Wholesale Panel--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span data-key="t-apps">Wholesale Panel</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Customer List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Wholesale</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">Payments</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </li>
+                
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-gear"></i>
@@ -108,7 +192,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fa-regular fa-file"></i>
+                        <i class="fa-solid fa-file"></i>
                         <span data-key="t-dashboard">Pages</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
