@@ -29,7 +29,7 @@
                         </li>
 
                         <li>
-                            <a href="{{route('admin.categories')}}">
+                            <a href="{{route('admin.category.index')}}">
                                 <span data-key="t-calendar">Roles and Permission</span>
                             </a>
                         </li>
@@ -44,15 +44,33 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{route('admin.categories')}}">
+                            <a href="{{route('admin.category.index')}}">
                                 <span data-key="t-calendar">Users List</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.categories')}}">
+                            <a href="{{route('admin.category.index')}}">
                                 <span data-key="t-calendar">Roles and Permission</span>
                             </a>
                         </li>
+
+
+                    </ul>
+                </li>
+                
+{{--Banners and Sliders--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-images"></i>
+                        <span data-key="t-apps">Sliders and Banner</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="">
+                                <span data-key="t-calendar">Users List</span>
+                            </a>
+                        </li>
+                    
 
 
                     </ul>
@@ -66,17 +84,17 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{route('admin.categories')}}">
+                            <a href="{{route('admin.category.index')}}">
                                 <span data-key="t-calendar">Categories</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.subcategories')}}">
+                            <a href="{{route('admin.subcategory.index')}}">
                                 <span data-key="t-calendar">Subcategories</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.brands')}}">
+                            <a href="{{route('admin.brand.index')}}">
                                 <span data-key="t-calendar">Brands</span>
                             </a>
                         </li>

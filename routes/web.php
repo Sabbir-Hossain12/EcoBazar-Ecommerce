@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BasicinfoController;
+use App\Http\Controllers\Backend\BrandsController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,13 +19,13 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/dashboard', 'backend.pages.dashboard')->name('admin.dashboard');
 
 //categories
-    Route::view('/categories', 'backend.pages.categories')->name('admin.categories');
-    
-    
+    Route::resource('/categories', CategoryController::class)->names('admin.category');
+
 //sub-categories
-    Route::view('/sub-categories', 'backend.pages.sub-categories')->name('admin.subcategories');
+    Route::resource('/subcategories', SubcategoryController::class)->names('admin.subcategory');
 //brands
-    Route::view('/brands', 'backend.pages.brands')->name('admin.brands');
+    Route::resource('/brands', BrandsController::class)->names('admin.brand');
+    
 //products
     Route::view('/products', 'backend.pages.products')->name('admin.products');
 
@@ -41,7 +44,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
 //    Admins
     Route::resource('/admins', AdminController::class)->names('admin.admins');
-    Route::post('/change-admin-status',[AdminController::class,'changeAdminStatus'])->name('admin.status');
+    Route::post('/change-admin-status', [AdminController::class, 'changeAdminStatus'])->name('admin.status');
     Route::get('/data', [AdminController::class, 'getData'])->name('admin.data');
 });
 
