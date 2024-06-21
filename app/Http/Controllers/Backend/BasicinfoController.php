@@ -15,7 +15,7 @@ class BasicinfoController extends Controller
     {
         $data = BasicInfo::first();
 
-        return view('backend.pages.basic-info', compact('data'));
+        return view('backend.pages.settings.basic-info', compact('data'));
     }
 
     /**

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\brand;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class BrandsController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('backend.pages.brands.index');
+        //
     }
 
     /**
@@ -35,7 +35,7 @@ class BrandsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(brand $brands)
+    public function show(Product $products)
     {
         //
     }
@@ -43,7 +43,7 @@ class BrandsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(brand $brands)
+    public function edit(Product $products)
     {
         //
     }
@@ -51,7 +51,7 @@ class BrandsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, brand $brands)
+    public function update(Request $request, Product $products)
     {
         //
     }
@@ -59,7 +59,7 @@ class BrandsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(brand $brands)
+    public function destroy(Product $products)
     {
         //
     }
