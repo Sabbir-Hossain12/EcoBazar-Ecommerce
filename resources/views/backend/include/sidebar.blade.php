@@ -27,6 +27,16 @@
                                 <span data-key="t-calendar">Admin List</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.role.index')}}">
+                                <span data-key="t-calendar">Roles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.permission.index')}}">
+                                <span data-key="t-calendar">Permissions</span>
+                            </a>
+                        </li>
 
                         <li>
                             <a href="{{route('admin.category.index')}}">
@@ -44,7 +54,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{route('admin.category.index')}}">
+                            <a href="{{route('admin.user.index')}}">
                                 <span data-key="t-calendar">Users List</span>
                             </a>
                         </li>

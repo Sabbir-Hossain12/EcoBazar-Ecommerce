@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Users</h4>
+                <h4 class="mb-sm-0 font-size-18">Permissions</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">Permissions</li>
                     </ol>
                 </div>
 
@@ -36,8 +36,8 @@
                 <div class="card-header">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">User List List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
+                        <h4 class="card-title">Permission List</h4>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPermissionModal">
                             Create Admin
                         </button>
                     </div>
@@ -45,13 +45,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="permissionTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
+                                <th>Guard</th>
+{{--                                <th>Status</th>--}}
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -72,38 +72,23 @@
     {{--    Table Ends--}}
 
     {{--    Create Categories Modal--}}
-    <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="createPermissionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Admin</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Permission</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" id="createAdmin">
+                    <form name="form" id="createPermission">
                         @csrf
 
                         <div class="mb-3">
                             <label for="Name" class="col-form-label">Name</label>
                             <input type="text" class="form-control" id="Name" name="name">
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="col-form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="col-form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Role</label>
-                            <input type="text" class="form-control" name="type" id="type">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
-                        </div>
+                        
 
 
                         <div class="modal-footer">
@@ -117,7 +102,7 @@
     </div>
 
     {{--    Edit Categories Modal--}}
-    <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editPermissionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -133,22 +118,7 @@
                             <label for="eName" class="col-form-label">Name</label>
                             <input type="text" id="eName" class="form-control" name="name">
                         </div>
-                        <div class="mb-3">
-                            <label for="eEmail" class="col-form-label">Email</label>
-                            <input type="text" id="eEmail" class="form-control" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ePhone" class="col-form-label">Phone</label>
-                            <input type="text" id="ePhone" class="form-control" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="eType" class="col-form-label">Role</label>
-                            <input type="text" id="eType" class="form-control" name="type">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ePassword" class="col-form-label">Password</label>
-                            <input type="password" id="ePassword" class="form-control" name="password">
-                        </div>
+                       
                         <input id="id" type="number" hidden>
 
                         <div class="modal-footer">
@@ -177,14 +147,14 @@
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+            let permissionTable = $('#permissionTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
                 processing: true,
                 serverSide: true,
                 {{--ajax: "{{url('/admin/data')}}",--}}
-                ajax: "{{route('user.data')}}",
+                ajax: "{{route('admin.permission.data')}}",
                 // pageLength: 30,
 
                 columns: [
@@ -198,15 +168,15 @@
 
                     },
                     {
-                        data: 'email',
+                        data: 'guard_name',
 
                     },
-                    {
-                        data: 'status',
-                        name: 'Status',
-                        orderable: false,
-                        searchable: false,
-                    },
+                    // {
+                    //     data: 'status',
+                    //     name: 'Status',
+                    //     orderable: false,
+                    //     searchable: false,
+                    // },
 
                     {
                         data: 'action',
@@ -220,7 +190,7 @@
 
 
             // Create Admin
-            $('#createAdmin').submit(function (e) {
+            $('#createPermission').submit(function (e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -230,15 +200,15 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ route('admin.admins.store') }}",
+                    url: "{{ route('admin.permission.store') }}",
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#createAdminModal').modal('hide');
-                            $('#createAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#createPermissionModal').modal('hide');
+                            $('#createPermission')[0].reset();
+                            permissionTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Created !",
@@ -271,7 +241,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: "{{ url('admin/admins') }}/" + id + "/edit",
+                        url: "{{ url('admin/permissions') }}/" + id + "/edit",
                         data: {
                             id: id
                         },
@@ -280,11 +250,9 @@
                         contentType: false,  // Prevent jQuery from setting contentType
                         success: function (res) {
 
-                            console.log('success')
+                           
                             $('#eName').val(res.data.name);
-                            $('#eEmail').val(res.data.email);
-                            $('#ePhone').val(res.data.phone);
-                            $('#eType').val(res.data.type);
+                           
 
 
                         },
@@ -306,15 +274,15 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ url('admin/admins') }}/" + id,
+                    url: "{{ url('admin/permissions') }}/" + id,
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#editAdminModal').modal('hide');
+                            $('#editPermissionModal').modal('hide');
                             $('#editAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            permissionTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Edited !",
@@ -338,7 +306,7 @@
 
 
             // Delete Admin
-            $(document).on('click', '#deleteAdminBtn', function () {
+            $(document).on('click', '#deletePermissionBtn', function () {
                 let id = $(this).data('id');
 
                 swal.fire({
@@ -357,7 +325,7 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/admins') }}/" + id,
+                                url: "{{ url('admin/permissions') }}/" + id,
                                 data: {
                                     '_token': token
                                 },
@@ -368,7 +336,7 @@
                                         icon: "success"
                                     });
 
-                                    adminTable.ajax.reload();
+                                    permissionTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -389,7 +357,7 @@
             $(document).on('click', '#adminStatus', function () {
                 let id = $(this).data('id');
                 let status = $(this).data('status')
-                console.log(id + status)
+               
                 $.ajax(
                     {
                         type: 'post',
@@ -401,7 +369,7 @@
 
                         },
                         success: function (res) {
-                            adminTable.ajax.reload();
+                            permissionTable.ajax.reload();
 
                             if (res.status == 1) {
 

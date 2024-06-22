@@ -3,47 +3,45 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\DataTables;
 
-class UserController extends Controller
+class AdminPermissionController extends Controller
 {
-
-
     public function index()
     {
-        $users = User::get();
+        $permissions = Permission::get();
 
 
-        return view('backend.pages.users.index', compact('users'));
+        return view('backend.pages.admin_permissions.index', compact('permissions'));
     }
 
     public function getData()
     {
-        $users = User::all();
+        $permissions = Permission::all();
 
-//dd($users);
-        return DataTables::of($users)
-            ->addColumn('status', function ($user) {
-                if ($user->status == 1) {
-                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$user->id.'" data-status="'.$user->status.'"> <i
-                                                        class="fa-solid fa-toggle-on fa-2x"></i>
-                                            </a>';
-                } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$user->id.'" data-status="'.$user->status.'"> <i
-                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
-                                            </a>';
-                }
-            })
-            ->addColumn('action', function ($user) {
-                return '<div class="d-flex gap-3"> <a class="editButton" href="javascript:void(0)" data-id="'.$user->id.'" data-bs-toggle="modal" data-bs-target="#editPermissionModal"><i class="fas fa-edit"></i></a>
-                                                             <a href="javascript:void(0)" data-id="'.$user->id.'" id="deletePermissionBtn""> <i class="fas fa-trash"></i></a>
+
+        return DataTables::of($permissions)
+//            ->addColumn('status', function ($admin) {
+//                if ($admin->status == 1) {
+//                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
+//                                               data-id="'.$admin->id.'" data-status="'.$admin->status.'"> <i
+//                                                        class="fa-solid fa-toggle-on fa-2x"></i>
+//                                            </a>';
+//                } else {
+//                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+//                                               data-id="'.$admin->id.'" data-status="'.$admin->status.'"> <i
+//                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+//                                            </a>';
+//                }
+//            })
+            ->addColumn('action', function ($permission) {
+                return '<div class="d-flex gap-3"> <a class="editButton" href="javascript:void(0)" data-id="'.$permission->id.'" data-bs-toggle="modal" data-bs-target="#editPermissionModal"><i class="fas fa-edit"></i></a>
+                                                             <a href="javascript:void(0)" data-id="'.$permission->id.'" id="deletePermissionBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action'])
 
             ->make(true);
     }
@@ -55,12 +53,13 @@ class UserController extends Controller
     {
         //
     }
+
     /**
-     * Display a listing of the resource.
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $permission = new User();
+        $permission = new Permission();
         $permission->name = $request->name;
         $permission->guard_name= 'admin';
 
@@ -144,7 +143,4 @@ class UserController extends Controller
 //
 //        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
 //    }
-
-
 }
-
