@@ -37,8 +37,8 @@ class AdminPermissionController extends Controller
 //                }
 //            })
             ->addColumn('action', function ($permission) {
-                return '<div class="d-flex gap-3"> <a class="editButton" href="javascript:void(0)" data-id="'.$permission->id.'" data-bs-toggle="modal" data-bs-target="#editPermissionModal"><i class="fas fa-edit"></i></a>
-                                                             <a href="javascript:void(0)" data-id="'.$permission->id.'" id="deletePermissionBtn""> <i class="fas fa-trash"></i></a>
+                return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$permission->id.'" data-bs-toggle="modal" data-bs-target="#editPermissionModal"><i class="fas fa-edit"></i></a>
+                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$permission->id.'" id="deletePermissionBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
             ->rawColumns(['action'])

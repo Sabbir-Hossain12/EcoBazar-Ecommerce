@@ -36,13 +36,13 @@ class RegisterController extends Controller
         $user = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
         ]);
 
         event(new Registered($user));
 
         Auth::guard('admin')->login($user);
 
-        return redirect(route('admin.dashboard', absolute: false));
+        return redirect(route('admin.dashboard.index', absolute: false));
     }
 }

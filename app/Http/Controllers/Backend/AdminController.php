@@ -41,8 +41,8 @@ class AdminController extends Controller
                 }
             })
             ->addColumn('action', function ($admin) {
-                return '<div class="d-flex gap-3"> <a class="editButton" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
-                                                             <a href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
+                return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
+                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
             ->rawColumns(['action','status'])

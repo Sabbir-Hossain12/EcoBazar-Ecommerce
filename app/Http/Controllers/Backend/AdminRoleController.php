@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
@@ -40,22 +41,20 @@ class AdminRoleController extends Controller
 //                }
 //            })
             ->addColumn('action', function ($role) {
-                return '<div class="d-flex gap-3"> <a class="editButton" href="javascript:void(0)" data-id="'.$role->id.'" data-bs-toggle="modal" data-bs-target="#editRoleModal"><i class="fas fa-edit"></i></a>
-                                                             <a href="javascript:void(0)" data-id="'.$role->id.'" id="deleteRoleBtn""> <i class="fas fa-trash"></i></a>
+                
+                $addPermission= route('role.permission.edit',$role->id);
+                
+                return '<div class="d-flex gap-3">  <a class="btn btn-sm btn-primary" href="' .$addPermission. '"><i class="fa-solid fa-user-plus"></i></a> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$role->id.'" data-bs-toggle="modal" data-bs-target="#editRoleModal"><i class="fas fa-edit"></i></a>
+                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$role->id.'" id="deleteRoleBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
             ->rawColumns(['action'])
-
             ->make(true);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +63,7 @@ class AdminRoleController extends Controller
     {
         $admin = new Role();
         $admin->name = $request->name;
-        $admin->guard_name="admin";       
+        $admin->guard_name = "admin";
         $admin->save();
 
 
@@ -144,4 +143,30 @@ class AdminRoleController extends Controller
 //
 //        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
 //    }
+
+    public function create()
+    {
+    }
+
+    public function assignPermissionsToRolePage(string $id)
+    {
+        $permissions= Permission::get();
+        $role= Role::findOrFail($id);
+        
+        return view('backend.pages.admin_role.permissions_to_role',compact('role','permissions'));
+
+    }
+
+    public function assignPermissionsToRole(Request $request, string $id)
+    {
+        
+        
+        $permission= Permission::get();
+        $role= Role::findOrFail($id);
+
+        return view('backend.pages.admin_role.permission_to_role',compact('role'));
+
+    }
+    
+    
 }
