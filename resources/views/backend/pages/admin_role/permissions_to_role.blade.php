@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-{{--                <h4 class="mb-sm-0 font-size-18">Assign Permissions to Role</h4>--}}
+                {{--                <h4 class="mb-sm-0 font-size-18">Assign Permissions to Role</h4>--}}
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -32,38 +32,60 @@
 
     <div class="row">
         <div class="col-lg-12">
+            @if(Session::has('error_message'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    {{Session::get('error_message')}}
+                </div>
+            @endif
+            @if(Session::has('success_message'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    {{Session::get('success_message')}}
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">Add Permissions to Role: <span class="fw-bolder text-primary">{{$role->name}}</span></h4>
-                      
+                        <h4 class="card-title">Add Permissions to Role: <span
+                                    class="fw-bolder text-primary">{{$role->name}}</span></h4>
+
                     </div>
 
                 </div>
                 <div class="card-body">
                     @foreach($permissions as $permission)
-                    <div class="col-md-6">
+                    <form action="{{route('role.permission.update',$role->id)}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        
+                            <div class="col-md-6">
 
-                        <div>
-                            
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" name="permissions[]" type="checkbox" id="formCheck1">
-                                <label class="form-check-label" for="formCheck1">
-                                    {{$permission->name}}
-                                </label>
+                                <div>
+
+                           
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" name="permissions[]" type="checkbox"
+                                               id="formCheck1_{{ $permission->id }}" value="{{$permission->name}}">
+                                        <label class="form-check-label" for="formCheck1_{{ $permission->id }}">
+                                            {{$permission->name}}
+                                        </label>
+                                    </div>
+
+
+                                </div>
                             </div>
-                            
 
+                        @endforeach
 
+                        <div class="mt-4 d-flex justify-content-end">
+                            <button class="btn btn-lg btn-primary" type="submit">Update</button>
                         </div>
-                    </div>
-                    @endforeach
-                    
-                    <div class="mt-4 d-flex justify-content-end">
-                        <button class="btn btn-lg btn-primary" type="button">Update</button>
-                    </div>
-                   
+                    </form>
 
 
                 </div>
@@ -74,10 +96,9 @@
         <!-- end col -->
     </div>
 
-
 @endsection
 
 @section('backendJs')
-    
-    
+
+
 @endsection

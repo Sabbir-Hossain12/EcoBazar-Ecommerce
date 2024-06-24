@@ -24,113 +24,113 @@
     </div>
     <form method="post" action="{{route('admin.pages.store')}}">
         @csrf
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title text-center">Page Information</h4>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title text-center">Page Information</h4>
 
-                </div>
-                <div class="card-body p-4">
-                   
-                    <div class="row">
-                        @if(Session::has('error_message'))
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                {{Session::get('error_message')}}
-                            </div>
-                        @endif
-                        @if(Session::has('success_message'))
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                {{Session::get('success_message')}}
-                            </div>
+                    </div>
+                    <div class="card-body p-4">
+
+                        <div class="row">
+                            @if(Session::has('error_message'))
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    {{Session::get('error_message')}}
+                                </div>
                             @endif
-                        <div class="col-lg-6">
-                            
-                         
-                            <div>
-                                <div class="mb-3">
-                                    <label for="title" class="form-label">Title</label>
-                                    <input class="form-control" type="text" placeholder="Page Title"
-                                           id="title" name="title">
+                            @if(Session::has('success_message'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    {{Session::get('success_message')}}
                                 </div>
-                                <div class="mb-3">
-                                    <label for="pageStatus" class="form-label">Select</label>
-                                    <select id="pageStatus" class="form-select" name="status">
-                                        <option>Select</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
-                                </div>
+                            @endif
+                            <div class="col-lg-6">
 
-                                <div class="mb-3">
-                                    <label for="url" class="form-label">URL</label>
-                                    <textarea id="url" name="url" class="form-control"></textarea>
-                                </div>
 
+                                <div>
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input class="form-control" type="text" placeholder="Page Title"
+                                               id="title" name="title">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="pageStatus" class="form-label">Select</label>
+                                        <select id="pageStatus" class="form-select" name="status">
+                                            <option>Select</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="url" class="form-label">URL</label>
+                                        <textarea id="url" name="url" class="form-control"></textarea>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="meta_title" class="form-label">Meta Title</label>
+                                    <input class="form-control" type="text" placeholder="Meta Title"
+                                           id="meta_title" name="meta_title">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="meta_keyword" class="form-label">Meta Keywords</label>
+                                    <input class="form-control" type="text" placeholder="Enter Meta Keywords"
+                                           id="meta_keyword" name="meta_keywords">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="meta_desc" class="form-label">Meta Description</label>
+                                    <textarea id="meta_desc" name="meta_desc" class="form-control"></textarea>
+                                </div>
 
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="meta_title" class="form-label">Meta Title</label>
-                                <input class="form-control" type="text" placeholder="Meta Title"
-                                       id="meta_title" name="meta_title">
-                            </div>
-                            <div class="mb-3">
-                                <label for="meta_keyword" class="form-label">Meta Keywords</label>
-                                <input class="form-control" type="text" placeholder="Enter Meta Keywords"
-                                       id="meta_keyword" name="meta_keywords">
-                            </div>
-                            <div class="mb-3">
-                                <label for="meta_desc" class="form-label">Meta Description</label>
-                                <textarea id="meta_desc" name="meta_desc" class="form-control"></textarea>
-                            </div>
-
-                        </div>
                     </div>
-                   
                 </div>
-            </div>
-        </div> <!-- end col -->
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title text-center">Page Description</h4>
-                    
-                </div>
-                <div class="card-body p-4">
+            </div> <!-- end col -->
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title text-center">Page Description</h4>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div>
-                                <div class="mb-3">
-                                   
-                                    <textarea id="page_desc" name="desc" class="form-control"></textarea>
+                    </div>
+                    <div class="card-body p-4">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div>
+                                    <div class="mb-3">
+
+                                        <textarea id="page_desc" name="desc" class="form-control"></textarea>
+                                    </div>
                                 </div>
+
                             </div>
-                            
+
+
+                        </div>
+                        <div class="text-center mt-4 d-grid">
+                            <button type="submit" class="btn  btn-primary">Update</button>
                         </div>
 
-                       
                     </div>
-                    <div class="text-center mt-4 d-grid">
-                        <button type="submit" class="btn  btn-primary">Update</button>
-                    </div>
-                   
                 </div>
-            </div>
-        </div> <!-- end col -->
-    </div>
+            </div> <!-- end col -->
+        </div>
     </form>
 @endsection
 
 @section('backendJs')
-    
-{{--  CkEditor CDN  --}}
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+    {{--  CkEditor CDN  --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -140,10 +140,10 @@
         $(document).ready(function () {
 
             ClassicEditor
-                .create( document.querySelector( '#page_desc' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+                .create(document.querySelector('#page_desc'))
+                .catch(error => {
+                    console.error(error);
+                });
         });
 
 

@@ -41,10 +41,9 @@ class AdminRoleController extends Controller
 //                }
 //            })
             ->addColumn('action', function ($role) {
-                
-                $addPermission= route('role.permission.edit',$role->id);
-                
-                return '<div class="d-flex gap-3">  <a class="btn btn-sm btn-primary" href="' .$addPermission. '"><i class="fa-solid fa-user-plus"></i></a> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$role->id.'" data-bs-toggle="modal" data-bs-target="#editRoleModal"><i class="fas fa-edit"></i></a>
+                $addPermission = route('role.permission.edit', $role->id);
+
+                return '<div class="d-flex gap-3">  <a class="btn btn-sm btn-primary" href="'.$addPermission.'"><i class="fa-solid fa-user-plus"></i></a> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$role->id.'" data-bs-toggle="modal" data-bs-target="#editRoleModal"><i class="fas fa-edit"></i></a>
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$role->id.'" id="deleteRoleBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
@@ -150,23 +149,29 @@ class AdminRoleController extends Controller
 
     public function assignPermissionsToRolePage(string $id)
     {
-        $permissions= Permission::get();
-        $role= Role::findOrFail($id);
-        
-        return view('backend.pages.admin_role.permissions_to_role',compact('role','permissions'));
+        $permissions = Permission::get();
+        $role = Role::findOrFail($id);
 
+        return view('backend.pages.admin_role.permissions_to_role', compact('permissions', 'role'));
     }
 
     public function assignPermissionsToRole(Request $request, string $id)
     {
         
+//        dd(\request()->all());
+
         
-        $permission= Permission::get();
-        $role= Role::findOrFail($id);
+        $role = Role::findOrFail($id);
 
-        return view('backend.pages.admin_role.permission_to_role',compact('role'));
 
+        $assignePerm = $role->syncPermissions(\request()->permissions);
+
+
+        if ($assignePerm) {
+            return redirect()->back()->with('success_message', 'Permission Updated !');
+        }
+        return redirect()->back()->with('error_message', 'Error Occured !');
     }
-    
-    
+
+
 }
