@@ -38,11 +38,7 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="{{route('admin.category.index')}}">
-                                <span data-key="t-calendar">Roles and Permission</span>
-                            </a>
-                        </li>
+                       
 
 
                     </ul>

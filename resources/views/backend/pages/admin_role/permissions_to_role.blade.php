@@ -69,7 +69,7 @@
 
                            
                                     <div class="form-check mb-3">
-                                        <input class="form-check-input" name="permissions[]" type="checkbox"
+                                        <input class="form-check-input" @checked($role->hasPermissionTo($permission->name)) name="permissions[]" type="checkbox"
                                                id="formCheck1_{{ $permission->id }}" value="{{$permission->name}}">
                                         <label class="form-check-label" for="formCheck1_{{ $permission->id }}">
                                             {{$permission->name}}

@@ -7,7 +7,13 @@
           rel="stylesheet" type="text/css">
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
           rel="stylesheet" type="text/css">
-
+<style>
+    .custom-height {
+    height: 50px; /* Adjust the height as needed */
+    vertical-align: middle; /* Optional: Align text vertically */
+    display: table-cell; /* Ensure it respects height */
+    }
+</style>
 @endsection
 
 @section('contents')
@@ -45,12 +51,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="roleTable">
+                        <table class="table mb-0  w-100 dataTable no-footer dtr-inline"  id="roleTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Name</th>
                                 <th>Guard</th>
+                                <th>Permissions</th>
 {{--                                <th>Status</th>--}}
                                 <th>Actions</th>
                             </tr>
@@ -169,6 +176,10 @@
                     {
                         data: 'guard_name',
 
+                    },
+                    {
+                        data: 'permissions',
+                        width: '400px'
                     },
                     // {
                     //     data: 'status',

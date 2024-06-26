@@ -42,27 +42,21 @@ class AdminController extends Controller
                                             </a>';
                 }
             })
-           
-            ->addColumn('role',function ($admin)
-            {
-                $role= $admin->getRoleNames();
+            ->addColumn('role', function ($admin) {
+                $role = $admin->getRoleNames();
 //                $string = implode(',', $role);
-                if(!empty($role))
-                {
-                    
-                return $role;
+
+                if (count($role)) {
+                    return   '<span class="badge bg-success">'.$role[0].'</span>' ;
                 }
-                return 1;
+                return '';
             })
-           
             ->addColumn('action', function ($admin) {
                 return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
-            
-            ->rawColumns(['action','status','role'])
-            
+            ->rawColumns(['action', 'status', 'role'])
             ->make(true);
     }
 
@@ -105,12 +99,12 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-            $roles= Role::get();
+        $roles = Role::get();
 //            dd($roles);
         $admin = Admin::findOrFail($id);
 
         if ($admin) {
-            return response()->json(['message' => 'success', 'data' => $admin,'roles'=>$roles], 200);
+            return response()->json(['message' => 'success', 'data' => $admin, 'roles' => $roles], 200);
         }
 
         return response()->json(['message' => 'failed'], 400);

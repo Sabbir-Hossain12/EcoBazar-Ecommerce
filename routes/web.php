@@ -44,11 +44,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/permissions', AdminPermissionController::class)->names('admin.permission');
     Route::get('/roles-data', [AdminRoleController::class, 'getData'])->name('admin.role.data');
     Route::get('/permissions-data', [AdminPermissionController::class, 'getData'])->name('admin.permission.data');
-    
-    Route::get('/assign-permission-page/{id}',[AdminRoleController::class,'assignPermissionsToRolePage'])->name('role.permission.edit');
-//    Route::put(3'role/{id}/permission/update',[AdminRoleController::class,'assignPermissionsToRole'])->name('role.permission.update');
-    
-    
+
+    Route::get('/assign-permission-page/{id}', [AdminRoleController::class, 'assignPermissionsToRolePage'])->name('role.permission.edit');
+    Route::put('role/{id}/permission/update', [AdminRoleController::class, 'assignPermissionsToRole'])->name('role.permission.update');
+
+
 //***************************************************************************************
 //************************************ Users *****************************************
 //***************************************************************************************

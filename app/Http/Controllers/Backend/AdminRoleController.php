@@ -40,6 +40,16 @@ class AdminRoleController extends Controller
 //                                            </a>';
 //                }
 //            })
+
+            ->addColumn('permissions', function ($role) {
+                $perp_names = $role->permissions->pluck('name');
+                    $badge='';
+                foreach ($perp_names as $perm) {
+                    $badge  .=  '<span class="badge bg-success mx-1 my-1">'.$perm.'</span>';
+                   
+                }
+                return $badge;
+            })
             ->addColumn('action', function ($role) {
                 $addPermission = route('role.permission.edit', $role->id);
 
@@ -47,7 +57,7 @@ class AdminRoleController extends Controller
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$role->id.'" id="deleteRoleBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'permissions'])
             ->make(true);
     }
 
@@ -157,10 +167,9 @@ class AdminRoleController extends Controller
 
     public function assignPermissionsToRole(Request $request, string $id)
     {
-        
 //        dd(\request()->all());
 
-        
+
         $role = Role::findOrFail($id);
 
 
