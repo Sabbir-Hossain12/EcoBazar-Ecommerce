@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
@@ -40,12 +42,26 @@ class AdminController extends Controller
                                             </a>';
                 }
             })
+           
+            ->addColumn('role',function ($admin)
+            {
+                $role= $admin->getRoleNames();
+//                $string = implode(',', $role);
+                if(!empty($role))
+                {
+                    
+                return $role;
+                }
+                return 1;
+            })
+           
             ->addColumn('action', function ($admin) {
                 return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
-            ->rawColumns(['action','status'])
+            
+            ->rawColumns(['action','status','role'])
             
             ->make(true);
     }
@@ -89,10 +105,12 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
+            $roles= Role::get();
+//            dd($roles);
         $admin = Admin::findOrFail($id);
 
         if ($admin) {
-            return response()->json(['message' => 'success', 'data' => $admin], 200);
+            return response()->json(['message' => 'success', 'data' => $admin,'roles'=>$roles], 200);
         }
 
         return response()->json(['message' => 'failed'], 400);
@@ -112,6 +130,7 @@ class AdminController extends Controller
             $admin->type = $request->type;
             $admin->password = Hash::make($request->password);
 
+            $admin->syncRoles($request->role);
             $admin->save();
 
             return response()->json(['message' => 'success'], 200);

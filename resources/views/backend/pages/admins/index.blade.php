@@ -51,6 +51,7 @@
                                 <th>SL</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -142,8 +143,11 @@
                             <input type="text" id="ePhone" class="form-control" name="phone">
                         </div>
                         <div class="mb-3">
-                            <label for="eType" class="col-form-label">Role</label>
-                            <input type="text" id="eType" class="form-control" name="type">
+                            <label for="eType" class="col-form-label">Roles</label>
+                            <select name="role" id="rolesId" class="form-control">
+                                
+                                
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="ePassword" class="col-form-label">Password</label>
@@ -200,6 +204,9 @@
                     {
                         data: 'email',
 
+                    },
+                    {
+                        data:'role'
                     },
                     {
                         data: 'status',
@@ -286,7 +293,17 @@
                             $('#ePhone').val(res.data.phone);
                             $('#eType').val(res.data.type);
 
+                            $('#rolesId').empty();
 
+                            // Append a default option (optional)
+                            $('#rolesId').append('<option value="">Select a Role</option>');
+
+                            // Iterate over the response data and append each role as an option
+                            $.each(res.roles, function(index, role) {
+                                $('#rolesId').append(
+                                    `<option value="${role.name}">${role.name}</option>`
+                                );
+                            });
                         },
                         error: function (err) {
                             console.log('failed')

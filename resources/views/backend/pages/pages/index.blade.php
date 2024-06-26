@@ -75,16 +75,16 @@
                                         @endif
                                     </td>
 
-                                    <td class="d-flex gap-3">
+                                    <td class="d-flex gap-1">
                                         <div>
-                                        <a class="btn" href="{{route('admin.pages.edit',$page->id)}}" ><i
+                                        <a class="btn btn-sm btn-primary" href="{{route('admin.pages.edit',$page->id)}}" ><i
                                                     class="fas fa-edit"></i></a>
                                         </div>
                                         <form method="post" id="delete-form-{{$page->id}}" action="{{route('admin.pages.destroy',$page->id)}}">
                                             @csrf
                                             @method('delete')
                                         </form>
-                                        <button onclick="confirmDel( {{$page->id}} )" class="btn"> <i class="fas fa-trash"></i></button>
+                                        <button onclick="confirmDel( {{$page->id}} )" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
