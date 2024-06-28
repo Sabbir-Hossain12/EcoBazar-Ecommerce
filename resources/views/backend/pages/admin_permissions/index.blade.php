@@ -169,6 +169,10 @@
                     },
                     {
                         data: 'guard_name',
+                        render: function (data,type,row)
+                        {
+                            return '<span class="badge bg-primary p-1">'+ data +' </span>';
+                        }
 
                     },
                     // {

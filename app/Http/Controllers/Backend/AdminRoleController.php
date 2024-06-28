@@ -45,7 +45,7 @@ class AdminRoleController extends Controller
                 $perp_names = $role->permissions->pluck('name');
                     $badge='';
                 foreach ($perp_names as $perm) {
-                    $badge  .=  '<span class="badge bg-success mx-1 my-1">'.$perm.'</span>';
+                    $badge  .=  '<span class="badge bg-success p-1 mx-1 my-1">'.$perm.'</span>';
                    
                 }
                 return $badge;

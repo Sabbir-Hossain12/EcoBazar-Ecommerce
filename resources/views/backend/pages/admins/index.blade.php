@@ -37,9 +37,13 @@
 
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title">Admins List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            Create Admin
-                        </button>
+{{--                       @can('Create Admin')--}}
+                       @if(Auth::guard('admin')->user()->can('Create Admin'))
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
+                                Create Admin 
+                            </button>
+{{--                        @endcan--}}
+                        @endif
                     </div>
 
                 </div>
@@ -53,7 +57,10 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
+                                
+                               
                                 <th>Actions</th>
+                                    
                             </tr>
                             </thead>
                             <tbody>

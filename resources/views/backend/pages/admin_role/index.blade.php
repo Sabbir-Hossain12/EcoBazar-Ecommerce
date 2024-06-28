@@ -175,6 +175,10 @@
                     },
                     {
                         data: 'guard_name',
+                        render: function(data, type, row) {
+                            // Format guard_name as a Bootstrap badge
+                            return '<span class="badge bg-primary p-1">' + data + '</span>';
+                        }
 
                     },
                     {

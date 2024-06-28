@@ -5,13 +5,31 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
-class AdminController extends Controller
+class AdminController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+        
+            new Middleware('permission:View Admin,admin', only: ['index']),
+            new Middleware('permission:Create Admin,admin', only: ['store']),
+            new Middleware('permission:Edit Admin,admin', only: ['update']),
+            new Middleware('permission:Delete Admin,admin', only: ['destroy']),
+
+
+        ];
+    }
+
+   
     /**
      * Display a listing of the resource.
      */
@@ -52,9 +70,13 @@ class AdminController extends Controller
                 return '';
             })
             ->addColumn('action', function ($admin) {
+                if(Auth::guard('admin')->user()->can('Delete Admin'))
+                {
+                    
                 return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
+                }
             })
             ->rawColumns(['action', 'status', 'role'])
             ->make(true);

@@ -12,7 +12,7 @@ class Admin extends Authenticatable
     use HasFactory,HasRoles;
 
 protected $guarded=[];
-
+//protected $guard='admin';
     /**
      * The attributes that should be hidden for serialization.
      *
