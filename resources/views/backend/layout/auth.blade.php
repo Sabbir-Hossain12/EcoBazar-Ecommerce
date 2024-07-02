@@ -24,7 +24,7 @@
     <!-- App Css-->
     <link href="{{asset('public/backend')}}/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
 
-    @yield('backendCss')
+    @stack('backendCss')
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 <script src=" {{asset('public/backend')}}/assets/libs/feather-icons/feather.min.js"></script>
 <!-- pace js -->
 <script src=" {{asset('public/backend')}}/assets/libs/pace-js/pace.min.js"></script>
-@yield('backendJs')
+@stack('backendJs')
 <script src=" {{asset('public/backend')}}/assets/js/app.js"></script>
 
 

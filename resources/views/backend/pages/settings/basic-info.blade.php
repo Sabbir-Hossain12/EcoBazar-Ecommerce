@@ -1,10 +1,10 @@
 @extends('backend.layout.master')
 
-@section('backendCss')
+@push('backendCss')
     <link href="{{asset('public/backend')}}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
           rel="stylesheet" type="text/css">
 
-@endsection
+@endpush
 
 @section('contents')
 
@@ -169,7 +169,7 @@
     </form>
 @endsection
 
-@section('backendJs')
+@push('backendJs')
 
 
-@endsection
+@endpush

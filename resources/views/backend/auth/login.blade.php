@@ -136,8 +136,8 @@
 
 @endsection
 
-@section('backendJs')
+@push('backendJs')
 <!-- password addon init -->
 <script src=" {{asset('public/backend')}}/assets/js/pages/pass-addon.init.js"></script>
 
-@endsection
+@endpush

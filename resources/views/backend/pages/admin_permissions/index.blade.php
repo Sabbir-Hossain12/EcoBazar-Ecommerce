@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 
-@section('backendCss')
+@push('backendCss')
     {{--    <meta name="csrf_token" content="{{ csrf_token() }}" />--}}
 
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
@@ -8,7 +8,8 @@
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
           rel="stylesheet" type="text/css">
 
-@endsection
+@endpush
+
 
 @section('contents')
 
@@ -133,7 +134,7 @@
     </div>
 @endsection
 
-@section('backendJs')
+@push('backendJs')
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{asset('public/backend')}}/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -400,4 +401,4 @@
         });
     </script>
 
-@endsection
+@endpush

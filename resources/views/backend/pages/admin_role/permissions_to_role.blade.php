@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 
-@section('backendCss')
+@push('backendCss')
     {{--    <meta name="csrf_token" content="{{ csrf_token() }}" />--}}
 
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
@@ -8,7 +8,7 @@
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
           rel="stylesheet" type="text/css">
 
-@endsection
+@endpush
 
 @section('contents')
 
@@ -98,7 +98,7 @@
 
 @endsection
 
-@section('backendJs')
+@push('backendJs')
 
 
-@endsection
+@endpush

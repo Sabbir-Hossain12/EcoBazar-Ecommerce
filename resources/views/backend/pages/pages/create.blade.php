@@ -1,9 +1,9 @@
 @extends('backend.layout.master')
 
-@section('backendCss')
+@push('backendCss')
 
 
-@endsection
+@endpush
 
 @section ('contents')
 
@@ -127,7 +127,7 @@
     </form>
 @endsection
 
-@section('backendJs')
+@push('backendJs')
 
     {{--  CkEditor CDN  --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
@@ -148,4 +148,4 @@
 
 
     </script>
-@endsection
+@endpush

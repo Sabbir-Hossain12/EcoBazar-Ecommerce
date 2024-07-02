@@ -1,10 +1,10 @@
 @extends('backend.layout.master')
 
-@section('backendCss')
+@push('backendCss')
     <link href="{{asset('public/backend')}}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
           rel="stylesheet" type="text/css">
 
-@endsection
+@endpush
 
 @section('contents')
 
@@ -118,10 +118,10 @@
 
 @endsection
 
-@section('backendJs')
+@push('backendJs')
     {{--    <script src=" {{asset('public/backend')}}/assets/libs/apexcharts/apexcharts.min.js"></script>--}}
     <script src=" {{asset('public/backend')}}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="{{asset('public/backend')}}/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
     {{--    <script src=" {{asset('public/backend')}}/assets/js/pages/dashboard.init.js"></script>--}}
 
-@endsection
+@endpush

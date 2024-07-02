@@ -123,9 +123,9 @@
 
 
 
-@section('backendJs')
+@push('backendJs')
 
     <!-- validation init -->
     <script src=" {{asset('public/backend')}}/assets/js/pages/validation.init.js"></script>
     
-@endsection
+@endpush

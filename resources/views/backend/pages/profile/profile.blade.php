@@ -1,9 +1,9 @@
 @extends('backend.layout.master')
 
-@section('backendCss')
+@push('backendCss')
 
 
-@endsection
+@endpush
 
 @section('contents')
 
@@ -144,7 +144,7 @@
 
 @endsection
 
-@section('backendJs')
+@push('backendJs')
 
     <script>
 
@@ -176,4 +176,4 @@
             })
         })
     </script>
-@endsection
+@endpush
