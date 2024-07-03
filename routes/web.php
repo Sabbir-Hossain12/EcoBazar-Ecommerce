@@ -65,6 +65,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
     //______ Brand _____//
     Route::resource('/brands', BrandsController::class)->names('admin.brand');
+    Route::get('/brand-data', [BrandsController::class, 'getData'])->name('admin.brand-data');
+    Route::post('/change-brand-status', [BrandsController::class, 'changeBrandStatus'])->name('admin.brand.status');
+
 
 
     //______ Product _____//

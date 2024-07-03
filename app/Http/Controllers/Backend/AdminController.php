@@ -25,6 +25,8 @@ class AdminController extends Controller implements HasMiddleware
             new Middleware('permission:Edit Admin,admin', only: ['update']),
             new Middleware('permission:Delete Admin,admin', only: ['destroy']),
 
+            new Middleware('permission:Delete Admin,admin', only: ['destroy']),
+
 
         ];
     }
@@ -48,17 +50,21 @@ class AdminController extends Controller implements HasMiddleware
 
         return DataTables::of($admin)
             ->addColumn('status', function ($admin) {
-                if ($admin->status == 1) {
-                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
+
+                if(Auth::guard('admin')->user()->can('Status Admin')) {
+                    if ($admin->status == 1) {
+                        return ' <a class="status" id="adminStatus" href="javascript:void(0)"
                                                data-id="'.$admin->id.'" data-status="'.$admin->status.'"> <i
                                                         class="fa-solid fa-toggle-on fa-2x"></i>
                                             </a>';
-                } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                    } else {
+                        return '<a class="status" id="adminStatus" href="javascript:void(0)"
                                                data-id="'.$admin->id.'" data-status="'.$admin->status.'"> <i
                                                         class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
                                             </a>';
+                    }
                 }
+                
             })
             ->addColumn('role', function ($admin) {
                 $role = $admin->getRoleNames();
