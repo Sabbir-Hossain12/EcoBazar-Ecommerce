@@ -57,7 +57,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
     //______ Category _____//
     Route::resource('/categories', CategoryController::class)->names('admin.category');
-
+    Route::get('/category-data', [CategoryController::class, 'getData'])->name('admin.category-data');
 
     //______ Subcategory _____//
     Route::resource('/subcategories', SubcategoryController::class)->names('admin.subcategory');

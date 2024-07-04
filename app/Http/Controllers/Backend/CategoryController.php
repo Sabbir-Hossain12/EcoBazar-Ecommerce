@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
@@ -16,6 +17,75 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()->get();
         return view('backend.pages.categories.index', compact('categories'));
+    }
+
+    public function getData()
+    {
+//       get all data
+        $categories= Category::all();
+        
+        return DataTables::of($categories)
+            
+            ->addColumn('categoryImg', function ($category) {
+                
+                return '<img src="'.asset($category->category_img).'" width="50px" height="50px">';
+            })
+
+            ->addColumn('frontStatus', function ($category) {
+                if ($category->front_status == 1) {
+                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                                                        class="fa-solid fa-toggle-on fa-2x"></i>
+                                            </a>';
+                } else {
+                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                                            </a>';
+                }
+            })
+
+
+            ->addColumn('topCategoryStatus', function ($category) {
+                if ($category->topCategory_status == 1) {
+                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                                                        class="fa-solid fa-toggle-on fa-2x"></i>
+                                            </a>';
+                } else {
+                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                                            </a>';
+                }
+            })
+
+
+
+            ->addColumn('status', function ($category) {
+                if ($category->status == 1) {
+                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                                                        class="fa-solid fa-toggle-on fa-2x"></i>
+                                            </a>';
+                } else {
+                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                                            </a>';
+                }
+            })
+
+
+            ->addColumn('action', function ($category) {
+                return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$category->id.'" data-bs-toggle="modal" data-bs-target="#editBrandModal"><i class="fas fa-edit"></i></a>
+                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$category->id.'" id="deleteBrandBtn""> <i class="fas fa-trash"></i></a>
+                                                           </div>';
+            })
+            
+            ->rawColumns(['categoryImg','frontStatus','topCategoryStatus','status','action'])
+            ->make(true);
+        
     }
 
     /**

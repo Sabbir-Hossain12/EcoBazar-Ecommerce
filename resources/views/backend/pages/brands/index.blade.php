@@ -362,12 +362,12 @@
 
 
             })
-
+            
             // Change Admin Status
             $(document).on('click', '#adminStatus', function () {
                 let id = $(this).data('id');
                 let status = $(this).data('status')
-                console.log(id + status)
+                
                 $.ajax(
                     {
                         type: 'post',
