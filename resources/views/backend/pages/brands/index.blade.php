@@ -37,20 +37,20 @@
 
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title">Admins List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            Create Admin
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBrandModal">
+                            Add Brand
                         </button>
                     </div>
 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="brandTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>Brand Image</th>
+                                <th>Brand Name</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -71,39 +71,29 @@
 
     {{--    Table Ends--}}
 
-    {{--    Create Categories Modal--}}
-    <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Create Brands Modal--}}
+    <div class="modal fade" id="createBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Admin</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Brand</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" id="createAdmin">
+                    <form name="form" id="createBrandl" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="Name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="Name" name="name">
+                            <label for="brand_name" class="col-form-label">Brand Name</label>
+                            <input type="text" class="form-control" id="brand_name" name="brand_name">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="col-form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
+                            <label for="brand_image" class="col-form-label">Brand Image</label>
+                            <input type="file" class="form-control" id="brand_image" name="brand_image">
+                            
                         </div>
-                        <div class="mb-3">
-                            <label for="phone" class="col-form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Role</label>
-                            <input type="text" class="form-control" name="type" id="type">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
-                        </div>
+                       
 
 
                         <div class="modal-footer">
@@ -116,8 +106,8 @@
         </div>
     </div>
 
-    {{--    Edit Categories Modal--}}
-    <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Edit Brands Modal--}}
+    <div class="modal fade" id="editBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -126,28 +116,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form2" id="editAdmin">
+                    <form name="form2" id="editBrand">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="eName" class="col-form-label">Name</label>
-                            <input type="text" id="eName" class="form-control" name="name">
+                            <label for="brand_name" class="col-form-label">Brand Name</label>
+                            <input type="text" class="form-control" id="brandname" name="brand_name">
                         </div>
                         <div class="mb-3">
-                            <label for="eEmail" class="col-form-label">Email</label>
-                            <input type="text" id="eEmail" class="form-control" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ePhone" class="col-form-label">Phone</label>
-                            <input type="text" id="ePhone" class="form-control" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="eType" class="col-form-label">Role</label>
-                            <input type="text" id="eType" class="form-control" name="type">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ePassword" class="col-form-label">Password</label>
-                            <input type="password" id="ePassword" class="form-control" name="password">
+                            <label for="brand_image" class="col-form-label">Brand Image</label>
+                            <input type="file" class="form-control" id="brandimage" name="brand_image">
+                            <img class="mt-2" src="" id="brandImageprev" width="50px" height="50px" alt=""/>
                         </div>
                         <input id="id" type="number" hidden>
 
@@ -177,14 +156,14 @@
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+            let brandTable = $('#brandTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
                 processing: true,
                 serverSide: true,
                 {{--ajax: "{{url('/admin/data')}}",--}}
-                ajax: "{{route('admin.data')}}",
+                ajax: "{{route('admin.brand-data')}}",
                 // pageLength: 30,
 
                 columns: [
@@ -194,13 +173,15 @@
 
                     },
                     {
-                        data: 'name',
-
+                        data: 'brandImage',
+                        orderable: false,
+                        searchable: false,
                     },
                     {
-                        data: 'email',
+                        data: 'brand_name',
 
                     },
+                  
                     {
                         data: 'status',
                         name: 'Status',
@@ -219,8 +200,8 @@
             });
 
 
-            // Create Admin
-            $('#createAdmin').submit(function (e) {
+            // Create Brand
+            $('#createBrandl').submit(function (e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -230,15 +211,15 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ route('admin.admins.store') }}",
+                    url: "{{ route('admin.brand.store') }}",
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#createAdminModal').modal('hide');
-                            $('#createAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#createBrandModal').modal('hide');
+                            $('#createBrandl')[0].reset();
+                            brandTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Created !",
@@ -271,20 +252,16 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: "{{ url('admin/admins') }}/" + id + "/edit",
-                        data: {
-                            id: id
-                        },
+                        url: "{{ url('admin/brands') }}/" + id + "/edit",
 
                         processData: false,  // Prevent jQuery from processing the data
                         contentType: false,  // Prevent jQuery from setting contentType
                         success: function (res) {
 
                             console.log('success')
-                            $('#eName').val(res.data.name);
-                            $('#eEmail').val(res.data.email);
-                            $('#ePhone').val(res.data.phone);
-                            $('#eType').val(res.data.type);
+                            $('#brandname').val(res.data.brand_name);
+                            $('#brandImageprev').attr('src','{{ asset('') }}' + res.data.brand_image);
+                         
 
 
                         },
@@ -296,25 +273,26 @@
             })
 
             // Edit Admin Data
-            $('#editAdmin').submit(function (e) {
+            $('#editBrand').submit(function (e) {
                 e.preventDefault();
                 let id = $('#id').val();
                 let formData = new FormData(this);
-
+                formData.append('_token', token);
                 $.ajax({
                     type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('admin/admins') }}/" + id,
+                    // headers: {
+                    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    url: "{{ url('admin/brands') }}/" + id,
                     data: formData,
+                    
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#editAdminModal').modal('hide');
-                            $('#editAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#editBrandModal').modal('hide');
+                            $('#editBrand')[0].reset();
+                            brandTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Edited !",
@@ -338,7 +316,7 @@
 
 
             // Delete Admin
-            $(document).on('click', '#deleteAdminBtn', function () {
+            $(document).on('click', '#deleteBrandBtn', function () {
                 let id = $(this).data('id');
 
                 swal.fire({
@@ -357,18 +335,18 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/admins') }}/" + id,
+                                url: "{{ url('admin/brands') }}/" + id,
                                 data: {
                                     '_token': token
                                 },
                                 success: function (res) {
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: "Admin has been deleted.",
+                                        text: "Brand has been deleted.",
                                         icon: "success"
                                     });
 
-                                    adminTable.ajax.reload();
+                                    brandTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -384,16 +362,16 @@
 
 
             })
-
+            
             // Change Admin Status
             $(document).on('click', '#adminStatus', function () {
                 let id = $(this).data('id');
                 let status = $(this).data('status')
-                console.log(id + status)
+                
                 $.ajax(
                     {
                         type: 'post',
-                        url: "{{route('admin.status')}}",
+                        url: "{{route('admin.brand.status')}}",
                         data: {
                             '_token': token,
                             id: id,
@@ -401,7 +379,7 @@
 
                         },
                         success: function (res) {
-                            adminTable.ajax.reload();
+                            brandTable.ajax.reload();
 
                             if (res.status == 1) {
 
