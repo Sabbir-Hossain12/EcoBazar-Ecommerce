@@ -58,6 +58,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     //______ Category _____//
     Route::resource('/categories', CategoryController::class)->names('admin.category');
     Route::get('/category-data', [CategoryController::class, 'getData'])->name('admin.category-data');
+    Route::post('/categories/front-status', [CategoryController::class, 'changeCategoryFrontStatus'])->name('admin.category.frontStatus');
+    Route::post('/categories/topCategory-status', [CategoryController::class, 'changeTopCategoryStatus'])->name('admin.category.topCategoryStatus');
+    Route::post('/categories/topCategory-status', [CategoryController::class, 'changeTopCategoryStatus'])->name('admin.category.topCategoryStatus');
+    Route::post('/categories/status', [CategoryController::class, 'changeCategoryStatus'])->name('admin.category.status');
 
     //______ Subcategory _____//
     Route::resource('/subcategories', SubcategoryController::class)->names('admin.subcategory');

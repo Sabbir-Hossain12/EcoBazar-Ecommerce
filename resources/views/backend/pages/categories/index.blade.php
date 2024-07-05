@@ -6,10 +6,9 @@
 
 @push('backendCss')
 
-    <link href="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    <link href="{{ asset('public/backend') }}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
           rel="stylesheet" type="text/css">
-    <link href="{{asset('public/backend')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
-          rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/backend') }}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
 @endpush
 
@@ -137,10 +136,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{asset('public/backend')}}/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    
     <script>
 
+    $(document).ready(function(){
 
-        $('#categoryTable').DataTable({
+        var token = $("input[name='_token']").val();
+
+         // Show Data through Datatable
+        let CategoryTables = $('#categoryTable').DataTable({
             // order: [
             //     [0, 'desc']
             // ],
@@ -153,10 +157,7 @@
             columns: [
                 {
                     data: 'id',
-
-
                 },
-                
                 {
                     data: 'categoryImg',
                     orderable: false,
@@ -164,33 +165,143 @@
                 },
                 {
                     data: 'category_name',
-
                 },
-
                 {
                     data: 'frontStatus',
-
                 },
-
                 {
                     data: 'topCategoryStatus',
                 },
-
                 {
                     data: 'status',
                     orderable: false,
                     searchable: false,
                 },
-
-         
                 {
                     data: 'action',
                     orderable: false,
                     searchable: false
                 },
-
             ]
         });
+
+
+        // Front status updates
+        $(document).on('click', '#front-status', function(){
+            var id = $(this).data('id');
+            var status = $(this).data('status');
+
+            console.log(id, status);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.category.frontStatus') }}",
+                data: {
+                    '_token': token,
+                    id: id,
+                    status: status
+                },
+                success: function (res) {
+                    CategoryTables.ajax.reload();
+                    if (res.status == 1) {
+                       swal.fire(
+                        {
+                            title: 'Front Status Changed to Active',
+                            icon: 'success'
+                        })
+                    } else {
+                       swal.fire(
+                        {
+                            title: 'Front Status Changed to Inactive',
+                            icon: 'success'
+                        })
+                    }
+                },
+                error: function(err){
+                    console.log(err);
+                }
+
+            })
+        })
+
+        // TopCategory status updates
+        $(document).on('click', '#topCategory_status', function(){
+            var id = $(this).data('id');
+            var status = $(this).data('status');
+
+            console.log(id, status);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.category.topCategoryStatus') }}",
+                data: {
+                    '_token': token,
+                    id: id,
+                    status: status
+                },
+                success: function (res) {
+                    CategoryTables.ajax.reload();
+
+                    if (res.status == 1) {
+                       swal.fire(
+                        {
+                            title: 'Front Status Changed to Active',
+                            icon: 'success'
+                        })
+                    } else {
+                       swal.fire(
+                        {
+                            title: 'Front Status Changed to Inactive',
+                            icon: 'success'
+                        })
+                    }
+                },
+                error: function(err){
+                    console.log(err);
+                }
+
+            })
+        })
+
+        // TopCategory status updates
+        $(document).on('click', '#status', function(){
+            var id = $(this).data('id');
+            var status = $(this).data('status');
+
+            console.log(id, status);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.category.status') }}",
+                data: {
+                    '_token': token,
+                    id: id,
+                    status: status
+                },
+                success: function (res) {
+                    CategoryTables.ajax.reload();
+                    
+                    if (res.status == 1) {
+                       swal.fire(
+                        {
+                            title: 'Front Status Changed to Active',
+                            icon: 'success'
+                        })
+                    } else {
+                       swal.fire(
+                        {
+                            title: 'Front Status Changed to Inactive',
+                            icon: 'success'
+                        })
+                    }
+                },
+                error: function(err){
+                    console.log(err);
+                }
+
+            })
+        })
+    })
 
 
     </script>

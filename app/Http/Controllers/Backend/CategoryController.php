@@ -21,79 +21,134 @@ class CategoryController extends Controller
 
     public function getData()
     {
-//       get all data
+        // get all data
         $categories= Category::all();
         
         return DataTables::of($categories)
             
-            ->addColumn('categoryImg', function ($category) {
-                
-                return '<img src="'.asset($category->category_img).'" width="50px" height="50px">';
+            ->addColumn('categoryImg', function ($category) {    
+                return '<img src="'.asset( $category->category_img ).'" width="50px" height="50px">';
             })
 
             ->addColumn('frontStatus', function ($category) {
                 if ($category->front_status == 1) {
-                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
-                                                        class="fa-solid fa-toggle-on fa-2x"></i>
-                                            </a>';
+                    return '<a class="status" id="front-status" href="javascript:void(0)"
+                        data-id="'.$category->id.'" data-status="'.$category->front_status.'"> <i
+                        class="fa-solid fa-toggle-on fa-2x"></i>
+                    </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
-                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
-                                            </a>';
+                    return '<a class="status" id="front-status" href="javascript:void(0)"
+                        data-id="'.$category->id.'" data-status="'.$category->front_status.'"> <i
+                          class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                    </a>';
                 }
             })
-
 
             ->addColumn('topCategoryStatus', function ($category) {
                 if ($category->topCategory_status == 1) {
-                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
-                                                        class="fa-solid fa-toggle-on fa-2x"></i>
-                                            </a>';
+                    return ' <a class="status" id="topCategory_status" href="javascript:void(0)"
+                        data-id="'.$category->id.'" data-status="'.$category->topCategory_status.'"> <i
+                            class="fa-solid fa-toggle-on fa-2x"></i>
+                    </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
-                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
-                                            </a>';
+                    return '<a class="status" id="topCategory_status" href="javascript:void(0)"
+                        data-id="'.$category->id.'" data-status="'.$category->topCategory_status.'"> <i
+                            class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                    </a>';
                 }
             })
-
-
 
             ->addColumn('status', function ($category) {
                 if ($category->status == 1) {
-                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
-                                                        class="fa-solid fa-toggle-on fa-2x"></i>
-                                            </a>';
+                    return ' <a class="status" id="status" href="javascript:void(0)"
+                        data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                            class="fa-solid fa-toggle-on fa-2x"></i>
+                    </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
-                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
-                                            </a>';
+                    return '<a class="status" id="status" href="javascript:void(0)"
+                        data-id="'.$category->id.'" data-status="'.$category->status.'"> <i
+                            class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                    </a>';
                 }
             })
 
-
             ->addColumn('action', function ($category) {
-                return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$category->id.'" data-bs-toggle="modal" data-bs-target="#editBrandModal"><i class="fas fa-edit"></i></a>
-                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$category->id.'" id="deleteBrandBtn""> <i class="fas fa-trash"></i></a>
-                                                           </div>';
+                return '<div class="d-flex gap-3"> 
+                    <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$category->id.'" data-bs-toggle="modal" data-bs-target="#editBrandModal"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$category->id.'" id="deleteBrandBtn"> <i class="fas fa-trash"></i></a>
+                </div>';
             })
             
             ->rawColumns(['categoryImg','frontStatus','topCategoryStatus','status','action'])
             ->make(true);
-        
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function changeCategoryFrontStatus(Request $request)
     {
-        //
+        $id = $request->id;
+        $Current_status = $request->status;
+
+        if ($Current_status == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+
+        $page = Category::findOrFail($id);
+        $page->front_status = $status;
+        $page->save();
+
+        //Debugged this code --> return response()->json(['message' => 'success', 'status' => $status, 'id' => $id]);
+        return response()->json(['message' => 'success', 'status' => $status, 'id' => $id]);
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function changeTopCategoryStatus(Request $request)
+    {
+        $id = $request->id;
+        $Current_status = $request->status;
+
+        if ($Current_status == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+
+        $page = Category::findOrFail($id);
+        $page->topCategory_status = $status;
+        $page->save();
+
+        //Debugged this code --> return response()->json(['message' => 'success', 'status' => $status, 'id' => $id]);
+        return response()->json(['message' => 'success', 'status' => $status, 'id' => $id]);
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function changeCategoryStatus(Request $request)
+    {
+        $id = $request->id;
+        $Current_status = $request->status;
+
+        if ($Current_status == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+
+        $page = Category::findOrFail($id);
+        $page->status = $status;
+        $page->save();
+
+        //Debugged this code --> return response()->json(['message' => 'success', 'status' => $status, 'id' => $id]);
+        return response()->json(['message' => 'success', 'status' => $status, 'id' => $id]);
     }
 
     /**
