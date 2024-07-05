@@ -3,6 +3,8 @@
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\AdminPermissionController;
 use App\Http\Controllers\Backend\AdminRoleController;
+use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\Backend\AttrvalueController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BasicinfoController;
 use App\Http\Controllers\Backend\BrandsController;
@@ -74,6 +76,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::view('/products', 'backend.pages.products')->name('admin.products');
 
     
+    //______ Attribute _____//
+    Route::resource('/attributes', AttributeController::class)->names('admin.attribute');
+    //______ Attribute Value _____//
+    Route::resource('/attribute-values', AttrvalueController::class)->names('admin.attribute-value'); 
+  
     //______ Profile _____//
     Route::get('/profiles', [ProfileController::class, 'create'])->name('admin.profile');
     Route::post('/check-current-pass', [ProfileController::class, 'check_curr_pass']);
