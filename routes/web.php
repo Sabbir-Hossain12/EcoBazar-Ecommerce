@@ -75,6 +75,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     //______ Product _____//
     Route::view('/products', 'backend.pages.products')->name('admin.products');
 
+    //______ Sliders _____//
+    Route::resource('/sliders',SliderController::class)->names('admin.slider');
+    Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');
+    
     
     //______ Attribute _____//
     Route::resource('/attributes', AttributeController::class)->names('admin.attribute');
