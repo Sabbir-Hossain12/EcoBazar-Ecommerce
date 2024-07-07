@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
+            $table->string('attribute_name');
+            
+            $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');
+            
             $table->timestamps();
         });
     }

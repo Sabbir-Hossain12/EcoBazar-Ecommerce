@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('attrvalues', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('attribute_id')->constrained()->cascadeOnDelete();
+            $table->string('attribute_name')->nullable();
+            $table->text('value');
+            $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');
             $table->timestamps();
+            
         });
     }
 

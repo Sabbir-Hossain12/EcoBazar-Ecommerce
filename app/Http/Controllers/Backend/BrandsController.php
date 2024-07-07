@@ -42,7 +42,7 @@ class BrandsController extends Controller
             })
             ->addColumn('action', function ($brand) {
                 return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$brand->id.'" data-bs-toggle="modal" data-bs-target="#editBrandModal"><i class="fas fa-edit"></i></a>
-                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$brand->id.'" id="deleteBrandBtn""> <i class="fas fa-trash"></i></a>
+                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$brand->id.'" id="deleteBrandBtn"> <i class="fas fa-trash"></i></a>
                                                            </div>';
             })
             ->rawColumns(['action', 'status', 'brandImage'])
