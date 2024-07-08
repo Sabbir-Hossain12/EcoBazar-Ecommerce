@@ -59,6 +59,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
+
                     <tbody>
                     
                     </tbody>
@@ -76,12 +77,13 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                        {{-- method="POST" action="{{ route('admin.category.store') }}" --}}
+                        <form id="createForm" enctype="multipart/form-data">
                             @csrf 
 
                             <div class="mb-3">
                                 <label for="category_name" class="form-label">Category Name</label>
-                                <input class="form-control" type="text" name="category_name" id="category_name" required>
+                                <input class="form-control" id="category_name" type="text" name="category_name" required>
                             </div>
 
                             <div class="mb-3">
@@ -100,7 +102,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">TopCategory Status</label>
-                                <select class="form-select" name="topCategory_status">
+                                <select class="form-select" name="topCategory_status" >
                                     <option value="" disabled selected>Select</option>
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
@@ -118,7 +120,78 @@
 
                             <div class="d-flex justify-content-end align-items-center">
                                 <button type="button" class="btn btn-secondary waves-effect me-3" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+
+                                <button type="submit" id="btn-store" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+
+        <!-- Edit Modal -->
+        <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" data-bs-scroll="true" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Add New Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        {{-- method="POST" action="{{ route('admin.category.store') }}" --}}
+                        <form id="EditCategory" enctype="multipart/form-data">
+                            @csrf 
+                            @method("PUT")
+
+                            <input type="text" name="id" id="id" hidden>
+
+                            <div class="mb-3">
+                                <label for="category_name" class="form-label">Category Name</label>
+                                <input class="form-control" id="up_cat_name" type="text" name="category_name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="category_img" class="form-label">Category Image </label>
+                                <input type="file" class="form-control" name="up_cat_img" id="up_cat_img" required>
+
+                                <div id="imageShow"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Front Status</label>
+                                <select class="form-select" id="up_front_status" name="up_front_status">
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">TopCategory Status</label>
+                                <select class="form-select" id="up_topCategory_status" name="up_topCategory_status" >
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="up_status" name="up_status">
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex justify-content-end align-items-center">
+                                <button type="button" class="btn btn-secondary waves-effect me-3" data-bs-dismiss="modal">Close</button>
+
+                                <button type="submit" id="btn-store" class="btn btn-primary waves-effect waves-light">Save changes</button>
                             </div>
                         </form>
                     </div>
@@ -128,6 +201,8 @@
             </div><!-- /.modal-dialog -->
         </div>
     </div>
+
+
 
 
 @endsection
@@ -141,13 +216,13 @@
 
     $(document).ready(function(){
 
-        var token = $("input[name='_token']").val();
+        // var token = $("input[name='_token']").val();
 
          // Show Data through Datatable
         let CategoryTables = $('#categoryTable').DataTable({
-            // order: [
-            //     [0, 'desc']
-            // ],
+            order: [
+                [0, 'desc']
+            ],
             processing: true,
             serverSide: true,
             
@@ -191,18 +266,19 @@
             var id = $(this).data('id');
             var status = $(this).data('status');
 
-            console.log(id, status);
+            // console.log(id, status);
 
             $.ajax({
                 type: "POST",
                 url: "{{ route('admin.category.frontStatus') }}",
                 data: {
-                    '_token': token,
+                    // '_token': token,
                     id: id,
                     status: status
                 },
                 success: function (res) {
                     CategoryTables.ajax.reload();
+
                     if (res.status == 1) {
                        swal.fire(
                         {
@@ -229,13 +305,13 @@
             var id = $(this).data('id');
             var status = $(this).data('status');
 
-            console.log(id, status);
+            // console.log(id, status);
 
             $.ajax({
                 type: "POST",
                 url: "{{ route('admin.category.topCategoryStatus') }}",
                 data: {
-                    '_token': token,
+                    // '_token': token,
                     id: id,
                     status: status
                 },
@@ -245,13 +321,13 @@
                     if (res.status == 1) {
                        swal.fire(
                         {
-                            title: 'Front Status Changed to Active',
+                            title: 'TopCategory Status Changed to Active',
                             icon: 'success'
                         })
                     } else {
                        swal.fire(
                         {
-                            title: 'Front Status Changed to Inactive',
+                            title: 'TopCategory Status Changed to Inactive',
                             icon: 'success'
                         })
                     }
@@ -274,7 +350,7 @@
                 type: "POST",
                 url: "{{ route('admin.category.status') }}",
                 data: {
-                    '_token': token,
+                    // '_token': token,
                     id: id,
                     status: status
                 },
@@ -284,19 +360,173 @@
                     if (res.status == 1) {
                        swal.fire(
                         {
-                            title: 'Front Status Changed to Active',
+                            title: 'Status Changed to Active',
                             icon: 'success'
                         })
                     } else {
                        swal.fire(
                         {
-                            title: 'Front Status Changed to Inactive',
+                            title: 'Status Changed to Inactive',
                             icon: 'success'
                         })
                     }
                 },
                 error: function(err){
                     console.log(err);
+                }
+
+            })
+        })
+
+        // Create Category
+        $('#createForm').submit(function(e){
+            e.preventDefault();
+            
+            let formData = new FormData(this);
+
+            $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('admin.category.store') }}",
+                    data: formData,
+                    processData: false,  // Prevent jQuery from processing the data
+                    contentType: false,  // Prevent jQuery from setting contentType
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status === true) {
+                            $('#create_Modal').modal('hide');
+                            $('#createForm')[0].reset();
+                            CategoryTables.ajax.reload();
+                            
+                            swal.fire({
+                                title: "Success",
+                                text: `${res.message}`,
+                                icon: "success"
+                            })
+                        }
+                    },
+                    error: function (err) {
+                        console.error('Error:', err);
+                        swal.fire({
+                            title: "Failed",
+                            text: "Something Went Wrong !",
+                            icon: "error"
+                        })
+                    }
+            });
+        })
+        
+
+        // Edit Category
+        $(document).on("click", '#editButton',function(e){
+            let categoryId = $(this).attr('data-id');
+            // alert(categoryId);
+
+            $.ajax({
+                type: 'GET',
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+                url: "{{ url('admin/categories') }}/" + categoryId + "/edit",
+                processData: false,  // Prevent jQuery from processing the data
+                contentType: false,  // Prevent jQuery from setting contentType
+                success: function(res) {
+                    console.log(res.success);
+                    let data = res.success;
+
+                    $('#id').val(data.id);
+                    $('#up_cat_name').val(data.category_name);
+                    $('#up_front_status').val(data.front_status);
+                    // $('#up_cat_img').val(data.category_img);
+                    $('#imageShow').html('');
+                    $('#imageShow').append(`
+                         <img src={{ asset("`+ data.category_img_path +`") }} alt="" style="width: 75px;">
+                    `);
+                    $('#up_topCategory_status').val(data.topCategory_status);
+                    $('#up_status').val(data.status);
+                },
+                error: function(error) {
+                    console.log('error');
+                }
+
+            });
+        })
+
+
+        // Update Category
+        $("#EditCategory").submit(function(e){
+            e.preventDefault();
+
+            let id = $('#id').val();
+            let formData = new FormData(this); 
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('admin/categories') }}/" + id ,
+                data: formData,
+                processData: false,  // Prevent jQuery from processing the data
+                contentType: false,  // Prevent jQuery from setting contentType
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (err) {
+                    console.error('Error:', err);
+                    swal.fire({
+                        title: "Failed",
+                        text: "Something Went Wrong !",
+                        icon: "error"
+                    })
+                }
+            });
+
+        });
+
+
+        // Delete Category
+        $(document).on("click", "#deleteBrandBtn", function(){
+            let id = $(this).data('id')
+            
+            swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this !",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+
+                        url: "{{ url('admin/categories') }}/" + id,
+                        data: {
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        },
+                        success: function (res) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: `${res.message}`,
+                                icon: "success"
+                            });
+
+                            CategoryTables.ajax.reload();
+                        },
+                        error: function (err) {
+                            console.log('error')
+                        }
+                    })
+
+                } else {
+                    swal.fire('Your Data is Safe');
                 }
 
             })

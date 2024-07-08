@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('category_name');
             $table->string('slug')->unique();
             $table->text('category_img')->nullable();
-            $table->text('category_icon')->nullable();
+            $table->text('category_img_path')->nullable();
             $table->tinyInteger('front_status')->default(0)->comment('1=active,0=inactive');
             $table->tinyInteger('topCategory_status')->default(0)->comment('1=active,0=inactive');
             $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');

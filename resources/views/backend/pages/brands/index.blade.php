@@ -68,8 +68,8 @@
         </div>
         <!-- end col -->
     </div>
-
     {{--    Table Ends--}}
+
 
     {{--    Create Brands Modal--}}
     <div class="modal fade" id="createBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -200,6 +200,7 @@
                 e.preventDefault();
 
                 let formData = new FormData(this);
+                // console.log(formData);
 
                 $.ajax({
                     type: "POST",
@@ -220,8 +221,6 @@
                                 text: "Admin Created !",
                                 icon: "success"
                             })
-
-
                         }
                     },
                     error: function (err) {
@@ -257,8 +256,6 @@
                             $('#brandname').val(res.data.brand_name);
                             $('#brandImageprev').attr('src','{{ asset('') }}' + res.data.brand_image);
                          
-
-
                         },
                         error: function (err) {
                             console.log('failed')
@@ -273,6 +270,7 @@
                 let id = $('#id').val();
                 let formData = new FormData(this);
                 formData.append('_token', token);
+
                 $.ajax({
                     type: "POST",
                     // headers: {
@@ -323,38 +321,36 @@
                     cancelButtonColor: "#3085d6",
                     confirmButtonText: "Yes, delete it!"
                 })
-                    .then((result) => {
-                        if (result.isConfirmed) {
+                .then((result) => {
+                    if (result.isConfirmed) {
 
 
-                            $.ajax({
-                                type: 'DELETE',
+                        $.ajax({
+                            type: 'DELETE',
 
-                                url: "{{ url('admin/brands') }}/" + id,
-                                data: {
-                                    '_token': token
-                                },
-                                success: function (res) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Brand has been deleted.",
-                                        icon: "success"
-                                    });
+                            url: "{{ url('admin/brands') }}/" + id,
+                            data: {
+                                '_token': token
+                            },
+                            success: function (res) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Brand has been deleted.",
+                                    icon: "success"
+                                });
 
-                                    brandTable.ajax.reload();
-                                },
-                                error: function (err) {
-                                    console.log('error')
-                                }
-                            })
+                                brandTable.ajax.reload();
+                            },
+                            error: function (err) {
+                                console.log('error')
+                            }
+                        })
 
-                        } else {
-                            swal.fire('Your Data is Safe');
-                        }
+                    } else {
+                        swal.fire('Your Data is Safe');
+                    }
 
-                    })
-
-
+                })
             })
             
             // Change Admin Status
