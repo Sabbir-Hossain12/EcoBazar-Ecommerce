@@ -29,29 +29,29 @@ class BrandsController extends Controller
             })
             ->addColumn('status', function ($brand) {
                 if ($brand->status == 1) {
-                    return ' <a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$brand->id.'" data-status="'.$brand->status.'"> <i
-                                                        class="fa-solid fa-toggle-on fa-2x"></i>
-                                            </a>';
+                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                        data-id="'.$brand->id.'" data-status="'.$brand->status.'"> <i
+                        class="fa-solid fa-toggle-on fa-2x"></i>
+                    </a>';
                 } else {
                     return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                                               data-id="'.$brand->id.'" data-status="'.$brand->status.'"> <i
-                                                        class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
-                                            </a>';
+                        data-id="'.$brand->id.'" data-status="'.$brand->status.'"> <i
+                          class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
+                    </a>';
                 }
             })
             ->addColumn('action', function ($brand) {
                 return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$brand->id.'" data-bs-toggle="modal" data-bs-target="#editBrandModal"><i class="fas fa-edit"></i></a>
+
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$brand->id.'" id="deleteBrandBtn"> <i class="fas fa-trash"></i></a>
                                                            </div>';
+
             })
             ->rawColumns(['action', 'status', 'brandImage'])
             ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
@@ -64,7 +64,7 @@ class BrandsController extends Controller
     {
         $request->validate([
                 'brand_name' => 'required',
-//                'brand_image' => 'mimes:jpeg,jpg,png|max:2048',
+                 //    'brand_image' => 'mimes:jpeg,jpg,png|max:2048',
             ]
         );
 
@@ -80,9 +80,7 @@ class BrandsController extends Controller
             $brand->brand_image = 'public/backend/assets/images/uploads/brand/'.$filename;
         }
 
-
         $brand->save();
-
 
         return response()->json(['message' => 'success'], 201);
     }
@@ -153,6 +151,7 @@ class BrandsController extends Controller
 
     public function changeBrandStatus(Request $request)
     {
+
         $id = $request->id;
         $status = $request->status;
 

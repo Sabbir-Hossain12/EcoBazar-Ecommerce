@@ -68,8 +68,8 @@
         </div>
         <!-- end col -->
     </div>
-
     {{--    Table Ends--}}
+
 
     {{--    Create Brands Modal--}}
     <div class="modal fade" id="createBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -90,11 +90,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="brand_image" class="col-form-label">Brand Image</label>
-                            <input type="file" class="form-control" id="brand_image" name="brand_image">
-                            
+                            <input type="file" class="form-control" id="brand_image" name="brand_image"> 
                         </div>
                        
-
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -152,10 +150,9 @@
 
         $(document).ready(function () {
 
-
             var token = $("input[name='_token']").val();
 
-            //Show Data through Datatable 
+            // Show Data through Datatable 
             let brandTable = $('#brandTable').DataTable({
                 order: [
                     [0, 'asc']
@@ -169,8 +166,6 @@
                 columns: [
                     {
                         data: 'id',
-
-
                     },
                     {
                         data: 'brandImage',
@@ -205,6 +200,7 @@
                 e.preventDefault();
 
                 let formData = new FormData(this);
+                // console.log(formData);
 
                 $.ajax({
                     type: "POST",
@@ -225,8 +221,6 @@
                                 text: "Admin Created !",
                                 icon: "success"
                             })
-
-
                         }
                     },
                     error: function (err) {
@@ -262,8 +256,6 @@
                             $('#brandname').val(res.data.brand_name);
                             $('#brandImageprev').attr('src','{{ asset('') }}' + res.data.brand_image);
                          
-
-
                         },
                         error: function (err) {
                             console.log('failed')
@@ -272,12 +264,13 @@
                 )
             })
 
-            // Edit Admin Data
+            // Update Brand Data
             $('#editBrand').submit(function (e) {
                 e.preventDefault();
                 let id = $('#id').val();
                 let formData = new FormData(this);
                 formData.append('_token', token);
+
                 $.ajax({
                     type: "POST",
                     // headers: {
@@ -328,39 +321,36 @@
                     cancelButtonColor: "#3085d6",
                     confirmButtonText: "Yes, delete it!"
                 })
-                    .then((result) => {
-                        if (result.isConfirmed) {
+                .then((result) => {
+                    if (result.isConfirmed) {
 
 
-                            $.ajax({
-                                type: 'DELETE',
+                        $.ajax({
+                            type: 'DELETE',
 
-                                url: "{{ url('admin/brands') }}/" + id,
-                                data: {
-                                    '_token': token
-                                },
-                                success: function (res) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Brand has been deleted.",
-                                        icon: "success"
-                                    });
+                            url: "{{ url('admin/brands') }}/" + id,
+                            data: {
+                                '_token': token
+                            },
+                            success: function (res) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Brand has been deleted.",
+                                    icon: "success"
+                                });
 
-                                    brandTable.ajax.reload();
-                                },
-                                error: function (err) {
-                                    console.log('error')
-                                }
-                            })
+                                brandTable.ajax.reload();
+                            },
+                            error: function (err) {
+                                console.log('error')
+                            }
+                        })
 
+                    } else {
+                        swal.fire('Your Data is Safe');
+                    }
 
-                        } else {
-                            swal.fire('Your Data is Safe');
-                        }
-
-                    })
-
-
+                })
             })
             
             // Change Admin Status
@@ -371,12 +361,11 @@
                 $.ajax(
                     {
                         type: 'post',
-                        url: "{{route('admin.brand.status')}}",
+                        url: "{{ route('admin.brand.status') }}",
                         data: {
                             '_token': token,
                             id: id,
                             status: status
-
                         },
                         success: function (res) {
                             brandTable.ajax.reload();
