@@ -235,7 +235,7 @@
                 processing: true,
                 serverSide: true,
 
-                ajax: "{{route('admin.category-data')}}",
+                ajax: "{{ route('admin.category-data') }}",
                 // pageLength: 30,
 
                 columns: [
