@@ -88,6 +88,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/attribute-values', AttrvalueController::class)->names('admin.attribute-value'); 
     Route::get('/attribute-values-data',[AttrvalueController::class,'getData'])->name('admin.attrvalue-data');
     
+    
     //______ Profile _____//
     Route::get('/profiles', [ProfileController::class, 'create'])->name('admin.profile');
     Route::post('/check-current-pass', [ProfileController::class, 'check_curr_pass']);
