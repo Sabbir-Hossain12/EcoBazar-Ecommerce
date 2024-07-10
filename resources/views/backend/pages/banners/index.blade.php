@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Admins</h4>
+                <h4 class="mb-sm-0 font-size-18">Sliders</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                        <li class="breadcrumb-item active">Admins</li>
+                        <li class="breadcrumb-item active">Sliders</li>
                     </ol>
                 </div>
 
@@ -36,21 +36,21 @@
                 <div class="card-header">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">Admins List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            Create Admin
+                        <h4 class="card-title">Banner List</h4>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBannerModal">
+                            Add Banner
                         </button>
                     </div>
 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="bannerTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>Image</th>
+                                <th>Title</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -71,38 +71,49 @@
 
     {{--    Table Ends--}}
 
-    {{--    Create Categories Modal--}}
-    <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Create Slider Modal--}}
+    <div class="modal fade" id="createBannerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Admin</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Slider</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" id="createAdmin">
+                    <form name="form" id="createBanner">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="Name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="Name" name="name">
+                            <label for="Name" class="col-form-label">Banner Image</label>
+                            <input type="file" class="form-control"  name="banner_img">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="col-form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
+                            <label for="email" class="col-form-label">Banner Title 1</label>
+                            <input type="text" class="form-control"  name="banner_title_1">
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="col-form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <label for="phone" class="col-form-label">Banner Title 2</label>
+                            <input type="text" class="form-control"  name="banner_title_2">
                         </div>
                         <div class="mb-3">
-                            <label for="type" class="col-form-label">Role</label>
-                            <input type="text" class="form-control" name="type" id="type">
+                            <label for="type" class="col-form-label">Banner Title 3</label>
+                            <input type="text" class="form-control" name="banner_title_3" >
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
+                            <label for="type" class="col-form-label">Banner Link</label>
+                            <input type="text" class="form-control" name="banner_link" >
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Banner Button Name</label>
+                            <input type="text" class="form-control" name="banner_btn_name" >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Banner Button Link</label>
+                            <input type="text" class="form-control" name="banner_btn_link" >
                         </div>
 
 
@@ -116,8 +127,8 @@
         </div>
     </div>
 
-    {{--    Edit Categories Modal--}}
-    <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Edit Slider Modal--}}
+    <div class="modal fade" id="editBannerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -126,29 +137,43 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form2" id="editAdmin">
+                    <form name="form2" id="editBanner">
                         @csrf
                         @method('PUT')
+
                         <div class="mb-3">
-                            <label for="eName" class="col-form-label">Name</label>
-                            <input type="text" id="eName" class="form-control" name="name">
+                            <label for="Name" class="col-form-label">Banner Image</label>
+                            <input type="file" class="form-control" id="banner_img"  name="banner_img">
+                            <img class="mt-2" src="" id="bannerImage" width="100%" height="200px">
                         </div>
                         <div class="mb-3">
-                            <label for="eEmail" class="col-form-label">Email</label>
-                            <input type="text" id="eEmail" class="form-control" name="email">
+                            <label for="email" class="col-form-label">Banner Title 1</label>
+                            <input type="text" class="form-control" id="banner_title_1"  name="banner_title_1">
                         </div>
                         <div class="mb-3">
-                            <label for="ePhone" class="col-form-label">Phone</label>
-                            <input type="text" id="ePhone" class="form-control" name="phone">
+                            <label for="phone" class="col-form-label">Banner Title 2</label>
+                            <input type="text" class="form-control" id="banner_title_2" name="banner_title_2">
                         </div>
                         <div class="mb-3">
-                            <label for="eType" class="col-form-label">Role</label>
-                            <input type="text" id="eType" class="form-control" name="type">
+                            <label for="type" class="col-form-label">Banner Title 3</label>
+                            <input type="text" class="form-control" id="banner_title_3" name="banner_title_3" >
                         </div>
                         <div class="mb-3">
-                            <label for="ePassword" class="col-form-label">Password</label>
-                            <input type="password" id="ePassword" class="form-control" name="password">
+                            <label for="type" class="col-form-label">Banner Link</label>
+                            <input type="text" class="form-control" id="banner_link" name="banner_link" >
                         </div>
+
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Banner Button Name</label>
+                            <input type="text" class="form-control" id="banner_btn_name" name="banner_btn_name" >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Banner Button Link</label>
+                            <input type="text" class="form-control" id="banner_btn_link" name="banner_btn_link" >
+                        </div>
+
                         <input id="id" type="number" hidden>
 
                         <div class="modal-footer">
@@ -172,19 +197,18 @@
     <script>
 
         $(document).ready(function () {
-
+            
 
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+            let bannerTable = $('#bannerTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
                 processing: true,
                 serverSide: true,
-                {{--ajax: "{{url('/admin/data')}}",--}}
-                ajax: "{{route('admin.data')}}",
+                ajax: "{{route('admin.banner-data')}}",
                 // pageLength: 30,
 
                 columns: [
@@ -194,11 +218,11 @@
 
                     },
                     {
-                        data: 'name',
+                        data: 'bannerImage',
 
                     },
                     {
-                        data: 'email',
+                        data: 'banner_title_1',
 
                     },
                     {
@@ -219,8 +243,8 @@
             });
 
 
-            // Create Admin
-            $('#createAdmin').submit(function (e) {
+            // Create Slider
+            $('#createBanner').submit(function (e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -230,18 +254,18 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ route('admin.admins.store') }}",
+                    url: "{{ route('admin.banner.store') }}",
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#createAdminModal').modal('hide');
-                            $('#createAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#createBannerModal').modal('hide');
+                            $('#createBanner')[0].reset();
+                            bannerTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
-                                text: "Admin Created !",
+                                text: "Banner Created !",
                                 icon: "success"
                             })
 
@@ -260,7 +284,7 @@
                 });
             });
 
-            // Read Admin Data
+            // Read Slider Data
             $(document).on('click', '.editButton', function () {
                 let id = $(this).data('id');
                 $('#id').val(id);
@@ -271,7 +295,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: "{{ url('admin/admins') }}/" + id + "/edit",
+                        url: "{{ url('admin/banners') }}/" + id + "/edit",
                         data: {
                             id: id
                         },
@@ -280,12 +304,15 @@
                         contentType: false,  // Prevent jQuery from setting contentType
                         success: function (res) {
 
-                            console.log('success')
-                            $('#eName').val(res.data.name);
-                            $('#eEmail').val(res.data.email);
-                            $('#ePhone').val(res.data.phone);
-                            $('#eType').val(res.data.type);
 
+
+                            $('#bannerImage').attr('src','{{ asset('') }}'+ res.data.banner_img);
+                            $('#banner_title_1').val(res.data.banner_title_1);
+                            $('#banner_title_2').val(res.data.banner_title_2);
+                            $('#banner_title_3').val(res.data.banner_title_3);
+                            $('#banner_link').val(res.data.banner_link);
+                            $('#banner_btn_name').val(res.data.banner_btn_name);
+                            $('#banner_btn_link').val(res.data.banner_btn_link)
 
                         },
                         error: function (err) {
@@ -295,8 +322,8 @@
                 )
             })
 
-            // Edit Admin Data
-            $('#editAdmin').submit(function (e) {
+            // Update Slider Data
+            $('#editBanner').submit(function (e) {
                 e.preventDefault();
                 let id = $('#id').val();
                 let formData = new FormData(this);
@@ -306,18 +333,18 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ url('admin/admins') }}/" + id,
+                    url: "{{ url('admin/banners') }}/" + id,
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#editAdminModal').modal('hide');
-                            $('#editAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#editBannerModal').modal('hide');
+                            $('#editBanner')[0].reset();
+                            bannerTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
-                                text: "Admin Edited !",
+                                text: "Banner Updated !",
                                 icon: "success"
                             })
 
@@ -337,8 +364,8 @@
             });
 
 
-            // Delete Admin
-            $(document).on('click', '#deleteAdminBtn', function () {
+            // Delete Slider
+            $(document).on('click', '#deleteBannerBtn', function () {
                 let id = $(this).data('id');
 
                 swal.fire({
@@ -357,18 +384,18 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/admins') }}/" + id,
+                                url: "{{ url('admin/banners') }}/" + id,
                                 data: {
                                     '_token': token
                                 },
                                 success: function (res) {
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: "Admin has been deleted.",
+                                        text: "Banner has been deleted.",
                                         icon: "success"
                                     });
 
-                                    adminTable.ajax.reload();
+                                    bannerTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -385,15 +412,15 @@
 
             })
 
-            // Change Admin Status
+            // Change Slider Status
             $(document).on('click', '#adminStatus', function () {
                 let id = $(this).data('id');
                 let status = $(this).data('status')
-                console.log(id + status)
+
                 $.ajax(
                     {
                         type: 'post',
-                        url: "{{route('admin.status')}}",
+                        url: "{{route('admin.banner.status')}}",
                         data: {
                             '_token': token,
                             id: id,
@@ -401,7 +428,7 @@
 
                         },
                         success: function (res) {
-                            adminTable.ajax.reload();
+                            bannerTable.ajax.reload();
 
                             if (res.status == 1) {
 

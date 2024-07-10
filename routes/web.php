@@ -80,8 +80,14 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');
     Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');
-    
-    
+    Route::post('/change-slider-status',[SliderController::class,'changeSliderStatus'])->name('admin.slider.status');
+
+    //______ Banners _____//
+    Route::resource('/banners',BannerController::class)->names('admin.banner');
+    Route::get('/banners-data',[BannerController::class,'getData'])->name('admin.banner-data');
+    Route::post('/change-banners-status',[BannerController::class,'changeBannerStatus'])->name('admin.banner.status');
+
+
     //______ Attribute _____//
     Route::resource('/attributes', AttributeController::class)->names('admin.attribute');
     Route::get('/attribute-data',[AttributeController::class,'getData'])->name('admin.attribute-data');

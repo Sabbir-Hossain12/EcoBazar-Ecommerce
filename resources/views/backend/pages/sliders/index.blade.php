@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Admins</h4>
+                <h4 class="mb-sm-0 font-size-18">Sliders</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                        <li class="breadcrumb-item active">Admins</li>
+                        <li class="breadcrumb-item active">Sliders</li>
                     </ol>
                 </div>
 
@@ -36,21 +36,21 @@
                 <div class="card-header">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">Admins List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            Create Admin
+                        <h4 class="card-title">Slider List</h4>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSliderModal">
+                            Add Slider
                         </button>
                     </div>
 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="sliderTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>Image</th>
+                                <th>Title</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -71,38 +71,48 @@
 
     {{--    Table Ends--}}
 
-    {{--    Create Categories Modal--}}
-    <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Create Slider Modal--}}
+    <div class="modal fade" id="createSliderModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Admin</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Slider</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" id="createAdmin">
+                    <form name="form" id="createSlider">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="Name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="Name" name="name">
+                            <label for="Name" class="col-form-label">Slider Image</label>
+                            <input type="file" class="form-control" id="cSlider_img" name="slider_img">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="col-form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
+                            <label for="email" class="col-form-label">Slider Title 1</label>
+                            <input type="text" class="form-control" id="cSliderTitle1" name="slider_title_1">
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="col-form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <label for="phone" class="col-form-label">Slider Title 2</label>
+                            <input type="text" class="form-control" id="cSliderTitle2" name="slider_title_2">
                         </div>
                         <div class="mb-3">
-                            <label for="type" class="col-form-label">Role</label>
-                            <input type="text" class="form-control" name="type" id="type">
+                            <label for="type" class="col-form-label">Slider Title 3</label>
+                            <input type="text" class="form-control" name="slider_title_3" id="cSliderTitle3">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
+                            <label for="cSliderText" class="col-form-label">Slider Text</label>
+                            <textarea class="form-control" id="cSliderText" name="slider_text"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Slider Button Name</label>
+                            <input type="text" class="form-control" name="slider_btn_name" id="cSliderTitle3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Slider Button Link</label>
+                            <input type="text" class="form-control" name="slider_btn_link" id="cSliderTitle3">
                         </div>
 
 
@@ -116,8 +126,8 @@
         </div>
     </div>
 
-    {{--    Edit Categories Modal--}}
-    <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Edit Slider Modal--}}
+    <div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -126,29 +136,41 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form2" id="editAdmin">
+                    <form name="form2" id="editSlider">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="eName" class="col-form-label">Name</label>
-                            <input type="text" id="eName" class="form-control" name="name">
+                            <label for="Name" class="col-form-label">Slider Image</label>
+                            <input type="file" class="form-control" id="eSlider_img" name="slider_img">
+                            <img src="" class="mt-2" id="eSliderImage" width="100%" height="200px" alt="Slider Image">
                         </div>
                         <div class="mb-3">
-                            <label for="eEmail" class="col-form-label">Email</label>
-                            <input type="text" id="eEmail" class="form-control" name="email">
+                            <label for="email" class="col-form-label">Slider Title 1</label>
+                            <input type="text" class="form-control" id="eSliderTitle1" name="slider_title_1">
                         </div>
                         <div class="mb-3">
-                            <label for="ePhone" class="col-form-label">Phone</label>
-                            <input type="text" id="ePhone" class="form-control" name="phone">
+                            <label for="phone" class="col-form-label">Slider Title 2</label>
+                            <input type="text" class="form-control" id="eSliderTitle2" name="slider_title_2">
                         </div>
                         <div class="mb-3">
-                            <label for="eType" class="col-form-label">Role</label>
-                            <input type="text" id="eType" class="form-control" name="type">
+                            <label for="type" class="col-form-label">Slider Title 3</label>
+                            <input type="text" class="form-control" name="slider_title_3" id="eSliderTitle3">
                         </div>
                         <div class="mb-3">
-                            <label for="ePassword" class="col-form-label">Password</label>
-                            <input type="password" id="ePassword" class="form-control" name="password">
+                            <label for="cSliderText" class="col-form-label">Slider Text</label>
+                            <textarea class="form-control" id="eSliderText" name="slider_text"></textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Slider Button Name</label>
+                            <input type="text" class="form-control" name="slider_btn_name" id="eSliderBtnName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Slider Button Link</label>
+                            <input type="text" class="form-control" name="slider_btn_link" id="eSliderBtnLink">
+                        </div>
+
                         <input id="id" type="number" hidden>
 
                         <div class="modal-footer">
@@ -177,14 +199,13 @@
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+            let sliderTable = $('#sliderTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
                 processing: true,
                 serverSide: true,
-                {{--ajax: "{{url('/admin/data')}}",--}}
-                ajax: "{{route('admin.data')}}",
+                ajax: "{{route('admin.slider-data')}}",
                 // pageLength: 30,
 
                 columns: [
@@ -194,11 +215,11 @@
 
                     },
                     {
-                        data: 'name',
+                        data: 'sliderImage',
 
                     },
                     {
-                        data: 'email',
+                        data: 'slider_title_1',
 
                     },
                     {
@@ -219,8 +240,8 @@
             });
 
 
-            // Create Admin
-            $('#createAdmin').submit(function (e) {
+            // Create Slider
+            $('#createSlider').submit(function (e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -230,18 +251,18 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ route('admin.admins.store') }}",
+                    url: "{{ route('admin.slider.store') }}",
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#createAdminModal').modal('hide');
-                            $('#createAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#createSliderModal').modal('hide');
+                            $('#createSlider')[0].reset();
+                            sliderTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
-                                text: "Admin Created !",
+                                text: "Slider Created !",
                                 icon: "success"
                             })
 
@@ -260,7 +281,7 @@
                 });
             });
 
-            // Read Admin Data
+            // Read Slider Data
             $(document).on('click', '.editButton', function () {
                 let id = $(this).data('id');
                 $('#id').val(id);
@@ -271,7 +292,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: "{{ url('admin/admins') }}/" + id + "/edit",
+                        url: "{{ url('admin/sliders') }}/" + id + "/edit",
                         data: {
                             id: id
                         },
@@ -280,11 +301,15 @@
                         contentType: false,  // Prevent jQuery from setting contentType
                         success: function (res) {
 
-                            console.log('success')
-                            $('#eName').val(res.data.name);
-                            $('#eEmail').val(res.data.email);
-                            $('#ePhone').val(res.data.phone);
-                            $('#eType').val(res.data.type);
+                           
+                         
+                            $('#eSliderTitle1').val(res.data.slider_title_1);
+                            $('#eSliderTitle2').val(res.data.slider_title_2);
+                            $('#eSliderTitle3').val(res.data.slider_title_3);
+                            $('#eSliderText').val(res.data.slider_text);
+                            $('#eSliderBtnName').val(res.data.slider_btn_name);
+                            $('#eSliderBtnLink').val(res.data.slider_btn_link);
+                            $('#eSliderImage').attr('src','{{ asset('') }}' + res.data.slider_img);
 
 
                         },
@@ -295,8 +320,8 @@
                 )
             })
 
-            // Edit Admin Data
-            $('#editAdmin').submit(function (e) {
+            // Edit Slider Data
+            $('#editSlider').submit(function (e) {
                 e.preventDefault();
                 let id = $('#id').val();
                 let formData = new FormData(this);
@@ -306,18 +331,18 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ url('admin/admins') }}/" + id,
+                    url: "{{ url('admin/sliders') }}/" + id,
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#editAdminModal').modal('hide');
-                            $('#editAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            $('#editSliderModal').modal('hide');
+                            $('#editSlider')[0].reset();
+                            sliderTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
-                                text: "Admin Edited !",
+                                text: "Slider Edited !",
                                 icon: "success"
                             })
 
@@ -337,8 +362,8 @@
             });
 
 
-            // Delete Admin
-            $(document).on('click', '#deleteAdminBtn', function () {
+            // Delete Slider
+            $(document).on('click', '#deleteSliderBtn', function () {
                 let id = $(this).data('id');
 
                 swal.fire({
@@ -357,18 +382,18 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/admins') }}/" + id,
+                                url: "{{ url('admin/sliders') }}/" + id,
                                 data: {
                                     '_token': token
                                 },
                                 success: function (res) {
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: "Admin has been deleted.",
+                                        text: "Slider has been deleted.",
                                         icon: "success"
                                     });
 
-                                    adminTable.ajax.reload();
+                                    sliderTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -385,15 +410,15 @@
 
             })
 
-            // Change Admin Status
+            // Change Slider Status
             $(document).on('click', '#adminStatus', function () {
                 let id = $(this).data('id');
                 let status = $(this).data('status')
-                console.log(id + status)
+              
                 $.ajax(
                     {
                         type: 'post',
-                        url: "{{route('admin.status')}}",
+                        url: "{{route('admin.slider.status')}}",
                         data: {
                             '_token': token,
                             id: id,
@@ -401,7 +426,7 @@
 
                         },
                         success: function (res) {
-                            adminTable.ajax.reload();
+                            sliderTable.ajax.reload();
 
                             if (res.status == 1) {
 
