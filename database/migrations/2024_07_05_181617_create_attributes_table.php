@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name');
-            $table->string('slug')->unique();
-            $table->text('category_img')->nullable();
-            $table->text('category_img_path')->nullable();
-            $table->tinyInteger('front_status')->default(0)->comment('1=active,0=inactive');
-            $table->tinyInteger('topCategory_status')->default(0)->comment('1=active,0=inactive');
+            $table->string('attribute_name');
+            
             $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');
-
+            
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('attributes');
     }
 };

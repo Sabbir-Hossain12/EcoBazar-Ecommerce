@@ -8,6 +8,14 @@
 <!-- pace js -->
 <script src=" {{asset('public/backend/assets/libs/pace-js/pace.min.js')}}"></script>
 
+<script src=" {{asset('public/backend/assets/js/app.js')}}"></script>
+
 @stack('backendJs')
 
-<script src=" {{asset('public/backend/assets/js/app.js')}}"></script>
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+</script>

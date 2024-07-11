@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Sliders</h4>
+                <h4 class="mb-sm-0 font-size-18">Admins</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                        <li class="breadcrumb-item active">Sliders</li>
+                        <li class="breadcrumb-item active">Admins</li>
                     </ol>
                 </div>
 
@@ -36,27 +36,26 @@
                 <div class="card-header">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">Banner List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBannerModal">
-                            Add Banner
+                        <h4 class="card-title">Admins List</h4>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBrandModal">
+                            Add Brand
                         </button>
                     </div>
 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="bannerTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="brandTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Image</th>
-                                <th>Title</th>
+                                <th>Attribute Name</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            
                             </tbody>
                         </table>
                     </div>
@@ -71,49 +70,27 @@
 
     {{--    Table Ends--}}
 
-    {{--    Create Slider Modal--}}
-    <div class="modal fade" id="createBannerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Create Brands Modal--}}
+    <div class="modal fade" id="createBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Slider</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Brand</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" id="createBanner">
+                    <form name="form" id="createBrandl" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="Name" class="col-form-label">Banner Image</label>
-                            <input type="file" class="form-control"  name="banner_img">
+                            <label for="brand_name" class="col-form-label">Brand Name</label>
+                            <input type="text" class="form-control" id="brand_name" name="brand_name">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="col-form-label">Banner Title 1</label>
-                            <input type="text" class="form-control"  name="banner_title_1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="col-form-label">Banner Title 2</label>
-                            <input type="text" class="form-control"  name="banner_title_2">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Title 3</label>
-                            <input type="text" class="form-control" name="banner_title_3" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Link</label>
-                            <input type="text" class="form-control" name="banner_link" >
-                        </div>
+                            <label for="brand_image" class="col-form-label">Brand Image</label>
+                            <input type="file" class="form-control" id="brand_image" name="brand_image">
 
-
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Button Name</label>
-                            <input type="text" class="form-control" name="banner_btn_name" >
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Button Link</label>
-                            <input type="text" class="form-control" name="banner_btn_link" >
                         </div>
 
 
@@ -127,8 +104,8 @@
         </div>
     </div>
 
-    {{--    Edit Slider Modal--}}
-    <div class="modal fade" id="editBannerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{--    Edit Brands Modal--}}
+    <div class="modal fade" id="editBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -137,43 +114,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="form2" id="editBanner">
+                    <form name="form2" id="editBrand">
                         @csrf
                         @method('PUT')
-
                         <div class="mb-3">
-                            <label for="Name" class="col-form-label">Banner Image</label>
-                            <input type="file" class="form-control" id="banner_img"  name="banner_img">
-                            <img class="mt-2" src="" id="bannerImage" width="100%" height="200px">
+                            <label for="brand_name" class="col-form-label">Brand Name</label>
+                            <input type="text" class="form-control" id="brandname" name="brand_name">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="col-form-label">Banner Title 1</label>
-                            <input type="text" class="form-control" id="banner_title_1"  name="banner_title_1">
+                            <label for="brand_image" class="col-form-label">Brand Image</label>
+                            <input type="file" class="form-control" id="brandimage" name="brand_image">
+                            <img class="mt-2" src="" id="brandImageprev" width="50px" height="50px" alt=""/>
                         </div>
-                        <div class="mb-3">
-                            <label for="phone" class="col-form-label">Banner Title 2</label>
-                            <input type="text" class="form-control" id="banner_title_2" name="banner_title_2">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Title 3</label>
-                            <input type="text" class="form-control" id="banner_title_3" name="banner_title_3" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Link</label>
-                            <input type="text" class="form-control" id="banner_link" name="banner_link" >
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Button Name</label>
-                            <input type="text" class="form-control" id="banner_btn_name" name="banner_btn_name" >
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Banner Button Link</label>
-                            <input type="text" class="form-control" id="banner_btn_link" name="banner_btn_link" >
-                        </div>
-
                         <input id="id" type="number" hidden>
 
                         <div class="modal-footer">
@@ -197,18 +149,19 @@
     <script>
 
         $(document).ready(function () {
-            
+
 
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let bannerTable = $('#bannerTable').DataTable({
+            let brandTable = $('#brandTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin.banner-data')}}",
+                {{--ajax: "{{url('/admin/data')}}",--}}
+                ajax: "{{route('admin.attribute-data')}}",
                 // pageLength: 30,
 
                 columns: [
@@ -218,13 +171,10 @@
 
                     },
                     {
-                        data: 'bannerImage',
-
+                        data: 'attribute_name',
+                        
                     },
-                    {
-                        data: 'banner_title_1',
-
-                    },
+                    
                     {
                         data: 'status',
                         name: 'Status',
@@ -243,8 +193,8 @@
             });
 
 
-            // Create Slider
-            $('#createBanner').submit(function (e) {
+            // Create Brand
+            $('#createBrandl').submit(function (e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -254,18 +204,18 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ route('admin.banner.store') }}",
+                    url: "{{ route('admin.brand.store') }}",
                     data: formData,
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#createBannerModal').modal('hide');
-                            $('#createBanner')[0].reset();
-                            bannerTable.ajax.reload()
+                            $('#createBrandModal').modal('hide');
+                            $('#createBrandl')[0].reset();
+                            brandTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
-                                text: "Banner Created !",
+                                text: "Admin Created !",
                                 icon: "success"
                             })
 
@@ -284,7 +234,7 @@
                 });
             });
 
-            // Read Slider Data
+            // Read Admin Data
             $(document).on('click', '.editButton', function () {
                 let id = $(this).data('id');
                 $('#id').val(id);
@@ -295,24 +245,16 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url: "{{ url('admin/banners') }}/" + id + "/edit",
-                        data: {
-                            id: id
-                        },
+                        url: "{{ url('admin/brands') }}/" + id + "/edit",
 
                         processData: false,  // Prevent jQuery from processing the data
                         contentType: false,  // Prevent jQuery from setting contentType
                         success: function (res) {
 
+                            console.log('success')
+                            $('#brandname').val(res.data.brand_name);
+                            $('#brandImageprev').attr('src', '{{ asset('') }}' + res.data.brand_image);
 
-
-                            $('#bannerImage').attr('src','{{ asset('') }}'+ res.data.banner_img);
-                            $('#banner_title_1').val(res.data.banner_title_1);
-                            $('#banner_title_2').val(res.data.banner_title_2);
-                            $('#banner_title_3').val(res.data.banner_title_3);
-                            $('#banner_link').val(res.data.banner_link);
-                            $('#banner_btn_name').val(res.data.banner_btn_name);
-                            $('#banner_btn_link').val(res.data.banner_btn_link)
 
                         },
                         error: function (err) {
@@ -322,29 +264,30 @@
                 )
             })
 
-            // Update Slider Data
-            $('#editBanner').submit(function (e) {
+            // Edit Admin Data
+            $('#editBrand').submit(function (e) {
                 e.preventDefault();
                 let id = $('#id').val();
                 let formData = new FormData(this);
-
+                formData.append('_token', token);
                 $.ajax({
                     type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('admin/banners') }}/" + id,
+                    // headers: {
+                    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    url: "{{ url('admin/brands') }}/" + id,
                     data: formData,
+
                     processData: false,  // Prevent jQuery from processing the data
                     contentType: false,  // Prevent jQuery from setting contentType
                     success: function (res) {
                         if (res.message === 'success') {
-                            $('#editBannerModal').modal('hide');
-                            $('#editBanner')[0].reset();
-                            bannerTable.ajax.reload()
+                            $('#editBrandModal').modal('hide');
+                            $('#editBrand')[0].reset();
+                            brandTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
-                                text: "Banner Updated !",
+                                text: "Admin Edited !",
                                 icon: "success"
                             })
 
@@ -364,8 +307,8 @@
             });
 
 
-            // Delete Slider
-            $(document).on('click', '#deleteBannerBtn', function () {
+            // Delete Admin
+            $(document).on('click', '#deleteBrandBtn', function () {
                 let id = $(this).data('id');
 
                 swal.fire({
@@ -384,18 +327,18 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/banners') }}/" + id,
+                                url: "{{ url('admin/brands') }}/" + id,
                                 data: {
                                     '_token': token
                                 },
                                 success: function (res) {
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: "Banner has been deleted.",
+                                        text: "Brand has been deleted.",
                                         icon: "success"
                                     });
 
-                                    bannerTable.ajax.reload();
+                                    brandTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -412,46 +355,7 @@
 
             })
 
-            // Change Slider Status
-            $(document).on('click', '#adminStatus', function () {
-                let id = $(this).data('id');
-                let status = $(this).data('status')
-
-                $.ajax(
-                    {
-                        type: 'post',
-                        url: "{{route('admin.banner.status')}}",
-                        data: {
-                            '_token': token,
-                            id: id,
-                            status: status
-
-                        },
-                        success: function (res) {
-                            bannerTable.ajax.reload();
-
-                            if (res.status == 1) {
-
-                                swal.fire(
-                                    {
-                                        title: 'Status Changed to Active',
-                                        icon: 'success'
-                                    })
-                            } else {
-                                swal.fire(
-                                    {
-                                        title: 'Status Changed to Inactive',
-                                        icon: 'success'
-                                    })
-
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err)
-                        }
-                    }
-                )
-            })
+            
         });
     </script>
 

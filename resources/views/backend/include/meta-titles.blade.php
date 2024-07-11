@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta name="csrf_token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8"/>
 
     <title>
