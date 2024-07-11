@@ -65,8 +65,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/categories/status', [CategoryController::class, 'changeCategoryStatus'])->name('admin.category.status');
     Route::get('/categories/edit/{id}', [CategoryController::class, 'categoryEdit'])->name('category.edit');
 
+    
     //______ Subcategory _____//
     Route::resource('/subcategories', SubcategoryController::class)->names('admin.subcategory');
+    Route::get('/subcategory-data', [SubcategoryController::class, 'getData'])->name('admin.subcategory-data');
+    Route::post('/subcategory/status', [SubcategoryController::class, 'changeSubCategoryStatus'])->name('admin.subcategory.status');
+    Route::get('/subcategory/edit/{id}', [SubcategoryController::class, 'subCategoryEdit'])->name('subcategory.edit');
 
 
     //______ Brand _____//
