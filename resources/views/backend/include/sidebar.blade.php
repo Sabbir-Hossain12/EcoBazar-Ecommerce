@@ -133,7 +133,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.products')}}">
+                            <a href="{{route('admin.product.index')}}">
                                 <span data-key="t-calendar">Products</span>
                             </a>
                         </li>

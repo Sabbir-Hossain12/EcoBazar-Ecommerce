@@ -14,7 +14,7 @@ class ProfileController extends Controller
 
     public function create()
     {
-        return view('backend.pages.profile');
+        return view('backend.pages.profile.profile');
     }
 
     public function check_curr_pass(Request $request)

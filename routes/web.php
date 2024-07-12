@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\BrandsController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PagesController;
+use App\Http\Controllers\Backend\ProductsController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubcategoryController;
@@ -79,8 +80,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/change-brand-status', [BrandsController::class, 'changeBrandStatus'])->name('admin.brand.status');
     
     //______ Product _____//
-    Route::view('/products', 'backend.pages.products')->name('admin.products');
-
+    Route::resource('/products', ProductsController::class)->names('admin.product');
+    Route::get('/product-data', [ProductsController::class, 'getData'])->name('admin.product-data');
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');
     Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');
