@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubcategoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -112,6 +113,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/pages', PagesController::class)->names('admin.pages');
     Route::post('/change-pages-status', [PagesController::class, 'changePagesStatus']);
 
+    //______ Coupon _____//
+    Route::resource('/coupons', CouponController::class)->names('admin.coupons');
+    Route::get('/coupon-data', [CouponController::class, 'getData'])->name('admin.coupon-data');
+    Route::post('/change-coupon-status', [CouponController::class, 'changeCouponStatus'])->name('admin.coupon.status');
 
     //______ Settings _____//
     Route::resource('/basic-info', BasicinfoController::class)->names('admin.basic');

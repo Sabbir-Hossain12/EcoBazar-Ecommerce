@@ -43,6 +43,7 @@
 
                     </ul>
                 </li>
+                
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-users"></i>
@@ -64,7 +65,7 @@
                     </ul>
                 </li>
                 
-{{--Banners and Sliders--}}
+               {{--Banners and Sliders--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-images"></i>
@@ -86,8 +87,8 @@
 
                     </ul>
                 </li>
-{{-- Attributes  --}}
 
+                {{-- Attributes  --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-heart"></i>
@@ -110,7 +111,7 @@
                     </ul>
                 </li>
 
-{{--Products--}}
+                {{--Products--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-shop"></i>
@@ -135,6 +136,11 @@
                         <li>
                             <a href="{{route('admin.products')}}">
                                 <span data-key="t-calendar">Products</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.coupons.index') }}">
+                                <span data-key="t-calendar">Coupons</span>
                             </a>
                         </li>
 
