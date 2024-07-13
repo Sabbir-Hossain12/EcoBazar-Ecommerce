@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubcategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -120,6 +121,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
     //______ Settings _____//
     Route::resource('/basic-info', BasicinfoController::class)->names('admin.basic');
+
+    //______ Review _____//
+    Route::resource('/reviews', ReviewController::class)->names('admin.reviews');
+    Route::get('/review-data', [ReviewController::class, 'getData'])->name('admin.review-data');
+    Route::post('/change-review-status', [ReviewController::class, 'changeReviewStatus'])->name('admin.review.status');
+    
 });
 
 

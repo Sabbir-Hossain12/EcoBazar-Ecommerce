@@ -23,7 +23,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{ route('admin.admins.index') }}">
                                 <span data-key="t-calendar">Admin List</span>
                             </a>
                         </li>
@@ -141,6 +141,11 @@
                         <li>
                             <a href="{{ route('admin.coupons.index') }}">
                                 <span data-key="t-calendar">Coupons</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.reviews.index') }}">
+                                <span data-key="t-calendar">Reviews</span>
                             </a>
                         </li>
 

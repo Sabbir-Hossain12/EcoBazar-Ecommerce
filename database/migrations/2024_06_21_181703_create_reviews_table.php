@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('reviewer_name')->default('John Doe');
             $table->text('reviewer_img')->nullable();
@@ -21,8 +22,6 @@ return new class extends Migration
             
             $table->date('review_date');
             $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');
-
-
 
             $table->timestamps();
         });
