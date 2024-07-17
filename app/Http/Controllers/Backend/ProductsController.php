@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\Subcategory;
+use App\Models\Weight;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -181,6 +182,13 @@ class ProductsController extends Controller
             }
 
             $productDetails->save();
+            
+//         weight Tables
+            
+            $weight = new Weight();
+            $weight->product_id = $products->id;
+            $weight->weight = $request->weight;
+            $weight->save();
 
             DB::commit();
 

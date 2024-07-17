@@ -159,12 +159,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title text-center">Product Images and Videos</h4>
+{{--                        <h4 class="card-title text-center">Product Images and Videos</h4>--}}
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <span class="h4 card-title text-center">Product Images and Videos</span>
+                        </button>
 
                     </div>
 
 
-                    <div class="card-body p-4">
+                    <div class="card-body p-4 accordion-collapse collapse" id="collapseTwo">
 
                         <div class="row">
                             <div class="col-lg-6 mb-3">
