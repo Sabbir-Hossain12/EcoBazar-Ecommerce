@@ -152,9 +152,6 @@ class ProductsController extends Controller
             $productDetails = new ProductDetail();
             $productDetails->product_id = $products->id;
             $productDetails->SKU = $sku;
-            $productDetails->regular_price = $request->regular_price;
-            $productDetails->sale_price = $request->sale_price;
-            $productDetails->discount = $request->discount;
             $productDetails->long_desc = $request->long_desc;
             $productDetails->youtube_embed_link = $request->youtube_embed_link;
             
@@ -167,28 +164,45 @@ class ProductsController extends Controller
             $productDetails->available_qty = $request->initial_stock;
           
 
-            $imageFields = ['productImg_1', 'productImg_2', 'productImg_3'];
+//            $imageFields = ['productImg_1', 'productImg_2', 'productImg_3'];
             
             
             $manager = new ImageManager(new Driver());
-            foreach ($imageFields as $imageField) {
-                if ($request->hasFile($imageField)) {
-                    $imgs = $manager->read($request->$imageField);
+           
+//              Store Product Thumbnail Image
+                if ($request->hasFile('productThumbnail_img')) {
+                    $imgs = $manager->read($request->productThumbnail_img);
                     $encoded = $imgs->toWebp(80);
-                    $encodedFilename = time().'.webp';
+                    $encodedFilename =$request->product_name . time().'.webp';
                     $encoded->save(public_path('backend/assets/images/uploads/products').'/'.$encodedFilename);
-                    $productDetails->$imageField = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
+                    $productDetails->productThumbnail_img = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
                 }
-            }
+                        
+//              Store Slider Images
+                if ($request->hasFile('product_img'))
+                {
+                    foreach ($request->file('product_img') as $productImg)
+                        {
+                            $sliderImgs = $manager->read($productImg);
+                            $encodedSlider = $sliderImgs->toWebp(80);
+                            $encodedSliderFilename =uniqid(). $request->product_name. '-' . time().'.webp';
+                            $encodedSlider->save(public_path('backend/assets/images/uploads/products').'/'.$encodedSliderFilename);
+//                           $productImgPath = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
+                            
+                            $imageArray[]=$encodedSliderFilename;
+                        }
+                    $productDetails->product_img=json_encode($imageArray)  ;
+                }
+            
 
-            $productDetails->save();
+                    $productDetails->save();
             
 //         weight Tables
             
-            $weight = new Weight();
-            $weight->product_id = $products->id;
-            $weight->weight = $request->weight;
-            $weight->save();
+//            $weight = new Weight();
+//            $weight->product_id = $products->id;
+//            $weight->weight = $request->weight;
+//            $weight->save();
 
             DB::commit();
 
