@@ -84,6 +84,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     //______ Product _____//
     Route::resource('/products', ProductsController::class)->names('admin.product');
     Route::get('/product-data', [ProductsController::class, 'getData'])->name('admin.product-data');
+    Route::get('/weight-variant-info',[ProductsController::class,'weightVariantInfo'])->name('admin.weight-variant-info');
+    Route::get('/color-variant-info',[ProductsController::class,'colorVariantInfo'])->name('admin.weight-variant-info');
+    Route::get('/size-variant-info',[ProductsController::class,'sizeVariantInfo'])->name('admin.weight-variant-info');
+    
+    
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');
     Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');

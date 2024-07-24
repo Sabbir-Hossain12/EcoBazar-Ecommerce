@@ -4,6 +4,8 @@
     <link href="{{asset('public/backend')}}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
           rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="{{asset('public/backend/assets/js/select2/select2.min.css')}}">
+
 @endpush
 
 @section('contents')
@@ -121,8 +123,8 @@
                             </div>
                             
                             <div class="col-lg-12 mb-3">
-                                <label for="short_description" class="form-label">Long Description</label>
-                                <textarea class="form-control" name="long_desc" id="long_desc" rows="5"></textarea>
+                                <label for="long_desc" class="form-label">Long Description</label>
+                                <textarea class="form-control" name="long_desc" id="longDesc" rows="5"></textarea>
                             </div>
 
                            
@@ -157,9 +159,8 @@
                             </div>
 
                             <div class="col-lg-8 mb-3">
-                                <label for="short_description" class="form-label">Product Slider Images</label>
-                                <input oninput="newImg2.src=window.URL.createObjectURL(this.files[0])" type="file" class="form-control" name="product_img[]" id="product_img" multiple>
-{{--                                <img class="mt-2" id="newImg2" src="{{asset('public/backend/assets/images/placeholder.jpg')}}"  height="200px">--}}
+                                <label for="product_img" class="form-label">Product Slider Images</label>
+                                <input  type="file" class="form-control" name="product_img[]" id="product_img" multiple>
                                 <div id="imagePreviewContainer" class="mt-2"></div>
                             </div>
                             </div>
@@ -189,12 +190,12 @@
 
 
                     <div class="card-body p-4">
-{{-- Weight --}}
+                        {{-- Weight --}}
                         <div class="row border border-light">
                             <div class="card-body">
                                 <div class="col-lg-12">
                                     <label for="productTable" class="form-label p-1 ">Product Weight</label>
-                                <table id="productTable" style="width: 100% !important;" class="table table-bordered table-striped">
+                                <table id="weightVariantTable" style="width: 100% !important;" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -209,8 +210,8 @@
                                     <tfoot>
                                     <tr>
                                         <td colspan="5">
-                                            <select id="productID" class="form-control" style="width: 100%;">
-                                                <option value="">Select Weight</option>
+                                            <select id="weightVariantList" class="form-control" style="width: 100%;">
+                                                
                                             </select>
                                         </td>
                                     </tr>
@@ -221,12 +222,12 @@
                             </div>
 
                         </div>
-{{--Color--}}
+                        {{--Color--}}
                         <div class="row border border-light mt-4">
                             <div class="card-body">
                                 <div class="col-lg-12">
                                     <label for="productTable" class="form-label p-1">Product Color</label>
-                                    <table id="productTable" style="width: 100% !important;" class="table table-bordered table-striped">
+                                    <table id="colorVariantTable" style="width: 100% !important;" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
                                             <th>ID</th>
@@ -241,7 +242,7 @@
                                         <tfoot>
                                         <tr>
                                             <td colspan="5">
-                                                <select id="productID" class="form-control" style="width: 100%;">
+                                                <select id="colorVariantList" class="form-control" style="width: 100%;">
                                                     <option value="">Select Color</option>
                                                 </select>
                                             </td>
@@ -256,7 +257,7 @@
 
                         </div>
                         
-{{-- Size --}}
+                        {{-- Size --}}
                         <div class="row border border-light mt-4">
                             <div class="card-body">
                                 <div class="col-lg-12">
@@ -276,14 +277,30 @@
                                         <tfoot>
                                         <tr>
                                             <td colspan="5">
-                                                <select id="productID" class="form-control" style="width: 100%;">
+                                                <select id="sizeVariantList" class="form-control" style="width: 100%;">
                                                     <option value="">Select Size</option>
+                                                    <option>Select Another</option>
                                                 </select>
                                             </td>
                                         </tr>
                                         </tfoot>
 
                                     </table>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+{{--  Tags--}}
+                        <div class="row border border-light mt-4">
+                            <div class="card-body">
+                                <label for="productTable" class="form-label p-1">Tags</label>
+                                <div class="col-lg-12">
+                                    @foreach($tags as $tag)
+                                            <input class="" type="checkbox" name="tag[]" id="tag" value="{{$tag->value}}">
+                                            {{$tag->value}}
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -340,47 +357,98 @@
 @endsection
 
 @push('backendJs')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
     <script src="{{asset('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js')}}"></script>
+    <script src="{{asset('public/backend/assets/js/select2/select2.min.js')}}"></script>
 
 
 
     <script>
+           
             $(document).ready(function() {
+
+                // $('#sizeVariantList').select2(); 
+                // $('#weightVariantList').select2(); 
+                // $('#colorVariantList').select2(); 
                 
             //Store Products
                 $('#createProduct').submit(function(e)
                 {
                     e.preventDefault();
-                   
-                    $.ajax(
-                        {
-                            type: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            url: "{{route('admin.product.store')}}",
-                            data: new FormData(this),
-                            processData: false,  // Prevent jQuery from processing the data
-                            contentType: false,  // Prevent jQuery from setting contentType
-                            
-                            success: function (res)
+
+                    var product = [];
+                    var productCount = 0 ;
+                    $("#weightVariantTable tbody tr").each(function (index, value) {
+                        var currentRow = $(this);
+                        var obj = {};
+                        obj.attrValueId = currentRow.find(".attrValueId").text();
+                        obj.productWeight = currentRow.find(".productWeight").text();
+                        obj.productRegularPrice = currentRow.find(".productRegularPrice").val();
+                        obj.productDiscount = currentRow.find(".productDiscount").val();
+                        product.push(obj);
+                        productCount++;
+                    });
+
+                    // console.log(product);
+                    // Collect form data
+                    var formData = new FormData(this);
+
+                    // Appending product data
+                    formData.append('weightProduct', JSON.stringify(product));
+                    
+                    if ($('#weightVariantList').val() == null) {
+                        
+                        swal.fire({
+                            title: "Failed",
+                            text: "Please Select Weight !",
+                            icon: "error"
+                        })
+                    }
+                    else {
+
+
+                        $.ajax(
                             {
-                                console.log(res)
-                            },
-                            error: function (e)
-                            {
-                                console.log(e)
+                                type: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                url: "{{route('admin.product.store')}}",
+                                data: formData,
+                                processData: false,  // Prevent jQuery from processing the data
+                                contentType: false,  // Prevent jQuery from setting contentType
+
+                                success: function (res) {
+                                    if (res.message === 'success') {
+                                        // $('#createAdminModal').modal('hide');
+                                        $('#createProduct')[0].reset();
+
+                                        swal.fire({
+                                            title: "Success",
+                                            text: "Product Created !",
+                                            icon: "success"
+                                        })
+
+
+                                    }
+                                },
+                                error: function (e) {
+                                    swal.fire({
+                                        title: "Failed",
+                                        text: "Something Went Wrong !",
+                                        icon: "error"
+                                    })
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
 
                 })
                 
                 
             //  CKEditor on Products Desctription
                 ClassicEditor
-                    .create(document.querySelector('#long_desc'))
+                    .create(document.querySelector('#longDesc'))
                     .then(newEditor => {
                         jReq = newEditor;
                     })
@@ -389,7 +457,7 @@
                     });
                 
             // Show  Slider Images 
-            $('#productImg').on('change', function(event) {
+            $('#product_img').on('change', function(event) {
                 var imagePreviewContainer = $('#imagePreviewContainer');
                 imagePreviewContainer.empty(); // Clear existing images
 
@@ -430,6 +498,102 @@
                         }
                     });
                 }
+                
+                
+            //  Weight Select 2 trigger
+            $("#weightVariantList").select2({
+                placeholder: "Select Weight",
+                templateResult: function (state) {
+                    if (!state.id) {
+                        return state.text;
+                    }
+                    var $state = $(
+                        '<span>' +
+                        state.text +
+                        "</span>"
+                    );
+                    return $state;
+                },
+                ajax: {
+                    type:'GET',
+                    url: '{{url('admin/weight-variant-info')}}',
+                    processResults: function (data) {
+                        // var data = $.parseJSON(data);
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            }).trigger("change").on("select2:select", function (e) {
+             
+                $("#weightVariantTable tbody").append(
+                    "<tr>" +
+                    '<td><span class="attrValueId">' + e.params.data.id + '</span></td>' +
+                    '<td><span class="productWeight">' + e.params.data.text + '</span></td>' +
+                    '<td class="align-items-center"><input type="number" class="productRegularPrice form-control" style="width:80px;" value="1" min="1"></td>' +
+                    '<td class="align-items-center"><input type="number" class="productDiscount form-control" style="width:80px;" min="1" value="1"></td>' +
+
+
+                    '<td><button class="btn btn-sm btn-danger delete-btn"><i class="fa fa-trash"></i></button></td>\n' +
+                    "</tr>"
+                );
+                
+                
+                
+
+            });
+                
+            //  Color Select 2 Trigger
+            
+            $("#colorVariantList").select2({
+                placeholder: "Select Color",
+                templateResult: function (state) {
+                    if (!state.id) {
+                        return state.text;
+                    }
+                    var $state = $(
+                        '<span>' +
+                        state.text +
+                        "</span>"
+                    );
+                    return $state;
+                },
+                ajax: {
+                    type:'GET',
+                    url: '{{url('admin/color-variant-info')}}',
+                    processResults: function (data) {
+                        // var data = $.parseJSON(data);
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            }).trigger("change").on("select2:select", function (e) {
+
+                $("#colorVariantTable tbody").append(
+                    "<tr>" +
+                    '<td><span class="attrValueId">' + e.params.data.id + '</span></td>' +
+                    '<td><span class="productWeight">' + e.params.data.text + '</span></td>' +
+                    '<td class="align-items-center"><input type="number" class="productRegularPrice form-control" style="width:80px;" value="1" min="1"></td>' +
+                    '<td class="align-items-center"><input type="number" class="productDiscount form-control" style="width:80px;" min="1" value="1"></td>' +
+
+
+                    '<td><button class="btn btn-sm btn-danger delete-btn"><i class="fa fa-trash"></i></button></td>\n' +
+                    "</tr>"
+                );
+
+
+
+
+            });
+                
+                
+
+            //    Delete Button
+            $(document).on("click", ".delete-btn", function () {
+                $(this).closest("tr").remove();
+
+            });        
            
             
     </script> 

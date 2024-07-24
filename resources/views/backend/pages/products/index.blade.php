@@ -45,7 +45,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="productTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
@@ -92,7 +92,7 @@
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+            let productTable = $('#productTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
@@ -160,8 +160,8 @@
           
 
 
-            // Delete Admin
-            $(document).on('click', '#deleteAdminBtn', function () {
+            // Delete Products
+            $(document).on('click', '#deleteProductBtn', function () {
                 let id = $(this).data('id');
 
                 swal.fire({
@@ -180,18 +180,21 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/admins') }}/" + id,
+                                url: "{{ url('admin/products') }}/" + id,
                                 data: {
                                     '_token': token
                                 },
                                 success: function (res) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Admin has been deleted.",
-                                        icon: "success"
-                                    });
+                                    
+                                    if (res.message=='success') {
+                                        Swal.fire({
+                                            title: "Deleted!",
+                                            text: "Product has been deleted.",
+                                            icon: "success"
+                                        });
 
-                                    adminTable.ajax.reload();
+                                        productTable.ajax.reload();
+                                    }
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -224,7 +227,7 @@
 
                         },
                         success: function (res) {
-                            adminTable.ajax.reload();
+                            productTable.ajax.reload();
 
                             if (res.status == 1) {
 

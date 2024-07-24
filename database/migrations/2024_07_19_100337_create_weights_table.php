@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('weights', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('attrvalue_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->string('weight_title');
+            $table->decimal('productRegularPrice',10,2)->nullable();
+            $table->decimal('productSalePrice',10,2);
+            $table->integer('discount_percentage')->default(0);
             
             $table->timestamps();
         });
