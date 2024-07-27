@@ -51,8 +51,10 @@
                                 <th>SL</th>
                                 <th>Image</th>
                                 <th>Product Name</th>
-                                <th>Sale Price</th>
+                                <th>SKU</th>
+                                
                                 <th>Available Stock</th>
+                                <th>Sold Stock</th>
                                 <th>Popular Status</th>
                                 <th>Hot Status</th>
                                 <th>Featured Status</th>
@@ -103,7 +105,7 @@
 
                 columns: [
                     {
-                        data: 'id',
+                        data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false
 
 
                     },
@@ -114,13 +116,16 @@
                     {
                         data: 'product_name',
 
-                    },
-                    {
-                        data: 'sale_price',
+                    },  {
+                        data: 'sku',
 
-                    },
+                    }, 
+                    
                     {
                         data: 'available_qty',
+
+                    },  {
+                        data: 'sold_qty',
 
                     },
                     {

@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Attrvalue;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use App\Models\Size;
 use App\Models\Subcategory;
 use App\Models\Weight;
 use Exception;
@@ -43,14 +45,20 @@ class ProductsController extends Controller
             ->addColumn('productImage', function ($product) {
                 return '<img class="img-fluid img-thumbnail rounded" src="'.asset($product->productDetail->productThumbnail_img).'" width="65px" alt=""/>';
             })
-            ->addColumn('sale_price', function ($product) {
-                if (count($product->weights) > 0) {
-                    return round($product->weights[0]->productSalePrice).' Tk';
-                }
-            })
+           
             ->addColumn('available_qty', function ($product) {
                 return $product->productDetail->available_qty;
             })
+
+            ->addColumn('sold_qty', function ($product) {
+                return $product->productDetail->sold_qty;
+            })
+
+
+            ->addColumn('sku', function ($product) {
+                return $product->productDetail->SKU;
+            })
+            
             ->addColumn('isPopular', function ($product) {
                 if ($product->productDetail->is_popular == 1) {
                     return '<a class="status" id="adminStatus" href="javascript:void(0)"
@@ -110,6 +118,7 @@ class ProductsController extends Controller
                                                            </div>';
             })
             ->rawColumns(['action', 'productImage', 'isPopular', 'isHot', 'isFeatured', 'status', 'productImage'])
+            ->addIndexColumn()
             ->make(true);
     }
 
@@ -202,7 +211,7 @@ class ProductsController extends Controller
 
             $productDetails->save();
 
-            // Decode the JSON string
+            // Weight Variant if Exist
             $weightProducts = json_decode($request->weightProduct, true);
 
             // Loop through each product and save to the database
@@ -216,6 +225,40 @@ class ProductsController extends Controller
                     $weight->discount_percentage = $weightProduct['productDiscount'];
                     $weight->productSalePrice = $weightProduct['productRegularPrice'] - ($weightProduct['productRegularPrice'] * $weightProduct['productDiscount'] / 100);
                     $weight->save();
+                }
+            }
+            
+            
+                //Color Variant if Exist
+            $colorProducts = json_decode($request->colorProduct, true);
+
+            if ($colorProducts) {
+                foreach ($colorProducts as $colorProduct) {
+                    $color = new Color();
+                    $color->attrvalue_id = $colorProduct['attrValueId'];
+                    $color->product_id = $products->id;
+                    $color->color_title = $colorProduct['productColor'];
+                    $color->productRegularPrice = $colorProduct['productRegularPrice'];
+                    $color->discount_percentage = $colorProduct['productDiscount'];
+                    $color->productSalePrice = $colorProduct['productRegularPrice'] - ($colorProduct['productRegularPrice'] * $colorProduct['productDiscount'] / 100);
+                    $color->save();
+                }
+            }
+            
+            //Size Variant if Exist
+            $sizeProducts = json_decode($request->sizeProduct, true);
+            
+
+            if ($sizeProducts) {
+                foreach ($sizeProducts as $sizeProduct) {
+                    $size = new Size();
+                    $size->attrvalue_id = $sizeProduct['attrValueId'];
+                    $size->product_id = $products->id;
+                    $size->size_title = $sizeProduct['productSize'];
+                    $size->productRegularPrice = $sizeProduct['productRegularPrice'];
+                    $size->discount_percentage = $sizeProduct['productDiscount'];
+                    $size->productSalePrice = $sizeProduct['productRegularPrice'] - ($sizeProduct['productRegularPrice'] * $sizeProduct['productDiscount'] / 100);
+                    $size->save();
                 }
             }
 
@@ -356,5 +399,12 @@ class ProductsController extends Controller
         $colors = Attrvalue::where('attribute_name', 'Color')->where('status', 1)->get(['id', 'value as text']);
 
         return response()->json($colors);
+    }
+
+    public function sizeVariantInfo()
+    {
+        $sizes = Attrvalue::where('attribute_name', 'Size')->where('status', 1)->get(['id', 'value as text']);
+
+        return response()->json($sizes);
     }
 }

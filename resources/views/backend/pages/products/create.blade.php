@@ -243,7 +243,7 @@
                                         <tr>
                                             <td colspan="5">
                                                 <select id="colorVariantList" class="form-control" style="width: 100%;">
-                                                    <option value="">Select Color</option>
+                                                    
                                                 </select>
                                             </td>
                                         </tr>
@@ -262,7 +262,7 @@
                             <div class="card-body">
                                 <div class="col-lg-12">
                                     <label for="productTable" class="form-label p-1">Product Size</label>
-                                    <table id="productTable" style="width: 100% !important;" class="table table-bordered table-striped">
+                                    <table id="sizeVariantTable" style="width: 100% !important;" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
                                             <th>ID</th>
@@ -278,8 +278,7 @@
                                         <tr>
                                             <td colspan="5">
                                                 <select id="sizeVariantList" class="form-control" style="width: 100%;">
-                                                    <option value="">Select Size</option>
-                                                    <option>Select Another</option>
+                                                   
                                                 </select>
                                             </td>
                                         </tr>
@@ -371,13 +370,13 @@
                 // $('#weightVariantList').select2(); 
                 // $('#colorVariantList').select2(); 
                 
-            //Store Products
+                //Store Products
                 $('#createProduct').submit(function(e)
                 {
                     e.preventDefault();
-
-                    var product = [];
-                    var productCount = 0 ;
+                    // Weight variants store
+                    var wProduct = [];
+                    var wProductCount = 0 ;
                     $("#weightVariantTable tbody tr").each(function (index, value) {
                         var currentRow = $(this);
                         var obj = {};
@@ -385,22 +384,57 @@
                         obj.productWeight = currentRow.find(".productWeight").text();
                         obj.productRegularPrice = currentRow.find(".productRegularPrice").val();
                         obj.productDiscount = currentRow.find(".productDiscount").val();
-                        product.push(obj);
-                        productCount++;
+                        wProduct.push(obj);
+                        wProductCount++;
+                    });
+                    
+                    //Size variants store
+                    var sProduct = [];
+                    var sProductCount = 0 ;
+                    $("#sizeVariantTable tbody tr").each(function (index, value) {
+                        var currentRow = $(this);
+                        var obj = {};
+                        obj.attrValueId = currentRow.find(".attrValueId").text();
+                        obj.productSize = currentRow.find(".productSize").text();
+                        obj.productRegularPrice = currentRow.find(".productRegularPrice").val();
+                        obj.productDiscount = currentRow.find(".productDiscount").val();
+                        sProduct.push(obj);
+                        sProductCount++;
+                    });
+                    
+                    //Color Variant Store
+                    var cProduct = [];
+                    var cProductCount = 0 ;
+                    $("#colorVariantTable tbody tr").each(function (index, value) {
+                        var currentRow = $(this);
+                        var obj = {};
+                        obj.attrValueId = currentRow.find(".attrValueId").text();
+                        obj.productColor = currentRow.find(".productColor").text();
+                        obj.productRegularPrice = currentRow.find(".productRegularPrice").val();
+                        obj.productDiscount = currentRow.find(".productDiscount").val();
+                        cProduct.push(obj);
+                        cProductCount++;
                     });
 
-                    // console.log(product);
-                    // Collect form data
+                    // console.log(wProduct);
+                    // console.log(cProduct);
+                    // console.log(sProduct);
+                    
+                   
                     var formData = new FormData(this);
 
-                    // Appending product data
-                    formData.append('weightProduct', JSON.stringify(product));
+                    // Appending Weight variant data
+                    formData.append('weightProduct', JSON.stringify(wProduct)); 
+                    // Appending Color variant data
+                    formData.append('colorProduct', JSON.stringify(cProduct)); 
+                    // Appending Size variant data
+                    formData.append('sizeProduct', JSON.stringify(sProduct));
                     
-                    if ($('#weightVariantList').val() == null) {
+                    if ( $('#weightVariantList').val() == null && $('#sizeVariantList').val() == null && $('#colorVariantList').val() == null) {
                         
                         swal.fire({
                             title: "Failed",
-                            text: "Please Select Weight !",
+                            text: "At least One Variant is Needed" ,
                             icon: "error"
                         })
                     }
@@ -543,7 +577,7 @@
 
             });
                 
-            //  Color Select 2 Trigger
+            //  Color Select2 Trigger
             
             $("#colorVariantList").select2({
                 placeholder: "Select Color",
@@ -573,7 +607,7 @@
                 $("#colorVariantTable tbody").append(
                     "<tr>" +
                     '<td><span class="attrValueId">' + e.params.data.id + '</span></td>' +
-                    '<td><span class="productWeight">' + e.params.data.text + '</span></td>' +
+                    '<td><span class="productColor">' + e.params.data.text + '</span></td>' +
                     '<td class="align-items-center"><input type="number" class="productRegularPrice form-control" style="width:80px;" value="1" min="1"></td>' +
                     '<td class="align-items-center"><input type="number" class="productDiscount form-control" style="width:80px;" min="1" value="1"></td>' +
 
@@ -586,14 +620,54 @@
 
 
             });
-                
-                
+            //   Size Select2 Trigger
 
-            //    Delete Button
-            $(document).on("click", ".delete-btn", function () {
-                $(this).closest("tr").remove();
+            $("#sizeVariantList").select2({
+                placeholder: "Select Size",
+                templateResult: function (state) {
+                    if (!state.id) {
+                        return state.text;
+                    }
+                    var $state = $(
+                        '<span>' +
+                        state.text +
+                        "</span>"
+                    );
+                    return $state;
+                },
+                ajax: {
+                    type:'GET',
+                    url: '{{url('admin/size-variant-info')}}',
+                    processResults: function (data) {
+                        // var data = $.parseJSON(data);
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            }).trigger("change").on("select2:select", function (e) {
 
-            });        
+                $("#sizeVariantTable tbody").append(
+                    "<tr>" +
+                    '<td><span class="attrValueId">' + e.params.data.id + '</span></td>' +
+                    '<td><span class="productSize">' + e.params.data.text + '</span></td>' +
+                    '<td class="align-items-center"><input type="number" class="productRegularPrice form-control" style="width:80px;" value="1" min="1"></td>' +
+                    '<td class="align-items-center"><input type="number" class="productDiscount form-control" style="width:80px;" min="1" value="1"></td>' +
+
+
+                    '<td><button class="btn btn-sm btn-danger delete-btn"><i class="fa fa-trash"></i></button></td>\n' +
+                    "</tr>"
+                );
+
+            });
+                //    Delete Button
+                $(document).on("click", ".delete-btn", function () {
+                    $(this).closest("tr").remove();
+
+                });
+
+
+            
            
             
     </script> 
