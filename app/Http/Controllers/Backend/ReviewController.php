@@ -50,9 +50,9 @@ class ReviewController extends Controller
                 }
             })
 
-            ->addColumn('action', function ($coupon) {
+            ->addColumn('action', function ($review) {
                 return '<div class="d-flex gap-3"> 
-                    <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$coupon->id.'" id="deleteBtn"> <i class="fas fa-trash"></i></a>
+                    <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$review->id.'" id="deleteBtn"> <i class="fas fa-trash"></i></a>
                 </div>';
             })
             

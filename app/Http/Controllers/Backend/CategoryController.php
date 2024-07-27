@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -235,5 +236,12 @@ class CategoryController extends Controller
         $category->delete();
         
         return response()->json(['message' => 'Category has been deleted.'], 200);
+    }
+
+    public function getSubCategories(Request $request,Category $category)
+    {
+        $subcats= SubCategory::where('category_id', $category->id)->get();
+        
+        return response()->json(['message' => 'success', 'data' => $subcats], 200);
     }
 }
