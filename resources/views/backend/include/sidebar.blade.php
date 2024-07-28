@@ -23,7 +23,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{ route('admin.admins.index') }}">
                                 <span data-key="t-calendar">Admin List</span>
                             </a>
                         </li>
@@ -43,6 +43,7 @@
 
                     </ul>
                 </li>
+                
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-users"></i>
@@ -64,7 +65,7 @@
                     </ul>
                 </li>
                 
-{{--Banners and Sliders--}}
+               {{--Banners and Sliders--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-images"></i>
@@ -86,8 +87,8 @@
 
                     </ul>
                 </li>
-{{-- Attributes  --}}
 
+                {{-- Attributes  --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-heart"></i>
@@ -110,7 +111,7 @@
                     </ul>
                 </li>
 
-{{--Products--}}
+                {{--Products--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa-solid fa-shop"></i>
@@ -133,8 +134,18 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.products')}}">
+                            <a href="{{route('admin.product.index')}}">
                                 <span data-key="t-calendar">Products</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.coupons.index') }}">
+                                <span data-key="t-calendar">Coupons</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.reviews.index') }}">
+                                <span data-key="t-calendar">Reviews</span>
                             </a>
                         </li>
 

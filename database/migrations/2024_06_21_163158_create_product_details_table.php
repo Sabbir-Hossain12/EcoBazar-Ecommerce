@@ -28,10 +28,9 @@ return new class extends Migration
             
             $table->text('youtube_embed_link')->nullable();
             
-            $table->text('productImg_1');
-            $table->text('productImg_2')->nullable();
-            $table->text('productImg_3')->nullable();
-            $table->text('productImg_4')->nullable();
+            $table->text('productThumbnail_img');
+            $table->text('product_img')->nullable();
+         
             
             $table->string('meta_title')->nullable();
             $table->string('meta_key')->nullable();

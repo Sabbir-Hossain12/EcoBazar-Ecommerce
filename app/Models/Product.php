@@ -28,6 +28,11 @@ class Product extends Model
         return $this->belongsTo(Subcategory::class);
     }
 
+    public function weights()
+    {
+        return $this->hasMany(Weight::class);
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);

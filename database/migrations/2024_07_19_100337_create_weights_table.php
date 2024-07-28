@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('weights', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->foreignId('attrvalue_id')->constrained();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->string('reviewer_name')->default('John Doe');
-            $table->text('reviewer_img')->nullable();
-            $table->longText('review_text');
-            $table->string('rating');
+            $table->string('weight_title');
+            $table->decimal('productRegularPrice',10,2)->nullable();
+            $table->decimal('productSalePrice',10,2);
+            $table->integer('discount_percentage')->default(0);
             
-            $table->date('review_date');
-            $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');
-
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('weights');
     }
 };

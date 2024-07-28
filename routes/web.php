@@ -11,10 +11,13 @@ use App\Http\Controllers\Backend\BrandsController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PagesController;
+use App\Http\Controllers\Backend\ProductsController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubcategoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -64,7 +67,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/categories/topCategory-status', [CategoryController::class, 'changeTopCategoryStatus'])->name('admin.category.topCategoryStatus');
     Route::post('/categories/status', [CategoryController::class, 'changeCategoryStatus'])->name('admin.category.status');
     Route::get('/categories/edit/{id}', [CategoryController::class, 'categoryEdit'])->name('category.edit');
-
+    Route::get('/get-subcategory/{category}', [CategoryController::class, 'getSubCategories'])->name('admin.get.subcategory');
     
     //______ Subcategory _____//
     Route::resource('/subcategories', SubcategoryController::class)->names('admin.subcategory');
@@ -79,8 +82,17 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/change-brand-status', [BrandsController::class, 'changeBrandStatus'])->name('admin.brand.status');
     
     //______ Product _____//
-    Route::view('/products', 'backend.pages.products')->name('admin.products');
-
+    Route::resource('/products', ProductsController::class)->names('admin.product');
+    Route::get('/product-data', [ProductsController::class, 'getData'])->name('admin.product-data');
+    Route::get('/weight-variant-info',[ProductsController::class,'weightVariantInfo'])->name('admin.weight-variant-info');
+    Route::get('/color-variant-info',[ProductsController::class,'colorVariantInfo'])->name('admin.weight-variant-info');
+    Route::get('/size-variant-info',[ProductsController::class,'sizeVariantInfo'])->name('admin.weight-variant-info');
+    
+    Route::post('/change-product-status', [ProductsController::class, 'statusUpdate'])->name('admin.product.status');
+    Route::post('/change-product-featured-status', [ProductsController::class, 'featuredStatusUpdate'])->name('admin.product.featuredStatus');
+    Route::post('/change-product-hot-status', [ProductsController::class, 'hotStatusUpdate'])->name('admin.product.hotStatus');
+    Route::post('/change-product-popular-status', [ProductsController::class, 'popularStatusUpdate'])->name('admin.product.popularStatus');
+    
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');
     Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');
@@ -112,9 +124,19 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/pages', PagesController::class)->names('admin.pages');
     Route::post('/change-pages-status', [PagesController::class, 'changePagesStatus']);
 
+    //______ Coupon _____//
+    Route::resource('/coupons', CouponController::class)->names('admin.coupons');
+    Route::get('/coupon-data', [CouponController::class, 'getData'])->name('admin.coupon-data');
+    Route::post('/change-coupon-status', [CouponController::class, 'changeCouponStatus'])->name('admin.coupon.status');
 
     //______ Settings _____//
     Route::resource('/basic-info', BasicinfoController::class)->names('admin.basic');
+
+    //______ Review _____//
+    Route::resource('/reviews', ReviewController::class)->names('admin.reviews');
+    Route::get('/review-data', [ReviewController::class, 'getData'])->name('admin.review-data');
+    Route::post('/change-review-status', [ReviewController::class, 'changeReviewStatus'])->name('admin.review.status');
+    
 });
 
 
