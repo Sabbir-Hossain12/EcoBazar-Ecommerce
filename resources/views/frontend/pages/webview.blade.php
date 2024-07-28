@@ -7,7 +7,7 @@
 @push('add-css')
 
 <style>
-    
+
     /* Only for ( Banner section ) */
     .banner-page{
         background-color: #EDF2EE;
@@ -291,7 +291,7 @@
         <div class="container">
             <div class="row">
                 <div class="category-campaign-container">
-                    <div class="category-campaign-setup" style="background-image: url('./assets/images/campaign_image/category-banner-1.png');">
+                    <div class="category-campaign-setup" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/category-banner-1.png') }}');">
                         <div class="left-banner-title">
                             <h1>100% Fresh Cow Milk</h1>
                             <p><span>Starting at</span> $14.99</p>
@@ -299,7 +299,7 @@
                         </div>
                     </div>
 
-                    <div class="category-campaign-setup" style="background-image: url('./assets/images/campaign_image/category-banner-2.png');">
+                    <div class="category-campaign-setup" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/category-banner-2.png') }}');">
                         <div class="right-banner-title">
                             <p style="color: var(--theme-black); margin-bottom: 8px;">Drink Sale</p>
                             <h1 style="color: var(--theme-black);">Water & Soft Drink</h1>
@@ -307,7 +307,7 @@
                         </div>
                     </div>
 
-                    <div class="category-campaign-setup" style="background-image: url('./assets/images/campaign_image/category-banner-3.png');">
+                    <div class="category-campaign-setup" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/category-banner-3.png') }}');">
                         <div class="left-banner-title">
                             <p style="color: var(--theme-black); margin-bottom: 8px;">100% Organic</p>
                             <h1 style="color: var(--theme-black);">Quick Breakfast</h1>
@@ -1088,7 +1088,7 @@
         <div class="container">
             <div class="row">
                <div class="campaign-container">
-                  <div class="monthly-sales-campaign" style="background-image: url('./assets/images/campaign_image/monthly-sales-campaign.png');">
+                  <div class="monthly-sales-campaign" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/monthly-sales-campaign.png') }}');">
                         <h5>Best Deals</h5>
                         <h1>Sale of the Month</h1>
                         <ul class="counter-campaign">
@@ -1123,7 +1123,7 @@
                   </div><!-- End. monthly-sales-campaign -->
 
 
-                  <div class="balanced-health-campaign" style="background-image: url('./assets/images/campaign_image/balanced-health.png');">
+                  <div class="balanced-health-campaign" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/balanced-health.png') }}');">
                         <h5>85% Fat Free</h5>
                         <h1>Low-Fat Meat</h1>
                         <p>Started at <span>$79.99</span></p>
@@ -1133,7 +1133,7 @@
                   </div><!-- End. balanced-health-campaign -->
 
 
-                  <div class="seasonal-campaign" style="background-image: url('./assets/images/campaign_image/seasonal-campaign.png');">
+                  <div class="seasonal-campaign" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/seasonal-campaign.png') }}');">
                         <h5>Summer Sale</h5>
                         <h1>100% Fresh Fruit</h1>
                         <p>Up to <span class="badges discount_badge">64% OFF</span></p>
@@ -1163,7 +1163,7 @@
     <!-- Start Campaign Banner Section -->
     <section class="campaign-banner-section">
         <div class="container">
-            <div class="campaign-banner-container" style="background-image: url('./assets/images/campaign_image/discount_bannar.png');">
+            <div class="campaign-banner-container" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/discount_bannar.png') }}');">
                 <div class="row">
                     <div class="col-lg-5 offset-lg-7">
                         <div class="campaign-banner-details">

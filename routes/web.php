@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\AdminPermissionController;
 use App\Http\Controllers\Backend\AdminRoleController;
@@ -19,11 +20,21 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ReviewController;
 
-use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend.pages.webview');
-});
+Route::view('/', 'frontend.pages.webview');
+Route::view('/product-details', 'frontend.pages.products.product-details');
+Route::view('/checkout', 'frontend.pages.products.checkout');
+Route::view('/cart', 'frontend.pages.products.cart');
+Route::view('/wishlist', 'frontend.pages.products.wishlist');
+Route::view('/error', 'frontend.pages.static-pages.404');
+Route::view('/about', 'frontend.pages.static-pages.about');
+Route::view('/contact', 'frontend.pages.static-pages.contact');
+Route::view('/logins', 'frontend.pages.auth.login');
+Route::view('/order-success', 'frontend.pages.orders.order-success');
+Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
+Route::view('/user-dashboard', 'frontend.pages.dashboard.user-dashboard');
+Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
+Route::view('/shop', 'frontend.pages.products.shop-page');
 
 
 

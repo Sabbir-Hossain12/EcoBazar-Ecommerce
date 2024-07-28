@@ -1,3 +1,9 @@
+
+@php
+    $active_cat = Illuminate\Support\Facades\Request::segment(1);
+//    print_r($active_cat);
+@endphp
+
    <!-- Start header Section -->
    <header>
     <!-- Start header-topBar -->
@@ -73,11 +79,11 @@
                     <i class='bx bx-menu'></i>
 
                     <div class="category-dropdown">
-                        <h4>All Categories</h4>
+                        <h4>All Categories </h4>
                         <i class='bx bx-chevron-down'></i>
                     </div><!-- End. category-dropdown -->
 
-                    <div class="all-categories-show">
+                    <div class="all-categories-show {{ $active_cat == '' ? '' : 'category_active' }}">
                         <ul>
                             <li>
                                 <a href="">

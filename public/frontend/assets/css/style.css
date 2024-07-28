@@ -5196,8 +5196,8 @@ input[type="radio"]{
 .personal-form{
     margin-bottom: 80px;
 }
-.personal-form label{
-    color: var(--theme-gray-3);
+.form_label{
+    color: var(--theme-paragraph-1);
 }
 .shipping-form{
 
