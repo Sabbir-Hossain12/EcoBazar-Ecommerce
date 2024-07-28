@@ -88,6 +88,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/color-variant-info',[ProductsController::class,'colorVariantInfo'])->name('admin.weight-variant-info');
     Route::get('/size-variant-info',[ProductsController::class,'sizeVariantInfo'])->name('admin.weight-variant-info');
     
+    Route::post('/change-product-status', [ProductsController::class, 'statusUpdate'])->name('admin.product.status');
+    Route::post('/change-product-featured-status', [ProductsController::class, 'featuredStatusUpdate'])->name('admin.product.featuredStatus');
+    Route::post('/change-product-hot-status', [ProductsController::class, 'hotStatusUpdate'])->name('admin.product.hotStatus');
+    Route::post('/change-product-popular-status', [ProductsController::class, 'popularStatusUpdate'])->name('admin.product.popularStatus');
     
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');

@@ -162,9 +162,6 @@
             });
             
 
-          
-
-
             // Delete Products
             $(document).on('click', '#deleteProductBtn', function () {
                 let id = $(this).data('id');
@@ -216,15 +213,15 @@
 
             })
 
-            // Change Admin Status
-            $(document).on('click', '#adminStatus', function () {
+            // Change Product Status
+            $(document).on('click', '#status', function () {
                 let id = $(this).data('id');
                 let status = $(this).data('status')
-                console.log(id + status)
+               
                 $.ajax(
                     {
                         type: 'post',
-                        url: "{{route('admin.status')}}",
+                        url: "{{route('admin.product.status')}}",
                         data: {
                             '_token': token,
                             id: id,
@@ -256,6 +253,130 @@
                     }
                 )
             })
+            
+            //Change  Featured Product Status 
+            $(document).on('click', '#featuredStatus', function () {
+                let id = $(this).data('id');
+                let status = $(this).data('status')
+
+                $.ajax(
+                    {
+                        type: 'post',
+                        url: "{{route('admin.product.featuredStatus')}}",
+                        data: {
+                            '_token': token,
+                            id: id,
+                            featuredStatus: status
+
+                        },
+                        success: function (res) {
+                            productTable.ajax.reload();
+
+                            if (res.status == 1) {
+
+                                swal.fire(
+                                    {
+                                        title: 'Featured Status Changed to Active',
+                                        icon: 'success'
+                                    })
+                            } else {
+                                swal.fire(
+                                    {
+                                        title: 'Featured Status Changed to Inactive',
+                                        icon: 'success'
+                                    })
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    }
+                )
+            })
+            
+            //Change  Hot Product Status 
+            $(document).on('click', '#hotStatus', function () {
+                let id = $(this).data('id');
+                let status = $(this).data('status')
+
+                $.ajax(
+                    {
+                        type: 'post',
+                        url: "{{route('admin.product.hotStatus')}}",
+                        data: {
+                            '_token': token,
+                            id: id,
+                            hotStatus: status
+
+                        },
+                        success: function (res) {
+                            productTable.ajax.reload();
+
+                            if (res.status == 1) {
+
+                                swal.fire(
+                                    {
+                                        title: 'Hot Status Changed to Active',
+                                        icon: 'success'
+                                    })
+                            } else {
+                                swal.fire(
+                                    {
+                                        title: 'Hot Status Changed to Inactive',
+                                        icon: 'success'
+                                    })
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    }
+                )
+            })
+
+            //Change  Popular Product Status 
+            $(document).on('click', '#popularStatus', function () {
+                let id = $(this).data('id');
+                let status = $(this).data('status')
+
+                $.ajax(
+                    {
+                        type: 'post',
+                        url: "{{route('admin.product.popularStatus')}}",
+                        data: {
+                            '_token': token,
+                            id: id,
+                            popularStatus: status
+
+                        },
+                        success: function (res) {
+                            productTable.ajax.reload();
+
+                            if (res.status == 1) {
+
+                                swal.fire(
+                                    {
+                                        title: 'Popular Status Changed to Active',
+                                        icon: 'success'
+                                    })
+                            } else {
+                                swal.fire(
+                                    {
+                                        title: 'Popular Status Changed to Inactive',
+                                        icon: 'success'
+                                    })
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    }
+                )
+            })
+
         });
     </script>
 

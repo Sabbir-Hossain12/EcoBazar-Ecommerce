@@ -60,52 +60,52 @@ class ProductsController extends Controller
             })
             
             ->addColumn('isPopular', function ($product) {
-                if ($product->productDetail->is_popular == 1) {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                        data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
+                if ($product->isPopular == 1) {
+                    return '<a class="status" id="popularStatus" href="javascript:void(0)"
+                        data-id="'.$product->id.'" data-status="1"> <i
                         class="fa-solid fa-toggle-on fa-2x"></i>
                     </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                        data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
+                    return '<a class="status" id="popularStatus" href="javascript:void(0)"
+                        data-id="'.$product->id.'" data-status="0"> <i
                           class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
                     </a>';
                 }
             })
             ->addColumn('isHot', function ($product) {
-                if ($product->productDetail->isHot == 1) {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                        data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
+                if ($product->isHot == 1) {
+                    return '<a class="status" id="hotStatus" href="javascript:void(0)"
+                        data-id="'.$product->id.'" data-status="1"> <i
                         class="fa-solid fa-toggle-on fa-2x"></i>
                     </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                        data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
+                    return '<a class="status" id="hotStatus" href="javascript:void(0)"
+                        data-id="'.$product->id.'" data-status="0"> <i
                           class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
                     </a>';
                 }
             })
             ->addColumn('isFeatured', function ($product) {
-                if ($product->productDetail->isFeatured == 1) {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                        data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
+                if ($product->isFeatured == 1) {
+                    return '<a class="status" id="featuredStatus" href="javascript:void(0)"
+                        data-id="'.$product->id.'" data-status="1"> <i
                         class="fa-solid fa-toggle-on fa-2x"></i>
                     </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
-                        data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
+                    return '<a class="status" id="featuredStatus" href="javascript:void(0)"
+                        data-id="'.$product->id.'" data-status="0"> <i
                           class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
                     </a>';
                 }
             })
             ->addColumn('status', function ($product) {
                 if ($product->status == 1) {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                    return '<a class="status" id="status" href="javascript:void(0)"
                         data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
                         class="fa-solid fa-toggle-on fa-2x"></i>
                     </a>';
                 } else {
-                    return '<a class="status" id="adminStatus" href="javascript:void(0)"
+                    return '<a class="status" id="status" href="javascript:void(0)"
                         data-id="'.$product->id.'" data-status="'.$product->status.'"> <i
                           class="fa-solid fa-toggle-off fa-2x" style="color: grey"></i>
                     </a>';
@@ -406,5 +406,82 @@ class ProductsController extends Controller
         $sizes = Attrvalue::where('attribute_name', 'Size')->where('status', 1)->get(['id', 'value as text']);
 
         return response()->json($sizes);
+    }
+
+
+    public function statusUpdate(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+
+
+        if ($status == 1) {
+            $stat = 0;
+        } else {
+            $stat = 1;
+        }
+
+        $product = Product::findOrFail($id);
+        $product->status = $stat;
+        $product->save();
+
+        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
+    }
+
+    public function featuredStatusUpdate(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->featuredStatus;
+
+
+        if ($status == 1) {
+            $stat = 0;
+        } else {
+            $stat = 1;
+        }
+
+        $product = Product::findOrFail($id);
+        $product->isFeatured = $stat;
+        $product->save();
+
+        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
+    }
+
+    public function hotStatusUpdate(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->hotStatus;
+
+
+        if ($status == 1) {
+            $stat = 0;
+        } else {
+            $stat = 1;
+        }
+
+        $product = Product::findOrFail($id);
+        $product->isHot = $stat;
+        $product->save();
+
+        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
+    }
+
+    public function popularStatusUpdate(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->popularStatus;
+
+
+        if ($status == 1) {
+            $stat = 0;
+        } else {
+            $stat = 1;
+        }
+
+        $product = Product::findOrFail($id);
+        $product->isPopular = $stat;
+        $product->save();
+        
+        return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
     }
 }
