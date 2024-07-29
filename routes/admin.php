@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\RegisterController;
-use Illuminate\Support\Facades\Route;
+
 
 Route::prefix('admin')->middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'create'])
@@ -25,3 +26,5 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('logout', [LoginController::class, 'destroy'])
         ->name('admin.logout');
 });
+
+
