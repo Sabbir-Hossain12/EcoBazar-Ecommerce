@@ -45,20 +45,15 @@ class ProductsController extends Controller
             ->addColumn('productImage', function ($product) {
                 return '<img class="img-fluid img-thumbnail rounded" src="'.asset($product->productDetail->productThumbnail_img).'" width="65px" alt=""/>';
             })
-           
             ->addColumn('available_qty', function ($product) {
                 return $product->productDetail->available_qty;
             })
-
             ->addColumn('sold_qty', function ($product) {
                 return $product->productDetail->sold_qty;
             })
-
-
             ->addColumn('sku', function ($product) {
                 return $product->productDetail->SKU;
             })
-            
             ->addColumn('isPopular', function ($product) {
                 if ($product->isPopular == 1) {
                     return '<a class="status" id="popularStatus" href="javascript:void(0)"
@@ -112,7 +107,8 @@ class ProductsController extends Controller
                 }
             })
             ->addColumn('action', function ($product) {
-                return '<div class="d-flex gap-2"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$product->id.'" data-bs-toggle="modal" data-bs-target="#editProductModal"><i class="fas fa-edit"></i></a>
+                $editRoute = route('admin.product.edit', $product->id);
+                return '<div class="d-flex gap-2"> <a class="editButton btn btn-sm btn-primary" href="'.$editRoute.'" data-id="'.$product->id.'" ><i class="fas fa-edit"></i></a>
 
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$product->id.'" id="deleteProductBtn"> <i class="fas fa-trash"></i></a>
                                                            </div>';
@@ -227,9 +223,9 @@ class ProductsController extends Controller
                     $weight->save();
                 }
             }
-            
-            
-                //Color Variant if Exist
+
+
+            //Color Variant if Exist
             $colorProducts = json_decode($request->colorProduct, true);
 
             if ($colorProducts) {
@@ -244,10 +240,10 @@ class ProductsController extends Controller
                     $color->save();
                 }
             }
-            
+
             //Size Variant if Exist
             $sizeProducts = json_decode($request->sizeProduct, true);
-            
+
 
             if ($sizeProducts) {
                 foreach ($sizeProducts as $sizeProduct) {
@@ -286,11 +282,18 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public
-    function edit(
-        Product $product
-    ) {
-        return view('backend.pages.products.edit', compact('product'));
+    public function edit(Product $product)
+    {
+//        dd(count($product->weights));
+        $brands = Brand::where('status', 1)->get();
+        $categories = Category::where('status', 1)->get();
+        $subcategories = Subcategory::where('category_id', $product->category_id)->where('status', 1)->get();
+        $tags = Attrvalue::where('attribute_name', 'Tag')->get();
+
+        $images = json_decode($product->productDetail->product_img, true) ?? [];
+        $checkedTags= json_decode($product->tag, true) ?? [];
+        return view('backend.pages.products.edit',
+            compact(['product', 'brands', 'categories', 'subcategories', 'tags','images','checkedTags']));
     }
 
     /**
@@ -298,61 +301,167 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->category_id = $request->category_id;
-        $product->subcategory_id = $request->subcategory_id;
-        $product->brand_id = $request->brand_id;
-        $product->product_name = $request->product_name;
-        $product->slug = Str::slug($request->product_name);
-        $product->color = $request->color;
-        $product->size = $request->size;
-        $product->weight = $request->weight;
-        $product->short_desc = $request->short_desc;
+        
+        DB::beginTransaction();
+        try {
+            
+            $product->category_id = $request->category_id;
+            $product->subcategory_id = $request->subcategory_id;
+            $product->brand_id = $request->brand_id;
+            $product->product_name = $request->product_name;
+            $product->short_desc = $request->short_desc;
 
-        $result = $product->save();
+            if ($request->has('tag')) {
+                foreach ($request->tag as $tag) {
+                    $tagArray[] = $tag;
+                }
 
+                $product->tag = json_encode($tagArray);
+            }
 
-        if ($result) {
-            $productDetails = ProductDetail::findOrFail('product_id', $product->id);
-            $productDetails->SKU = $request->SKU;
-            $productDetails->regular_price = $request->regular_price;
-            $productDetails->sale_price = $request->sale_price;
-            $productDetails->discount = $request->discount;
+            $product->save();
+            
+
+            $productDetails = ProductDetail::where('product_id', $product->id)->first();
             $productDetails->long_desc = $request->long_desc;
             $productDetails->youtube_embed_link = $request->youtube_embed_link;
+
             $productDetails->meta_title = $request->meta_title;
             $productDetails->meta_key = $request->meta_key;
             $productDetails->meta_desc = $request->meta_desc;
+
+            $productDetails->sold_qty = $request->sold_qty;
             $productDetails->total_qty = $request->total_qty;
             $productDetails->available_qty = $request->available_qty;
-            $productDetails->sold_qty = $request->sold_qty;
 
-            if ($request->hasFile('productImg_1')) {
-                $manager = new ImageManager(new Driver());
-                $imgs = $manager->read($request->productImg_1);
+            
+
+            $manager = new ImageManager(new Driver());
+
+//              Store Product Thumbnail Image
+            if ($request->hasFile('productThumbnail_img')) {
+                if (!empty($productDetails->productThumbnail_img && file_exists($productDetails->productThumbnail_img))) {
+                    unlink($productDetails->productThumbnail_img);
+                }
+                $imgs = $manager->read($request->productThumbnail_img);
                 $encoded = $imgs->toWebp(80);
-                $encodedFilename = time().'.webp';
+                $encodedFilename = $request->product_name.time().'.webp';
                 $encoded->save(public_path('backend/assets/images/uploads/products').'/'.$encodedFilename);
-                $productDetails->productImg_1 = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
+                $productDetails->productThumbnail_img = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
             }
-            if ($request->hasFile('productImg_2')) {
-                $manager = new ImageManager(new Driver());
-                $imgs = $manager->read($request->productImg_2);
-                $encoded = $imgs->toWebp(80);
-                $encodedFilename = time().'.webp';
-                $encoded->save(public_path('backend/assets/images/uploads/products').'/'.$encodedFilename);
-                $productDetails->productImg_2 = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
+
+//              Store Slider Images
+            if ($request->hasFile('product_img')) {
+
+                if ($productDetails->product_img) {
+                    
+                    $sliderArr= json_decode($productDetails->product_img, true) ?? [];
+                    foreach ($sliderArr as $sliderImg) {
+                        if (file_exists('public/backend/assets/images/uploads/products/'.$sliderImg)) {
+                            unlink('public/backend/assets/images/uploads/products/'.$sliderImg);
+                        }
+                    }
+                    
+                }
+                foreach ($request->file('product_img') as $productImg) {
+
+                   
+                    $sliderImgs = $manager->read($productImg);
+                    $encodedSlider = $sliderImgs->toWebp(80);
+                    $encodedSliderFilename = uniqid().$request->product_name.'-'.time().'.webp';
+                    $encodedSlider->save(public_path('backend/assets/images/uploads/products').'/'.$encodedSliderFilename);
+//                           $productImgPath = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
+
+                    $imageArray[] = $encodedSliderFilename;
+                }
+                $productDetails->product_img = json_encode($imageArray);
             }
-            if ($request->hasFile('productImg_3')) {
-                $manager = new ImageManager(new Driver());
-                $imgs = $manager->read($request->productImg_3);
-                $encoded = $imgs->toWebp(80);
-                $encodedFilename = time().'.webp';
-                $encoded->save(public_path('backend/assets/images/uploads/products').'/'.$encodedFilename);
-                $productDetails->productImg_3 = 'public/backend/assets/images/uploads/products/'.$encodedFilename;
-            }
+
+
             $productDetails->save();
 
+            // Weight Variant if Exist
+            $weightProducts = json_decode($request->weightProduct, true) ?? [];
+
+            // Loop through each product and save to the database
+            if ($weightProducts) {
+                foreach ($weightProducts as $weightProduct) {
+                    $weight = Weight::where('attrvalue_id', $weightProduct['attrValueId'])->where('product_id', $product->id)->first();
+                    if (!$weight) {
+                        $weight = new Color();
+                    }
+                    $weight->attrvalue_id = $weightProduct['attrValueId'];
+                    $weight->product_id = $product->id;
+                    $weight->weight_title = $weightProduct['productWeight'];
+                    $weight->productRegularPrice = $weightProduct['productRegularPrice'];
+                    $weight->discount_percentage = $weightProduct['productDiscount'];
+                    $weight->productSalePrice = $weightProduct['productRegularPrice'] - ($weightProduct['productRegularPrice'] * $weightProduct['productDiscount'] / 100);
+                    $weight->save();
+                    $weightIdArray[]=$weight->id;
+                }
+                Weight::where('product_id', $product->id)->whereNotIn('id', $weightIdArray)->delete();
+
+            }
+
+
+            //Color Variant if Exist
+            $colorProducts = json_decode($request->colorProduct, true) ?? [];
+
+         
+            if ($colorProducts) {
+                foreach ($colorProducts as $colorProduct) {
+                    $color = Color::where('attrvalue_id', $colorProduct['attrValueId'])->where('product_id', $product->id)->first();
+                    if (!$color) {
+                        $color = new Color();
+                    }
+                    $color->attrvalue_id = $colorProduct['attrValueId'];
+                    $color->product_id = $product->id;
+                    $color->color_title = $colorProduct['productColor'];
+                    $color->productRegularPrice = $colorProduct['productRegularPrice'];
+                    $color->discount_percentage = $colorProduct['productDiscount'];
+                    $color->productSalePrice = $colorProduct['productRegularPrice'] - ($colorProduct['productRegularPrice'] * $colorProduct['productDiscount'] / 100);
+                    
+                    
+                    $color->save();
+                    $colorIdArray[]=$color->id;
+                }
+                Color::where('product_id', $product->id)->whereNotIn('id', $colorIdArray)->delete();
+            }
+
+            //Size Variant if Exist
+            $sizeProducts = json_decode($request->sizeProduct, true) ?? [];
+
+
+            if ($sizeProducts) {
+                foreach ($sizeProducts as $sizeProduct) {
+
+                    $size = Size::where('attrvalue_id', $sizeProduct['attrValueId'])->where('product_id', $product->id)->first();
+                    if (!$size) {
+                        $size = new Size();
+                    }
+                    $size->attrvalue_id = $sizeProduct['attrValueId'];
+                    $size->product_id = $product->id;
+                    $size->size_title = $sizeProduct['productSize'];
+                    $size->productRegularPrice = $sizeProduct['productRegularPrice'];
+                    $size->discount_percentage = $sizeProduct['productDiscount'];
+                    $size->productSalePrice = $sizeProduct['productRegularPrice'] - ($sizeProduct['productRegularPrice'] * $sizeProduct['productDiscount'] / 100);
+                    $size->save();
+
+                    $sizesIdArray[]=$size->id;
+
+                }
+                
+                Size::where('product_id', $product->id)->whereNotIn('id', $sizesIdArray)->delete();
+
+            }
+
+            DB::commit();
+
             return response()->json(['message' => 'success'], 201);
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json(['message' => 'failed', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -366,24 +475,22 @@ class ProductsController extends Controller
             unlink($product_details->productThumbnail_img);
         }
 
-        
-        
-        $sliderImg=json_decode($product_details->product_img);
-            foreach ($sliderImg as $img) {
-                if (file_exists($img)) {
-                    unlink($img);
-                }
+
+        $sliderImg = json_decode($product_details->product_img);
+        foreach ($sliderImg as $img) {
+            if (file_exists($img)) {
+                unlink($img);
             }
+        }
 
-            $product_details->delete();
+        $product_details->delete();
 
-            Weight::where('product_id', $product->id)->delete();
+        Weight::where('product_id', $product->id)->delete();
 
-            $result = $product->delete();
+        $result = $product->delete();
 
 
-            return response()->json(['message' => 'success'], 200);
-        
+        return response()->json(['message' => 'success'], 200);
     }
 
 
@@ -481,7 +588,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $product->isPopular = $stat;
         $product->save();
-        
+
         return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
     }
 }
