@@ -4,14 +4,14 @@
             <div class="row widget">
                 <div class="col-12 col-lg-3">
                     <div class="widget-about">
-                        <img src="{{ asset('public/frontend/assets/images/white-logo.png') }}" class="footer-logo" alt="Footer Logo">
-                        <p>Morbi cursus porttitor enim lobortis molestie. Duis gravida turpis dui, eget bibendum magna congue nec.</p>
+                        <img src="{{ asset($basic_info->light_logo) }}" style=" height: 60px" class="footer-logo" alt="Footer Logo">
+                        <p>{{$basic_info->short_desc}}</p>
                         
                         <div class="widget_contacts">
                             <div class="widget_contacts_div">
-                                <a href="mailto:hnazmul748@gmail.com">hnazmul748@gmail.com</a>
+                                <a href="mailto:hnazmul748@gmail.com">{{$basic_info->email}}</a>
                                 <span>or</span>
-                                <a href="tel:01868512081">01868512081</a>
+                                <a href="tel:01868512081">{{$basic_info->phone_1}}</a>
                             </div><!-- End .widget_contacts_div -->
                         </div><!-- End .widget_contacts -->
 
@@ -95,16 +95,16 @@
                         <!-- End .widget-title -->
                         <ul class="social-link">
                             <li>
-                                <i class="fa-brands fa-facebook-f social-active"></i>
+                            <a href="{{$basic_info->fb_link}}">    <i class="fa-brands fa-facebook-f social-active"></i></a>
                             </li>
                             <li>
-                                <i class="fa-brands fa-x-twitter"></i>
+                                <a href="{{$basic_info->x_link}}">      <i class="fa-brands fa-x-twitter"></i></a>
                             </li>
                             <li>
-                                <i class="fa-brands fa-pinterest-p"></i>
+                                <a href="{{$basic_info->p_link}}">   <i class="fa-brands fa-pinterest-p"></i></a>
                             </li>
                             <li>
-                                <i class="fa-brands fa-instagram"></i>
+                                <a href="{{$basic_info->insta_link}}">   <i class="fa-brands fa-instagram"></i></a>
                             </li>
                         </ul>
                         <!-- End .social-link -->
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-lg-12">
                 <div class="footer_copyright">
-                    <p>Ecobazar eCommerce © 2021. All Rights Reserved</p>
+                    <p> {{env('APP_NAME')}} eCommerce © 2024. All Rights Reserved</p>
                     <img src="{{ asset('public/frontend/assets/images/footer_image/Payment.png') }}" alt="">
                 </div>
                 </div><!-- End. col-lg-12 -->

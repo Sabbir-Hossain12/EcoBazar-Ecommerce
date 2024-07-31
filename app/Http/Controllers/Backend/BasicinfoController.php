@@ -49,6 +49,29 @@ class BasicinfoController extends Controller
             $data->google_analytics = $request->google_analytics;
             $data->chatbox_script = $request->chatbox_script;
             $data->marquee_text = $request->marquee_text;
+            $data->short_desc = $request->short_desc;
+            
+            if ($request->hasFile('black_logo')) {
+                
+                if ($data->black_logo && file_exists($data->black_logo)) {
+                    unlink($data->black_logo);
+                }
+                $file = $request->file('black_logo');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/backend/images/logo/',$filename);
+                $data->black_logo ='public/backend/images/logo/'.$filename;
+            }
+
+            if ($request->hasFile('light_logo')) {
+
+                if ($data->light_logo && file_exists($data->light_logo)) {
+                    unlink($data->light_logo);
+                }
+                $file = $request->file('light_logo');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/backend/images/logo/',$filename);
+                $data->light_logo ='public/backend/images/logo/'.$filename;
+            }
             
             $data->save();
             

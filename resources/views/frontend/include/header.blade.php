@@ -12,7 +12,7 @@
             <div class="header-topBar">
             <div class="address">
                 <i class='bx bx-map'></i>
-                <p>Store Location: Lincoln- 344, Illinois, Chicago, USA</p>
+                <p> {{$basic_info->store_location}}</p>
             </div>
 
             <div class="localization">
@@ -45,7 +45,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4">
                         <div class="logo">
-                            <img src="{{ asset('public/frontend/assets/images/black-logo.png') }}" alt="">
+                            <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
                         </div>
                     </div>
     
@@ -62,7 +62,7 @@
                             <i class='bx bx-phone-call'></i>
                             <div class="support-system">
                                 <h5>Customer Services</h5>
-                                <p>(219) 555-0114</p>
+                                <p>{{ $basic_info->phone_1}}</p>
                             </div>
                         </div>
                     </div>
@@ -365,7 +365,7 @@
                     <div class="header-topBar">
                         <div class="address">
                             <i class='bx bx-map'></i>
-                            <p>Store Location: Lincoln- 344, Illinois, Chicago, USA</p>
+                            <p>{{$basic_info->store_location}}</p>
                         </div>
             
                         <div class="localization">
@@ -392,7 +392,7 @@
                     <div class="header-bottom">
                         <div class="sidebar-icon">
                             <i class="fa-solid fa-bars" id="hamBurger-icon"></i>
-                            <img src="{{ asset('public/frontend/assets/images/black-logo.png') }}" alt="">
+                            <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
                         </div>
 
                         <!-- <div class="header-main"> -->
@@ -428,7 +428,7 @@
                 </div>
 
                 <div class="responsive-topBar">
-                    <img src="{{ asset('public/frontend/assets/images/black-logo.png') }}" alt="">
+                    <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
                 </div>
 
                 <div class="mobile-search-form">

@@ -25,7 +25,7 @@
     </div>
 
     {{--    Form Starts--}}
-    <form method="post" action="{{route('admin.basic.store')}}">
+    <form method="post" action="{{route('admin.basic.store')}}" enctype="multipart/form-data">
         @csrf
     <div class="row">
         @if(Session::has('error_message'))
@@ -49,6 +49,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div>
+                                <div class="mb-3">
+                                    <label for="logo" class="form-label">Black Logo</label>
+                                    <input oninput="bLogoImgPrev.src=window.URL.createObjectURL(this.files[0])" class="form-control" type="file" name="black_logo"
+                                           id="logo">
+                                    <img id="bLogoImgPrev" class="mt-1" src="{{asset($data->black_logo)}}" height="60px" width="200px" alt=""/>
+                                </div>
+                                
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input class="form-control" type="email" name="email" placeholder="xyz@gmail.com"
@@ -76,12 +83,23 @@
                                            id="p_link" value="{{$data->p_link}}">
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="short_desc" class="form-label">Short Description(footer)</label>
+                                    <textarea id="short_desc" name="short_desc" class="form-control">{{$data->short_desc}}</textarea>
+                                </div>
+
 
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="mt-3 mt-lg-0">
+                                <div class="mb-3">
+                                    <label for="logo" class="form-label">Light Logo</label>
+                                    <input oninput="wLogoImgPrev.src=window.URL.createObjectURL(this.files[0])" class="form-control" type="file" name="light_logo"
+                                           id="logo">
+                                    <img id="wLogoImgPrev" class="mt-1" src="{{asset($data->light_logo)}}" height="60px" width="200px" alt=""/>
+                                </div>
                                 <div class="mb-3">
                                     <label for="youtube_link" class="form-label">Youtube Link</label>
                                     <input class="form-control" name="youtube_link" type="text" placeholder="Enter Store Phone Number"
@@ -106,7 +124,8 @@
                                 <div class="mb-3">
                                     <label for="store_location" class="form-label">Store Location</label>
                                     <textarea id="store_location" name="store_location" class="form-control">{{$data->store_location}}</textarea>
-                                </div>
+                                </div> 
+                                
 
                             </div>
                         </div>
