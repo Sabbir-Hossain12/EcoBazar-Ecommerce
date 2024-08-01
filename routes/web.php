@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
 //Webview Routes
+//Route::get('/product-by-category/{category:slug}',[ProductController::class,'productByCategorySlug'])->name('product-details');
+
 Route::view('/', 'frontend.pages.webview');
 Route::view('/product-details', 'frontend.pages.products.product-details');
 Route::view('/checkout', 'frontend.pages.products.checkout');

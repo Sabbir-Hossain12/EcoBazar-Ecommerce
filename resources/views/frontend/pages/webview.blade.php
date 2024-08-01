@@ -157,65 +157,17 @@
                 </div>
 
                 <div class="category-container">
+                    @forelse($popular_categories as $popular_category) 
                     <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/fresh_fruit.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/fresh_vegetables.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/meat_fish.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/snacks.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/beverage.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/beauty_health.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/bread_bekary.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/baking.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/cooking.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/diabetic_food.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/dish_detergent.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-                    
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/oil.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
+                        <img src="{{ asset($popular_category->category_img_path) }}"  alt="">
+                        <h2>{{$popular_category->category_name}}</h2>
+                    </a>
+                        <!-- End. category-container -->
+                        
+                    @empty
+                        <span class="text-center">No Categories found</span>
+                    @endforelse
+                
                 </div><!-- End. category-container -->
 
 
@@ -330,9 +282,10 @@
                 </div><!-- End. header-titles -->
 
                 <div class="products-container">
+                    @forelse($popular_products as $popular_product) 
                     <div class="products-description">
                         <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/apple.png') }}" alt="">
+                            <img src="{{ asset($popular_product->productDetail->productThumbnail_img) }}" alt="">
                             <span class="badges sale_badge product-badges">Sale 50%</span>
 
                             <ul class="product-icons-show">
@@ -351,9 +304,10 @@
 
                         <div class="product-info">
                             <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
+                                <a href="" class="product-title">{{ $popular_product->product_name }}</a>
+                                @if(count($popular_product->colors)>0)
+                                <p>${{$popular_product->colors[0]->productRegularPrice}} <del><span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span></del></p>
+                                @endif
                                 <div class="product-review">
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
@@ -367,340 +321,11 @@
                                 <i class='bx bx-shopping-bag'></i>
                             </a>
                         </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/bakchoy.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/brinjel.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/capsicum.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/cauliflower.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/corn.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/green-paper.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/lettuce.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/potato.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
-
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
-                            </div><!-- End. product-image -->
-
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
+                    </div>
+                        
+                    @empty
+                    @endforelse
+                        
                 </div><!-- End. products-container -->
 
                  <!-- For responsive product-responsive -->

@@ -34,7 +34,7 @@ class SubcategoryController extends Controller
         return DataTables::of($subCategories)
             
         ->addColumn('subCategoryImg', function ($subCategory) {    
-            return '<img src="'.asset( $subCategory->subcategory_img ).'" width="50px" height="50px">';
+            return '<img src="'.asset( $subCategory->subcategory_img ).'" width="200" >';
         })
 
         ->addColumn('status', function ($subCategory) {

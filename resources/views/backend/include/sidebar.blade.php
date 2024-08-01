@@ -44,26 +44,26 @@
                     </ul>
                 </li>
                 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fa-solid fa-users"></i>
-                        <span data-key="t-apps">Users</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{route('admin.user.index')}}">
-                                <span data-key="t-calendar">Users List</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('admin.category.index')}}">
-                                <span data-key="t-calendar">Roles and Permission</span>
-                            </a>
-                        </li>
+{{--                <li>--}}
+{{--                    <a href="javascript: void(0);" class="has-arrow">--}}
+{{--                        <i class="fa-solid fa-users"></i>--}}
+{{--                        <span data-key="t-apps">Users</span>--}}
+{{--                    </a>--}}
+{{--                    <ul class="sub-menu" aria-expanded="false">--}}
+{{--                        <li>--}}
+{{--                            <a href="">--}}
+{{--                                <span data-key="t-calendar">Users List</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('admin.category.index')}}">--}}
+{{--                                <span data-key="t-calendar">Roles and Permission</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
 
-                    </ul>
-                </li>
+{{--                    </ul>--}}
+{{--                </li>--}}
                 
                {{--Banners and Sliders--}}
                 <li>

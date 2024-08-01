@@ -115,6 +115,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/change-product-hot-status', [ProductsController::class, 'hotStatusUpdate'])->name('admin.product.hotStatus');
     Route::post('/change-product-popular-status', [ProductsController::class, 'popularStatusUpdate'])->name('admin.product.popularStatus');
 
+    Route::post('/upload-ckeditor-image', [ProductsController::class, 'uploadCkeditorImage'])->name('admin.ckeditor.upload');
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');
     Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');

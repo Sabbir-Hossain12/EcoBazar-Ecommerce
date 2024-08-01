@@ -291,9 +291,9 @@ class ProductsController extends Controller
         $tags = Attrvalue::where('attribute_name', 'Tag')->get();
 
         $images = json_decode($product->productDetail->product_img, true) ?? [];
-        $checkedTags= json_decode($product->tag, true) ?? [];
+        $checkedTags = json_decode($product->tag, true) ?? [];
         return view('backend.pages.products.edit',
-            compact(['product', 'brands', 'categories', 'subcategories', 'tags','images','checkedTags']));
+            compact(['product', 'brands', 'categories', 'subcategories', 'tags', 'images', 'checkedTags']));
     }
 
     /**
@@ -301,10 +301,8 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        
         DB::beginTransaction();
         try {
-            
             $product->category_id = $request->category_id;
             $product->subcategory_id = $request->subcategory_id;
             $product->brand_id = $request->brand_id;
@@ -320,7 +318,7 @@ class ProductsController extends Controller
             }
 
             $product->save();
-            
+
 
             $productDetails = ProductDetail::where('product_id', $product->id)->first();
             $productDetails->long_desc = $request->long_desc;
@@ -334,7 +332,6 @@ class ProductsController extends Controller
             $productDetails->total_qty = $request->total_qty;
             $productDetails->available_qty = $request->available_qty;
 
-            
 
             $manager = new ImageManager(new Driver());
 
@@ -352,20 +349,15 @@ class ProductsController extends Controller
 
 //              Store Slider Images
             if ($request->hasFile('product_img')) {
-
                 if ($productDetails->product_img) {
-                    
-                    $sliderArr= json_decode($productDetails->product_img, true) ?? [];
+                    $sliderArr = json_decode($productDetails->product_img, true) ?? [];
                     foreach ($sliderArr as $sliderImg) {
                         if (file_exists('public/backend/assets/images/uploads/products/'.$sliderImg)) {
                             unlink('public/backend/assets/images/uploads/products/'.$sliderImg);
                         }
                     }
-                    
                 }
                 foreach ($request->file('product_img') as $productImg) {
-
-                   
                     $sliderImgs = $manager->read($productImg);
                     $encodedSlider = $sliderImgs->toWebp(80);
                     $encodedSliderFilename = uniqid().$request->product_name.'-'.time().'.webp';
@@ -386,7 +378,8 @@ class ProductsController extends Controller
             // Loop through each product and save to the database
             if ($weightProducts) {
                 foreach ($weightProducts as $weightProduct) {
-                    $weight = Weight::where('attrvalue_id', $weightProduct['attrValueId'])->where('product_id', $product->id)->first();
+                    $weight = Weight::where('attrvalue_id', $weightProduct['attrValueId'])->where('product_id',
+                        $product->id)->first();
                     if (!$weight) {
                         $weight = new Color();
                     }
@@ -397,20 +390,20 @@ class ProductsController extends Controller
                     $weight->discount_percentage = $weightProduct['productDiscount'];
                     $weight->productSalePrice = $weightProduct['productRegularPrice'] - ($weightProduct['productRegularPrice'] * $weightProduct['productDiscount'] / 100);
                     $weight->save();
-                    $weightIdArray[]=$weight->id;
+                    $weightIdArray[] = $weight->id;
                 }
                 Weight::where('product_id', $product->id)->whereNotIn('id', $weightIdArray)->delete();
-
             }
 
 
             //Color Variant if Exist
             $colorProducts = json_decode($request->colorProduct, true) ?? [];
 
-         
+
             if ($colorProducts) {
                 foreach ($colorProducts as $colorProduct) {
-                    $color = Color::where('attrvalue_id', $colorProduct['attrValueId'])->where('product_id', $product->id)->first();
+                    $color = Color::where('attrvalue_id', $colorProduct['attrValueId'])->where('product_id',
+                        $product->id)->first();
                     if (!$color) {
                         $color = new Color();
                     }
@@ -420,10 +413,10 @@ class ProductsController extends Controller
                     $color->productRegularPrice = $colorProduct['productRegularPrice'];
                     $color->discount_percentage = $colorProduct['productDiscount'];
                     $color->productSalePrice = $colorProduct['productRegularPrice'] - ($colorProduct['productRegularPrice'] * $colorProduct['productDiscount'] / 100);
-                    
-                    
+
+
                     $color->save();
-                    $colorIdArray[]=$color->id;
+                    $colorIdArray[] = $color->id;
                 }
                 Color::where('product_id', $product->id)->whereNotIn('id', $colorIdArray)->delete();
             }
@@ -434,8 +427,8 @@ class ProductsController extends Controller
 
             if ($sizeProducts) {
                 foreach ($sizeProducts as $sizeProduct) {
-
-                    $size = Size::where('attrvalue_id', $sizeProduct['attrValueId'])->where('product_id', $product->id)->first();
+                    $size = Size::where('attrvalue_id', $sizeProduct['attrValueId'])->where('product_id',
+                        $product->id)->first();
                     if (!$size) {
                         $size = new Size();
                     }
@@ -447,12 +440,10 @@ class ProductsController extends Controller
                     $size->productSalePrice = $sizeProduct['productRegularPrice'] - ($sizeProduct['productRegularPrice'] * $sizeProduct['productDiscount'] / 100);
                     $size->save();
 
-                    $sizesIdArray[]=$size->id;
-
+                    $sizesIdArray[] = $size->id;
                 }
-                
-                Size::where('product_id', $product->id)->whereNotIn('id', $sizesIdArray)->delete();
 
+                Size::where('product_id', $product->id)->whereNotIn('id', $sizesIdArray)->delete();
             }
 
             DB::commit();
@@ -591,4 +582,22 @@ class ProductsController extends Controller
 
         return response()->json(['message' => 'success', 'status' => $stat, 'id' => $id]);
     }
+
+//    Upload in CkEditor
+    public function uploadCkeditorImage(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName.'_'.time().'.'.$extension;
+            $request->file('upload')->move(('public/backend/assets/images/uploads/products/ckeditor'), $fileName);
+        }
+
+        return response()->json([
+            'url' => asset('public/backend/assets/images/uploads/products/ckeditor/'.$fileName), 'fileName' => $fileName,
+            'uploaded' => 1
+        ]);
+    }
+
 }
