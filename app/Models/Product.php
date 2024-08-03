@@ -49,13 +49,15 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function activeReviews()
+    {
+        return $this->hasMany(Review::class)->active();
+    }
     
     
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
+   
 
 
 }

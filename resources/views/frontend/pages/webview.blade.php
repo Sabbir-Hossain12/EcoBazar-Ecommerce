@@ -304,7 +304,7 @@
 
                         <div class="product-info">
                             <div class="product-bio">
-                                <a href="" class="product-title">{{ $popular_product->product_name }}</a>
+                                <a href="{{url('/product-details/'.$popular_product->slug)}}" class="product-title">{{ $popular_product->product_name }}</a>
                                 @if(count($popular_product->colors)>0)
                                 <p>${{$popular_product->colors[0]->productRegularPrice}} <del><span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span></del></p>
                                 @endif

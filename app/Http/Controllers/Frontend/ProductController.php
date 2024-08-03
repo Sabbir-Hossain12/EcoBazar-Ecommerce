@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -65,8 +66,22 @@ class ProductController extends Controller
     }
 
 
-    public function productByCategorySlug(Category $category)
+    public function productDetails(Product $product)
     {
+        $sliderimgs= json_decode($product->productDetail->product_img,true);
+
+        $productTags= json_decode($product->tag,true);
         
+        $reviewRatingAvg=$product->reviews->avg('rating');
+         $product->load('activeReviews');
+         $ActiveReviews=$product->activeReviews;
+        
+        return view('frontend.pages.products.product-details', [
+            'product' => $product,
+            'sliderimgs' => $sliderimgs,
+            'productTags' => $productTags,
+            'reviewRatingAvg' => $reviewRatingAvg,
+            'ActiveReviews' => $ActiveReviews
+        ]);
     }
 }

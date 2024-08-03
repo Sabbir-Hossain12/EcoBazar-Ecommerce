@@ -4268,7 +4268,7 @@ input[type="radio"]{
 
 .product-description-container{
    display: flex;
-   align-items: center;
+   align-items: start;
    justify-content: space-between;
    gap: 15px;
 }
@@ -4320,7 +4320,11 @@ input[type="radio"]{
     width: 50%;
     margin-top: 40px;
     overflow-y: scroll;
+    scrollbar-width: thin;
     height: 500px;
+}
+body::-webkit-scrollbar {
+    width: 8px !important;               /* width of the entire scrollbar */
 }
 .customer-review{
     width: 45%;

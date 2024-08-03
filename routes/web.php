@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Route;
 //Webview Routes
 //Route::get('/product-by-category/{category:slug}',[ProductController::class,'productByCategorySlug'])->name('product-details');
 
+Route::get('/product-details/{product:slug}',[ProductController::class,'productDetails'])->name('product-details');
 Route::view('/', 'frontend.pages.webview');
-Route::view('/product-details', 'frontend.pages.products.product-details');
+//Route::view('/product-details', 'frontend.pages.products.product-details');
 Route::view('/checkout', 'frontend.pages.products.checkout');
 Route::view('/cart', 'frontend.pages.products.cart');
 Route::view('/wishlist', 'frontend.pages.products.wishlist');

@@ -147,7 +147,7 @@
 
                             <div class="col-lg-12 mb-3">
                                 <label for="long_desc" class="form-label">Long Description</label>
-                                <textarea class="form-control" name="long_desc" id="longDesc"
+                                <textarea class="form-control" id="long_Desc"
                                           rows="1">{{$product->productDetail->long_desc}}</textarea>
                             </div>
 
@@ -467,6 +467,8 @@
             //Update Products
             $('#editProduct').submit(function (e) {
                 e.preventDefault();
+                const long_desc = data.getData();
+                console.log($('#long_Desc').text());
                 // Weight variants store
                 var wProduct = [];
                 var wProductCount = 0;
@@ -514,6 +516,9 @@
                 // console.log(wProduct);
                 
                 var formData = new FormData(this);
+                
+
+                formData.append('long_desc', long_desc);
 
                 // Appending Weight variant data
                 formData.append('weightProduct', JSON.stringify(wProduct));
@@ -572,8 +577,9 @@
 
 
             //  CKEditor on Products Desctription
+            let data;
             ClassicEditor
-                .create(document.querySelector('#longDesc'),{
+                .create(document.querySelector('#long_Desc'),{
 
                     ckfinder:
                         {
@@ -583,7 +589,7 @@
 
                 })
                 .then(newEditor => {
-                    jReq = newEditor;
+                    data = newEditor;
                 })
                 .catch(error => {
                     console.error(error);
