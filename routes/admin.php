@@ -1,28 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Backend\Auth\LoginController;
-use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\AdminPermissionController;
 use App\Http\Controllers\Backend\AdminRoleController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttrvalueController;
+use App\Http\Controllers\Backend\Auth\LoginController;
+use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BasicinfoController;
 use App\Http\Controllers\Backend\BrandsController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\ProductsController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubcategoryController;
-use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\ReviewController;
+use Illuminate\Support\Facades\Route;
 
 //Admin Auth Routes
 Route::prefix('admin')->middleware('guest')->group(function () {

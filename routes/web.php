@@ -16,7 +16,6 @@ Route::view('/wishlist', 'frontend.pages.products.wishlist');
 Route::view('/error', 'frontend.pages.static-pages.404');
 Route::view('/about', 'frontend.pages.static-pages.about');
 Route::view('/contact', 'frontend.pages.static-pages.contact');
-Route::view('/logins', 'frontend.pages.auth.login');
 Route::view('/order-success', 'frontend.pages.orders.order-success');
 Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
 Route::view('/user-dashboard', 'frontend.pages.dashboard.user-dashboard');

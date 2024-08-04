@@ -4323,9 +4323,9 @@ input[type="radio"]{
     scrollbar-width: thin;
     height: 500px;
 }
-body::-webkit-scrollbar {
-    width: 8px !important;               /* width of the entire scrollbar */
-}
+/*body::-webkit-scrollbar {*/
+/*    width: 8px !important;               !* width of the entire scrollbar *!*/
+/*}*/
 .customer-review{
     width: 45%;
     margin-left: auto;

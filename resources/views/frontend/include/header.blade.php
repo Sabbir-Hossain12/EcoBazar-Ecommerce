@@ -45,7 +45,9 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4">
                         <div class="logo">
+                            <a href="{{url('/')}}">
                             <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
+                            </a>
                         </div>
                     </div>
     
@@ -85,60 +87,22 @@
 
                     <div class="all-categories-show {{ $active_cat == '' ? '' : 'category_active' }}">
                         <ul>
+                            @foreach($frontCategories as $frontCategory) 
                             <li>
                                 <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/apple.png') }}" alt="">
-                                    <span>Fresh Fruit</span>
+                                    <img class="rounded" src="{{ asset($frontCategory->category_img_path) }}" alt="">
+                                    <span>{{ $frontCategory->category_name }}</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/vegetable.png') }}" alt="">
-                                    <span>Vegetables</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/chicken-leg.png') }}" alt="">
-                                    <span>River Fish</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/fish.png') }}" alt="">
-                                    <span>Chicken & Meats</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/ice-cream.png') }}" alt="">
-                                    <span>Drink & Water</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/soda.png') }}" alt="">
-                                    <span>Yogurt & Ice Cream</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/cup-cake.png') }}" alt="">
-                                    <span>Cake & Bread</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="{{ asset('public/frontend/assets/images/category_image/category-icons/cooking-pot.png') }}" alt="">
-                                    <span>Butter & Cream</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class='bx bx-plus'></i>
-                                    <span>View All Category</span>
-                                </a>
-                            </li>
+                            @endforeach
+
+                                <li>
+                                    <a href="">
+                                        <i class='bx bx-plus'></i>
+                                        <span>View All Category</span>
+                                    </a>
+                                </li>
+                           
                         </ul>
                     </div><!-- End. all-categories-show -->
                 </div><!-- End. categories-menu -->
@@ -155,75 +119,23 @@
 
                                     <div class="catSub-show">
                                         <ul class="category_menu">
+                                            @foreach($navCategories as $navCategory) 
                                             <li>
                                                 <div class="subCategory_menu">
-                                                    <span>Snacks</span>
+                                                    <span>{{$navCategory->category_name}}</span>
 
                                                     <ul class="">
+                                                        @foreach($navCategory->subCategories as $subCategory) 
                                                         <li>
-                                                            <a href="">sadzfsdf</a>
+                                                            <a href="">{{$subCategory->subcategory_name}}</a>
                                                         </li>
-                                                        <li>
-                                                            <a href="">ergerdfgeds</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">hrthjretjtr</a>
-                                                        </li>
+                                                      
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </li>
 
-                                            <li>
-                                                <div class="subCategory_menu">
-                                                    <span>Snacks</span>
-
-                                                    <ul class="">
-                                                        <li>
-                                                            <a href="">sadzfsdf</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">ergerdfgeds</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">hrthjretjtr</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="subCategory_menu">
-                                                    <span>Snacks</span>
-
-                                                    <ul class="">
-                                                        <li>
-                                                            <a href="">sadzfsdf</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">ergerdfgeds</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">hrthjretjtr</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="subCategory_menu">
-                                                    <span>Snacks</span>
-
-                                                    <ul class="">
-                                                        <li>
-                                                            <a href="">sadzfsdf</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">ergerdfgeds</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">hrthjretjtr</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
+                                            @endforeach
                                         </ul>
 
                                         <a href="#" class="all-category-views">View All Shop <i class="fa-solid fa-arrow-right ms-2"></i>
@@ -240,6 +152,12 @@
                             <li>
                                 <a href="">Contact Us</a>
                             </li>
+                            @auth()
+                                <li>
+                                    <a href="">Dashboard</a>
+                                </li>
+                            @endauth
+                            
                         </ul>
                     </div><!-- End. menu-list -->
 
@@ -257,6 +175,7 @@
                                     <span>0</span>
                                 </a>
                             </li>
+                            @guest()
                             <li class="accounts-menu">
                                 <a href="javascript:;">
                                     <i class='bx bx-user'></i>
@@ -265,14 +184,39 @@
                                 <div class="accounts-menu-list">
                                     <ul>
                                         <li>
-                                            <a href="">Login</a>
+                                            <a href="{{route('login')}}">Login</a>
                                         </li>
                                         <li>
-                                            <a href="">Register</a>
+                                            <a href="{{route('register')}}">Register</a>
                                         </li>
                                     </ul>
                                 </div><!-- End. accounts-menu-list -->
-                            </li><!-- End. accounts-menu -->
+                            </li>
+                            @endguest
+                            
+                            {{-- Authenticated User   --}}
+                            @auth()
+                                <li class="accounts-menu">
+                                    <a href="javascript:;">
+                                        <i class='bx bxs-user'></i>
+                                    </a>
+
+                                    <div class="accounts-menu-list">
+                                        <ul>
+                                            <li>
+                                                <a href="{{route('login')}}">Dashboard</a>
+                                            </li>
+                                            <li>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                                <button type="submit" class="btn">Logout</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div><!-- End. accounts-menu-list -->
+                                </li>
+                                
+                            @endauth
                         </ul>
                     </div><!-- End. menu-right -->
                 </div>
@@ -497,7 +441,7 @@
                         <ul class="static-menu-list">
                             <li>
                             <a href="">Chicken & Meat</a>
-                            </li>
+                            </li>F
                             <li>
                             <a href="">Vegetables</a>
                             </li>

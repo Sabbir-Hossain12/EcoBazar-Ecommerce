@@ -47,9 +47,16 @@
             <div class="row">
                 <div class="main-form-field">
                     <div class="form-field">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
                         <h3>Create Account</h3>
+                        
                         <div class="mb-3">
                             <input type="email" name="email" class="normal-forms" placeholder="Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" name="name" class="normal-forms" placeholder="Name">
                         </div>
 
                         <div class="mb-3 password-form">
@@ -58,18 +65,19 @@
                         </div>
 
                         <div class="mb-3 password-form">
-                            <input type="password" name="password" class="normal-forms" id="confirm-password-form" placeholder="Confirm Password">
+                            <input type="password" name="password_confirmation" class="normal-forms" id="confirm-password-form" placeholder="Confirm Password">
                             <i class="ri-eye-line" id="confirm-password-icon"></i>
                         </div>
 
-                        <div class="remember-form mb-3">
-                            <input type="checkbox" name="remember" class="remember">
-                            <span>Accept all terms & Conditions</span>
-                        </div>
+{{--                        <div class="remember-form mb-3">--}}
+{{--                            <input type="checkbox" name="remember" class="remember">--}}
+{{--                            <span>Accept all terms & Conditions</span>--}}
+{{--                        </div>--}}
 
-                        <button class="form-btn">Sign In</button>
+                        <button type="submit" class="form-btn">Sign In</button>
 
-                        <p>Already have account? <a href="">Login</a></p>
+                        <p>Already have account? <a href="{{route('login')}}">Login</a></p>
+                        </form>
                     </div><!-- End. form-field -->
                 </div><!-- End. main-form-field -->
             </div><!-- End. row -->

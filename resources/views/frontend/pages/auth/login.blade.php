@@ -47,6 +47,8 @@
             <div class="row">
                 <div class="main-form-field">
                     <div class="form-field">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
                         <h3>Sign In</h3>
                         <div class="mb-3">
                             <input type="email" name="email" class="normal-forms" placeholder="Email">
@@ -69,7 +71,7 @@
                         <button type="submit" class="form-btn">Sign In</button>
 
                         <p>Don’t have account? <a href="">Register</a></p>
-
+                        </form>
                     </div><!-- End. form-field -->
                 </div><!-- End. main-form-field -->
             </div><!-- End. row -->

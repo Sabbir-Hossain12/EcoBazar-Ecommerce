@@ -11,6 +11,7 @@
     /* Only for ( Banner section ) */
     .banner-page{
         background-color: #EDF2EE;
+        
     }
     .banner-details span{
         color: var(--theme-green);
@@ -65,33 +66,25 @@
             <div class="row">
                 <div class="col-lg-9 offset-lg-3">
                     <div class="owl-carousel owl-theme" id="bannerSlider">
+                        @foreach($sliders as $slider) 
                         <div class="banner-page">
-                            <div class="banner-details order-second">
-                                <span>Welcome to shopery</span>
-                                <h1>Fresh & Healthy Organic Food</h1>
-                                <h5>Sale up to <span>30% OFF</span></h5>
-                                <p>Free shipping on all your order. we deliver, you enjoy</p>
-                                <button class="banner-btn">Shop Now <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                            </div><!-- End. banner-details -->
-
-                            <div class="banner-images order-first">
-                                <img src="{{ asset('public/frontend/assets/images/banner_images/banner-1.png') }}" alt="">
-                            </div>
-                        </div><!-- End. banner-page -->
-
-                        <div class="banner-page">
+                          
+                            
                             <div class="banner-details order-first">
-                                <span>Welcome to shopery</span>
-                                <h1>Fresh & Healthy Organic Food</h1>
-                                <h5>Sale up to <span>30% OFF</span></h5>
-                                <p>Free shipping on all your order. we deliver, you enjoy</p>
-                                <button class="banner-btn">Shop Now <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                            </div><!-- End. banner-details -->
-
-                            <div class="banner-images order-second">
-                                <img src="{{ asset('public/frontend/assets/images/banner_images/banner-2.png') }}" alt="">
+                                <span>{{$slider->slider_title_1}}</span>
+                                <h1>{{$slider->slider_title_2}}</h1>
+                                <h5>{!! $slider->slider_title_3!!}</h5>
+                                <p>{{$slider->slider_text}}</p>
+                                <a href="{{$slider->slider_btn_link}}" class="banner-btn">{{$slider->slider_btn_name}} <i class="fa-solid fa-arrow-right ms-2"></i></a>
                             </div>
-                        </div><!-- End. banner-page -->
+                            
+                            <div class="banner-images order-second">
+                                <img class="rounded" src="{{ asset($slider->slider_img) }}"  alt="">
+                            </div>
+                           
+                        </div>
+                        @endforeach
+                       
                     </div><!-- End. bannerSlider -->
                 </div><!-- End. col-lg-9 -->
             </div><!-- End. row -->
