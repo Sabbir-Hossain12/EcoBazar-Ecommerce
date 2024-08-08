@@ -111,7 +111,7 @@
                     <div class="menu-list">
                         <ul>
                             <li>
-                                <a href="">Home</a>
+                                <a href="{{url('/')}}">Home</a>
                             </li>
                             <li>
                                 <div class="menu-dropdown">
@@ -154,7 +154,7 @@
                             </li>
                             @auth()
                                 <li>
-                                    <a href="">Dashboard</a>
+                                    <a href="{{route('user-dashboard')}}">Dashboard</a>
                                 </li>
                             @endauth
                             

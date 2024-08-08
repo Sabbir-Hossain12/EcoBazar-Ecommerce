@@ -278,8 +278,15 @@
                     @forelse($popular_products as $popular_product) 
                     <div class="products-description">
                         <div class="product-image">
-                            <img src="{{ asset($popular_product->productDetail->productThumbnail_img) }}" alt="">
-                            <span class="badges sale_badge product-badges">Sale 50%</span>
+                         <a href="{{url('/product-details/'.$popular_product->slug)}}" > <img src="{{ asset($popular_product->productDetail->productThumbnail_img) }}" alt=""></a>
+                            @if(count($popular_product->colors)>0)
+                            <span class="badges sale_badge product-badges">Sale {{$popular_product->colors[0]->discount_percentage}}%</span>
+                            @elseif(count($popular_product->weights)>0)
+                            <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
+                            @else
+                            <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
+
+                            @endif
 
                             <ul class="product-icons-show">
                                 <li>

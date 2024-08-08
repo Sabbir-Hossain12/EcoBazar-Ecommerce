@@ -761,7 +761,7 @@
     font-size: 13px;
     font-weight: 500;
     color: var(--theme-gray-2);
-    line-height: 28px;
+    /*line-height: 28px;*/
     transition: all 0.3s ease;
     --webkit-transition: all 0.3s ease;
 }
@@ -771,7 +771,7 @@
 .product-info .product-bio .product-title{
     font-size: 13px;
     color: var(--theme-gray-2);
-    line-height: 28px;
+    /*line-height: 28px;*/
 }
 .product-info .product-bio p{
     font-size: 16px;

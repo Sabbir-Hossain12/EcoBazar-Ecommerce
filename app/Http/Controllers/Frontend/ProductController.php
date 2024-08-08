@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Size;
+use App\Models\Weight;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -68,20 +71,51 @@ class ProductController extends Controller
 
     public function productDetails(Product $product)
     {
-        $sliderimgs= json_decode($product->productDetail->product_img,true);
+        $sliderimgs = json_decode($product->productDetail->product_img, true);
 
-        $productTags= json_decode($product->tag,true);
-        
-        $reviewRatingAvg=$product->reviews->avg('rating');
-         $product->load('activeReviews');
-         $ActiveReviews=$product->activeReviews;
-        
+        $productTags = json_decode($product->tag, true);
+
+        $reviewRatingAvg = $product->reviews->avg('rating');
+        $product->load('activeReviews');
+        $ActiveReviews = $product->activeReviews;
+        $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=',
+            $product->id)->inRandomOrder()->take(10)->get();
+
         return view('frontend.pages.products.product-details', [
             'product' => $product,
             'sliderimgs' => $sliderimgs,
             'productTags' => $productTags,
             'reviewRatingAvg' => $reviewRatingAvg,
-            'ActiveReviews' => $ActiveReviews
+            'ActiveReviews' => $ActiveReviews,
+            'relatedProducts' => $relatedProducts
         ]);
     }
+
+    public function getPriceByColor(Request $request)
+    {
+        $productPrice = Color::where('product_id', $request->product_id)->where('attrvalue_id', $request->attrvalue_id)->select([
+            'productRegularPrice', 'productSalePrice', 'discount_percentage'
+        ])->first();
+        
+        return response()->json($productPrice);
+    }
+
+    public function getPriceBySize(Request $request)
+    {
+        $productPrice = Size::where('product_id', $request->product_id)->where('attrvalue_id', $request->attrvalue_id)->select([
+            'productRegularPrice', 'productSalePrice', 'discount_percentage'
+        ])->first();
+
+        return response()->json($productPrice);
+    }
+
+    public function getPriceByWeight(Request $request)
+    {
+        $productPrice = Weight::where('product_id', $request->product_id)->where('attrvalue_id', $request->attrvalue_id)->select([
+            'productRegularPrice', 'productSalePrice', 'discount_percentage'
+        ])->first();
+
+        return response()->json($productPrice);
+    }
+
 }

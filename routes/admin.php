@@ -23,7 +23,7 @@ use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
 //Admin Auth Routes
-Route::prefix('admin')->middleware('guest')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::get('register', [RegisterController::class, 'create'])
         ->name('admin.register');
 

@@ -381,7 +381,7 @@ class ProductsController extends Controller
                     $weight = Weight::where('attrvalue_id', $weightProduct['attrValueId'])->where('product_id',
                         $product->id)->first();
                     if (!$weight) {
-                        $weight = new Color();
+                        $weight = new Weight();
                     }
                     $weight->attrvalue_id = $weightProduct['attrValueId'];
                     $weight->product_id = $product->id;
