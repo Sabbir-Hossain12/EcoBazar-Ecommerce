@@ -94,7 +94,7 @@ class ProductController extends Controller
     public function getPriceByColor(Request $request)
     {
         $productPrice = Color::where('product_id', $request->product_id)->where('attrvalue_id', $request->attrvalue_id)->select([
-            'productRegularPrice', 'productSalePrice', 'discount_percentage'
+            'productRegularPrice', 'productSalePrice', 'discount_percentage','color_title'
         ])->first();
         
         return response()->json($productPrice);
@@ -103,7 +103,7 @@ class ProductController extends Controller
     public function getPriceBySize(Request $request)
     {
         $productPrice = Size::where('product_id', $request->product_id)->where('attrvalue_id', $request->attrvalue_id)->select([
-            'productRegularPrice', 'productSalePrice', 'discount_percentage'
+            'productRegularPrice', 'productSalePrice', 'discount_percentage','size_title'
         ])->first();
 
         return response()->json($productPrice);
@@ -112,7 +112,7 @@ class ProductController extends Controller
     public function getPriceByWeight(Request $request)
     {
         $productPrice = Weight::where('product_id', $request->product_id)->where('attrvalue_id', $request->attrvalue_id)->select([
-            'productRegularPrice', 'productSalePrice', 'discount_percentage'
+            'productRegularPrice', 'productSalePrice', 'discount_percentage','weight_title'
         ])->first();
 
         return response()->json($productPrice);

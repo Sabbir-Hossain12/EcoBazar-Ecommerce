@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\WebviewController;
 use Illuminate\Support\Facades\Route;
@@ -8,15 +9,22 @@ use Illuminate\Support\Facades\Route;
 //Webview Routes
 
 Route::get('/',[WebviewController::class,'index'])->name('home');
+
+//product routes
 Route::get('/product-details/{product:slug}',[ProductController::class,'productDetails'])->name('product-details');
 Route::get('/get/price-by-color',[ProductController::class,'getPriceByColor'])->name('get-price-by-color');
 Route::get('/get/price-by-size',[ProductController::class,'getPriceBySize'])->name('get-price-by-size');
 Route::get('/get/price-by-weight',[ProductController::class,'getPriceByWeight'])->name('get-price-by-weight');
 
+//Cart Routes
+Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-cart');
 
+
+
+
+
+//User Dashboard
 Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
-
-
 Route::view('/checkout', 'frontend.pages.products.checkout');
 Route::view('/cart', 'frontend.pages.products.cart');
 Route::view('/wishlist', 'frontend.pages.products.wishlist');

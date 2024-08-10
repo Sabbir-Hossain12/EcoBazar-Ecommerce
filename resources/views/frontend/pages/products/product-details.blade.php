@@ -230,22 +230,48 @@
                         <div class="product-short-description">
                             <p>{{$product->short_desc}} </p>
                         </div>
+                        <form action="{{route('add-to-cart')}}" method="POST">
 
                         <div class="products-quantity">
                             <div class="cart-quantity">
                                 <i class="bx bx-minus"></i>
-                                <input type="number" class="quantity" readonly="" value="1" min="1" max="10">
+                                <input type="number" class="quantity" name="qty" readonly="" value="1" min="1" max="10">
                                 <i class="bx bx-plus"></i>
                             </div>
 
                             <div class="product-action-buttons">
+                                
+                                    
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <input type="hidden" name="name" value="{{ $product->product_name }}">
+                                    <input type="hidden" name="image" value="{{ asset($product->productDetail->productThumbnail_img) }}">
+                                    
+                                    @if(count($product->sizes)>0)
+                                    <input type="hidden" name="price" value="{{ $product->sizes[0]->productSalePrice }}">
+                                     @elseif(count($product->colors)>0)
+                                        <input type="hidden" name="product_price" value="{{ $product->colors[0]->productSalePrice }}">
+                                        
+                                    @elseif(count($product->weights)>0)
+                                        <input type="hidden" name="product_price" value="{{ $product->weights[0]->productSalePrice }}">
+                                     @endif
+                                    <input type="hidden" name="color" id="product_color" >
+                                    <input type="hidden" name="size" id="product_size" >
+                                    <input type="hidden" name="weight" id="product_weight">
+
+                                    
+                                    
+                                    
+                              
                                 <button class="product-cart-action-btn">
                                     Add to Cart<i class="bx bx-shopping-bag"></i>
                                 </button>
-
+                        
                                 <button class="product-wishlist-action-btn"><i class="bx bx-heart"></i></button>
                             </div>
+                            
                         </div>
+                        </form>
 
                         <div class="products-list-details">
                             @if(count($product->sizes)>0)
@@ -608,6 +634,7 @@
                 },
 
                 success: function (res) {
+                    $('#product_color').val(res.color_title);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
                     $('#priceSection').find('#salePrice').text('৳ ' + res.productSalePrice);
@@ -646,6 +673,7 @@
                 },
 
                 success: function (res) {
+                    $('#product_size').val(res.size_title);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
                     $('#priceSection').find('#salePrice').text('৳ ' + res.productSalePrice);
@@ -684,6 +712,7 @@
                 },
 
                 success: function (res) {
+                    $('#product_weight').val(res.weight_title);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
                     $('#priceSection').find('#salePrice').text('৳ ' + res.productSalePrice);
