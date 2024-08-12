@@ -13,7 +13,10 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $data=Cart::content();
+        $itemCount=Cart::count();
+        $subTotal=Cart::subtotal(0);
+        return view('frontend.pages.products.cart',compact('data','itemCount','subTotal'));
     }
 
     /**
@@ -81,7 +84,26 @@ class CartController extends Controller
             ],
         ]);
         
-        return redirect()->back()->with('success', 'Product added to cart successfully.');
-//        return response()->json(['message'=>'success'],200);
+//        return redirect()->back()->with('success', 'Product added to cart successfully.');
+        return response()->json(['message'=>'success'],200);
+    }
+
+    public function cartData()
+    {
+        $data=Cart::content();
+        $itemCount=Cart::count();
+        $subTotal=Cart::subtotal(0);
+        
+       
+     
+        return response()->json(['data'=>$data,'count'=>$itemCount,'subTotal'=>$subTotal],200);
+    }
+
+    public function removeCartItem(Request $request)
+    {
+        $rowId=$request->rowId;
+        Cart::remove($rowId);
+        return response()->json(['message'=>'success'],200);
+        
     }
 }

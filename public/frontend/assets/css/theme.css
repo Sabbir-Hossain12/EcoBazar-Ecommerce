@@ -738,6 +738,7 @@ b,strong {
 }
 .cart-item-list .cart-item-details .cart-item-description img{
     width: 100px;
+    margin-right: 5px;
 }
 .cart-item-description .cart-item-title h2{
     font-size: 13px;

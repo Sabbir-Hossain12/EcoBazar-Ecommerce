@@ -24,6 +24,12 @@
     @include('frontend.include.script')
 
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
         // multiple product slider section 
         $('#multi-product-slider').owlCarousel({
             loop: true,
@@ -92,6 +98,83 @@
                 },
             }
         })
+
+        
+        cartData();
+        function cartData() {
+            $.ajax(
+                {
+                    type: 'GET',
+                    url: '{{route('cart-data')}}',
+                    
+                    success: function (res) {
+                        $('#cartData').empty();
+                        
+                        Object.values(res.data).forEach(function (item, index) {
+                            let sizeInfo = item.options.size ? `<p>Size: <span>${item.options.size}</span></p>` : '';
+                            let colorInfo = item.options.color ? `<p>Color: <span>${item.options.color}</span></p>` : '';
+                            let weightInfo = item.options.weight ? `<p>Weight: <span>${item.options.weight}</span></p>` : '';
+                            
+                            let content = `<div class="cart-item-details">
+                    <div class="cart-item-description">
+                        <img src=" ${item.options.image} " class="mr-4"  alt="">
+                        <div class="cart-item-title">
+                            <h2>${item.name}</h2>
+                            <p>${item.qty} x <span>৳ ${item.price}</span></p>
+
+                            ${sizeInfo}
+                            ${colorInfo}
+                            ${weightInfo}
+                        </div>
+                    <i class="fa-solid fa-x" onclick="removeCartItem('${item.rowId}')"></i>
+                    </div>
+                </div>`
+                            $('#cartData').append(content);
+                        })
+                        
+                        $('.cart-count').text(res.count)
+                        $('#cart-subtotal').text('৳ '+ res.subTotal);
+
+
+                    },
+                    error: function (e) {
+
+                        console.log(e)
+                    }
+                }
+            )
+        }
+        
+        
+        function removeCartItem(rowId) {
+
+           
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '{{route('remove-cart-item')}}',
+                    data: {
+                        rowId: rowId
+                    },
+                    success: function (res) {
+                        cartData();
+                        
+                        swal.fire(
+                            {
+                                title: 'success!',
+                                text: 'Item removed from cart',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                            }
+                        )
+                    },
+                    error: function (e) {
+                        console.log(e)
+                    }
+                }
+            )
+        }
+  
     </script>
 </body>
 </html>

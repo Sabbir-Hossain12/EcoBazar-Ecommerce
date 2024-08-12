@@ -56,17 +56,18 @@
                                 </thead>
                                 
                                 <tbody>
+                                @foreach($data as $content) 
                                   <tr class="all_tr">
-                                    <td class="all_td">
+                                    <td class="all_td" width="50%" style="vertical-align: middle">
                                         <div class="cart-product-list">
-                                            <img src="{{ asset('public/frontend/assets/images/product_images/capsicum.png') }}" alt="">
-                                            <h3>Green Capsicum</h3>
+                                            <img src="{{ asset($content->options->image) }}" alt="">
+                                            <h3>{{$content->name}}</h3>
                                         </div>
                                     </td>
 
                                     <td class="all_td" style="vertical-align: middle">
                                         <div class="cart-product-price">
-                                           <p>$14.99</p>
+                                           <p>৳ {{$content->price}}</p>
                                         </div>
                                     </td>
 
@@ -74,7 +75,7 @@
                                         <div class="main-cart-quantity">
                                             <div class="cart-quantity">
                                                 <i class='bx bx-minus'></i>
-                                                <input type="number" class="quantity" readonly value="0" min="1" max="10">
+                                                <input type="number" class="quantity" readonly value="{{$content->qty}}" min="1" max="10">
                                                 <i class='bx bx-plus'></i>
                                             </div>
                                         </div>
@@ -82,7 +83,7 @@
 
                                     <td class="all_td" style="vertical-align: middle">
                                         <div class="cart-subTotal">
-                                            <p>$14.99</p>
+                                            <p>৳  {{$content->price * $content->qty}}</p>
                                         </div>
                                     </td>
 
@@ -92,43 +93,8 @@
                                          </div>
                                     </td>
                                   </tr>
-
-                                  <tr class="all_tr">
-                                    <td class="all_td">
-                                        <div class="cart-product-list">
-                                            <img src="{{ asset('public/frontend/assets/images/product_images/bakchoy.png') }}" alt="">
-                                            <h3>Green Capsicum</h3>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle">
-                                        <div class="cart-product-price">
-                                           <p>$14.99</p>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle">
-                                        <div class="main-cart-quantity">
-                                            <div class="cart-quantity">
-                                                <i class='bx bx-minus'></i>
-                                                <input type="number" class="quantity" readonly value="0" min="1" max="10">
-                                                <i class='bx bx-plus'></i>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle">
-                                        <div class="cart-subTotal">
-                                            <p>$14.99</p>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle; text-align: end;">
-                                         <div class="cart-action">
-                                            <i class='bx bx-x'></i>
-                                         </div>
-                                    </td>
-                                  </tr>
+                                @endforeach
+                                 
 
                                   <tr class="all_tr">
                                      <td class="all_td" colspan="5">
@@ -158,7 +124,7 @@
 
                             <div class="cart-calc-details">
                                 <p>Subtotal:</p>
-                                <span>$84.00</span>
+                                <span>৳ {{$subTotal}}</span>
                             </div>
 
                             <div class="cart-calc-details">
@@ -168,7 +134,7 @@
 
                             <div class="cart-calc-details">
                                 <p>Total:</p>
-                                <span>$84.00</span>
+                                <span>৳ {{$subTotal}}</span>
                             </div>
 
                             <a href="" class="cart-to-checkout">Proceed to checkout</a>

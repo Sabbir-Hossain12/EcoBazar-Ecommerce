@@ -17,9 +17,10 @@ Route::get('/get/price-by-size',[ProductController::class,'getPriceBySize'])->na
 Route::get('/get/price-by-weight',[ProductController::class,'getPriceByWeight'])->name('get-price-by-weight');
 
 //Cart Routes
+Route::resource('/carts',CartController::class)->names('cart');
 Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-cart');
-
-
+Route::get('cart-data',[CartController::class,'cartData'])->name('cart-data');
+Route::post('remove-cart-item',[CartController::class,'removeCartItem'])->name('remove-cart-item');
 
 
 

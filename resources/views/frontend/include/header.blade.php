@@ -1,40 +1,39 @@
-
 @php
-    $active_cat = Illuminate\Support\Facades\Request::segment(1);
+    use Gloudemans\Shoppingcart\Facades\Cart;$active_cat = Illuminate\Support\Facades\Request::segment(1);
 //    print_r($active_cat);
 @endphp
 
-   <!-- Start header Section -->
-   <header>
+        <!-- Start header Section -->
+<header>
     <!-- Start header-topBar -->
     <div style="border-bottom: 1px solid var(--theme-secondary-1); padding: 10px 0;">
         <div class="container">
             <div class="header-topBar">
-            <div class="address">
-                <i class='bx bx-map'></i>
-                <p> {{$basic_info->store_location}}</p>
-            </div>
-
-            <div class="localization">
-                <div class="language me-2">
-                    <i class='bx bx-chevron-down'></i>
-                    <select name="" class="select-form" id="">
-                        <option value="eng">Eng</option>
-                        <option value="ban">Ban</option>
-                        <option value="spa">Spa</option>
-                    </select>
+                <div class="address">
+                    <i class='bx bx-map'></i>
+                    <p> {{$basic_info->store_location}}</p>
                 </div>
 
-                <div class="currency">
-                    <i class='bx bx-chevron-down' ></i>
-                    <select name="" class="select-form" id="">
-                        <option value="USD">USD</option>
-                        <option value="TAKA">TAKA</option>
-                        <option value="PESO">PESO</option>
-                    </select>
+                <div class="localization">
+                    <div class="language me-2">
+                        <i class='bx bx-chevron-down'></i>
+                        <select name="" class="select-form" id="">
+                            <option value="eng">Eng</option>
+                            <option value="ban">Ban</option>
+                            <option value="spa">Spa</option>
+                        </select>
+                    </div>
+
+                    <div class="currency">
+                        <i class='bx bx-chevron-down'></i>
+                        <select name="" class="select-form" id="">
+                            <option value="USD">USD</option>
+                            <option value="TAKA">TAKA</option>
+                            <option value="PESO">PESO</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -46,19 +45,20 @@
                     <div class="col-lg-4">
                         <div class="logo">
                             <a href="{{url('/')}}">
-                            <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
+                                <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
                             </a>
                         </div>
                     </div>
-    
+
                     <div class="col-lg-4">
                         <div class="searchBar-form">
-                            <input type="text" name="search" class="form_controls" style="height: 45px; padding-left: 42px;" placeholder="Search" id="">
+                            <input type="text" name="search" class="form_controls"
+                                   style="height: 45px; padding-left: 42px;" placeholder="Search" id="">
                             <i class='bx bx-search'></i>
                             <button class="search-form">Search</button>
                         </div>
                     </div>
-    
+
                     <div class="col-lg-4">
                         <div class="customer-service">
                             <i class='bx bx-phone-call'></i>
@@ -87,22 +87,23 @@
 
                     <div class="all-categories-show {{ $active_cat == '' ? '' : 'category_active' }}">
                         <ul>
-                            @foreach($frontCategories as $frontCategory) 
-                            <li>
-                                <a href="">
-                                    <img class="rounded" src="{{ asset($frontCategory->category_img_path) }}" alt="">
-                                    <span>{{ $frontCategory->category_name }}</span>
-                                </a>
-                            </li>
-                            @endforeach
-
+                            @foreach($frontCategories as $frontCategory)
                                 <li>
                                     <a href="">
-                                        <i class='bx bx-plus'></i>
-                                        <span>View All Category</span>
+                                        <img class="rounded" src="{{ asset($frontCategory->category_img_path) }}"
+                                             alt="">
+                                        <span>{{ $frontCategory->category_name }}</span>
                                     </a>
                                 </li>
-                           
+                            @endforeach
+
+                            <li>
+                                <a href="">
+                                    <i class='bx bx-plus'></i>
+                                    <span>View All Category</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </div><!-- End. all-categories-show -->
                 </div><!-- End. categories-menu -->
@@ -119,26 +120,27 @@
 
                                     <div class="catSub-show">
                                         <ul class="category_menu">
-                                            @foreach($navCategories as $navCategory) 
-                                            <li>
-                                                <div class="subCategory_menu">
-                                                    <span>{{$navCategory->category_name}}</span>
+                                            @foreach($navCategories as $navCategory)
+                                                <li>
+                                                    <div class="subCategory_menu">
+                                                        <span>{{$navCategory->category_name}}</span>
 
-                                                    <ul class="">
-                                                        @foreach($navCategory->subCategories as $subCategory) 
-                                                        <li>
-                                                            <a href="">{{$subCategory->subcategory_name}}</a>
-                                                        </li>
-                                                      
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            </li>
+                                                        <ul class="">
+                                                            @foreach($navCategory->subCategories as $subCategory)
+                                                                <li>
+                                                                    <a href="">{{$subCategory->subcategory_name}}</a>
+                                                                </li>
+
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </li>
 
                                             @endforeach
                                         </ul>
 
-                                        <a href="#" class="all-category-views">View All Shop <i class="fa-solid fa-arrow-right ms-2"></i>
+                                        <a href="#" class="all-category-views">View All Shop <i
+                                                    class="fa-solid fa-arrow-right ms-2"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -157,7 +159,7 @@
                                     <a href="{{route('user-dashboard')}}">Dashboard</a>
                                 </li>
                             @endauth
-                            
+
                         </ul>
                     </div><!-- End. menu-list -->
 
@@ -172,28 +174,28 @@
                             <li>
                                 <a href="javascript:;" class="item-count" id="shopping-cart">
                                     <i class='bx bx-shopping-bag'></i>
-                                    <span>0</span>
+                                    <span class="cart-count">0</span>
                                 </a>
                             </li>
                             @guest()
-                            <li class="accounts-menu">
-                                <a href="javascript:;">
-                                    <i class='bx bx-user'></i>
-                                </a>
+                                <li class="accounts-menu">
+                                    <a href="javascript:;">
+                                        <i class='bx bx-user'></i>
+                                    </a>
 
-                                <div class="accounts-menu-list">
-                                    <ul>
-                                        <li>
-                                            <a href="{{route('login')}}">Login</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('register')}}">Register</a>
-                                        </li>
-                                    </ul>
-                                </div><!-- End. accounts-menu-list -->
-                            </li>
+                                    <div class="accounts-menu-list">
+                                        <ul>
+                                            <li>
+                                                <a href="{{route('login')}}">Login</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('register')}}">Register</a>
+                                            </li>
+                                        </ul>
+                                    </div><!-- End. accounts-menu-list -->
+                                </li>
                             @endguest
-                            
+
                             {{-- Authenticated User   --}}
                             @auth()
                                 <li class="accounts-menu">
@@ -209,13 +211,13 @@
                                             <li>
                                                 <form method="POST" action="{{ route('logout') }}">
                                                     @csrf
-                                                <button type="submit" class="btn">Logout</button>
+                                                    <button type="submit" class="btn">Logout</button>
                                                 </form>
                                             </li>
                                         </ul>
                                     </div><!-- End. accounts-menu-list -->
                                 </li>
-                                
+
                             @endauth
                         </ul>
                     </div><!-- End. menu-right -->
@@ -229,166 +231,114 @@
     <div class="cart-sidebar">
         <i class='bx bx-x' id="cart-close"></i>
         <div class="cart-titles">
-            <h3>Shopping Card (2)</h3>
+            <h3>Shopping Card (<span class="cart-count">2</span>)</h3>
         </div>
 
-        <div class="cart-item-list">
-            <div class="cart-item-details">
-                <div class="cart-item-description">
-                    <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                    <div class="cart-item-title">
-                        <h2>Fresh Indian Orange</h2>
-                        <p>1kg * <span>$300</span></p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-x"></i>
-            </div>
+        <div class="cart-item-list" id="cartData">
+            
 
-            <div class="cart-item-details">
-                <div class="cart-item-description">
-                    <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                    <div class="cart-item-title">
-                        <h2>Fresh Indian Orange</h2>
-                        <p>1kg * <span>$300</span></p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-x"></i>
-            </div>
-
-            <div class="cart-item-details">
-                <div class="cart-item-description">
-                    <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                    <div class="cart-item-title">
-                        <h2>Fresh Indian Orange</h2>
-                        <p>1kg * <span>$300</span></p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-x"></i>
-            </div>
-
-            <div class="cart-item-details">
-                <div class="cart-item-description">
-                    <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                    <div class="cart-item-title">
-                        <h2>Fresh Indian Orange</h2>
-                        <p>1kg * <span>$300</span></p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-x"></i>
-            </div>
-
-            <div class="cart-item-details">
-                <div class="cart-item-description">
-                    <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                    <div class="cart-item-title">
-                        <h2>Fresh Indian Orange</h2>
-                        <p>1kg * <span>$300</span></p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-x"></i>
-            </div>
         </div>
 
         <div class="cart-buttons">
             <div class="cart-price">
-                <p>2 Product</p>
-                <span>$26.00</span>
+                <p> <span class="cart-count">2</span> Product</p>
+                <span id="cart-subtotal">$26.00</span>
             </div>
 
             <button class="btns default_btn mb-2 f-w">Checkout</button>
-            <button class="btns load_more_btn mb-2 f-w">Go To Cart</button>
+            <a href="{{route('cart.index')}}" class="btn btns load_more_btn mb-2 f-w">Go To Cart</a>
         </div>
     </div>
-   </header><!-- End. header -->
+</header><!-- End. header -->
 
-    <!-- Start header responsive Section -->
-    <div class="responsive-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="header-topBar">
-                        <div class="address">
-                            <i class='bx bx-map'></i>
-                            <p>{{$basic_info->store_location}}</p>
-                        </div>
-            
-                        <div class="localization">
-                            <div class="language me-2">
-                                <i class='bx bx-chevron-down'></i>
-                                <select name="" class="select-form" id="">
-                                    <option value="eng">Eng</option>
-                                    <option value="ban">Ban</option>
-                                    <option value="spa">Spa</option>
-                                </select>
-                            </div>
-                
-                            <div class="currency">
-                                <i class='bx bx-chevron-down' ></i>
-                                <select name="" class="select-form" id="">
-                                    <option value="USD">USD</option>
-                                    <option value="TAKA">TAKA</option>
-                                    <option value="PESO">PESO</option>
-                                </select>
-                            </div>
-                        </div>
+<!-- Start header responsive Section -->
+<div class="responsive-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="header-topBar">
+                    <div class="address">
+                        <i class='bx bx-map'></i>
+                        <p>{{$basic_info->store_location}}</p>
                     </div>
 
-                    <div class="header-bottom">
-                        <div class="sidebar-icon">
-                            <i class="fa-solid fa-bars" id="hamBurger-icon"></i>
-                            <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
+                    <div class="localization">
+                        <div class="language me-2">
+                            <i class='bx bx-chevron-down'></i>
+                            <select name="" class="select-form" id="">
+                                <option value="eng">Eng</option>
+                                <option value="ban">Ban</option>
+                                <option value="spa">Spa</option>
+                            </select>
                         </div>
 
-                        <!-- <div class="header-main"> -->
-                        <div class="header-right">
-                            <div class="menu-right">
-                                <ul>
-                                    <li>
-                                        <a href="" class="item-count">
-                                            <i class='bx bx-heart'></i>
-                                            <span>0</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="item-count">
-                                            <i class='bx bx-shopping-bag'></i>
-                                            <span>0</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div><!-- End. menu-right -->
+                        <div class="currency">
+                            <i class='bx bx-chevron-down'></i>
+                            <select name="" class="select-form" id="">
+                                <option value="USD">USD</option>
+                                <option value="TAKA">TAKA</option>
+                                <option value="PESO">PESO</option>
+                            </select>
                         </div>
-                        <!-- </div> -->
                     </div>
+                </div>
+
+                <div class="header-bottom">
+                    <div class="sidebar-icon">
+                        <i class="fa-solid fa-bars" id="hamBurger-icon"></i>
+                        <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
+                    </div>
+
+                    <!-- <div class="header-main"> -->
+                    <div class="header-right">
+                        <div class="menu-right">
+                            <ul>
+                                <li>
+                                    <a href="" class="item-count">
+                                        <i class='bx bx-heart'></i>
+                                        <span>0</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="item-count">
+                                        <i class='bx bx-shopping-bag'></i>
+                                        <span>0</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- End. menu-right -->
+                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
+        </div>
 
-            <!-- End. responsive-header-sidebar -->
-            <div class="header-sidebar-overlay"></div>
+        <!-- End. responsive-header-sidebar -->
+        <div class="header-sidebar-overlay"></div>
 
-            <div class="responsive-header-sidebar">
-                <div class="mobile-menu-close">
-                    <i class='bx bx-x'></i>
+        <div class="responsive-header-sidebar">
+            <div class="mobile-menu-close">
+                <i class='bx bx-x'></i>
+            </div>
+
+            <div class="responsive-topBar">
+                <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
+            </div>
+
+            <div class="mobile-search-form">
+                <input type="text" class="mobile-form" placeholder="Search for item....">
+                <i class='bx bx-search'></i>
+            </div>
+
+            <div class="menu-select">
+                <div class="tab-menu">
+                    <ul>
+                        <li class="active_menu">Menu</li>
+                        <li>Categories</li>
+                    </ul>
                 </div>
 
-                <div class="responsive-topBar">
-                    <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
-                </div>
-
-                <div class="mobile-search-form">
-                    <input type="text" class="mobile-form" placeholder="Search for item....">
-                    <i class='bx bx-search'></i>
-                </div>
-
-                <div class="menu-select">
-                    <div class="tab-menu">
-                        <ul>
-                            <li class="active_menu">Menu</li>
-                            <li>Categories</li>
-                        </ul>
-                    </div>
-
-                    <div class="menu-content active_menu">
+                <div class="menu-content active_menu">
                     <ul class="static-menu-list">
                         <li>
                             <a href="">Home</a>
@@ -435,43 +385,46 @@
                             </li>
                         </ul>
                     </div>
-                    </div>
+                </div>
 
-                    <div class="menu-content">
-                        <ul class="static-menu-list">
-                            <li>
+                <div class="menu-content">
+                    <ul class="static-menu-list">
+                        <li>
                             <a href="">Chicken & Meat</a>
-                            </li>F
-                            <li>
+                        </li>
+                        F
+                        <li>
                             <a href="">Vegetables</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Fruits</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Snakes</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Drinks & Beverage</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Butter & Cream</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Sweet & Yogurt</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Electronics</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Stationeries</a>
-                            </li>
-                            <li>
+                        </li>
+                        <li>
                             <a href="">Cloths</a>
-                            </li>
-                        </ul>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div><!-- End. responsive-header -->
+    </div>
+</div><!-- End. responsive-header -->
+
+

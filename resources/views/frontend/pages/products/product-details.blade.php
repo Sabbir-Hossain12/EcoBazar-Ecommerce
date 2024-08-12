@@ -44,6 +44,7 @@
             padding: 0px 12px;
             border-radius: 4px;
         }
+
         .sizetext {
             color: #000;
             background: #fff;
@@ -54,6 +55,7 @@
             padding: 0px 12px;
             border-radius: 4px;
         }
+
         .weighttext {
             color: #000;
             background: #fff;
@@ -65,15 +67,14 @@
             border-radius: 4px;
         }
 
-        .colortext:hover , .weighttext:hover, .sizetext:hover {
+        .colortext:hover, .weighttext:hover, .sizetext:hover {
             cursor: pointer;
             background: #00b207;
             color: white;
         }
-        
-        .variantText
-        {
-           font-size: 16px;
+
+        .variantText {
+            font-size: 16px;
             margin-right: 10px;
         }
     </style>
@@ -178,20 +179,20 @@
                                     <span id="salePrice">  ৳ {{$product->sizes[0]->productSalePrice}}</span>
                                 </p>
                                 <span class="discount-rate" id="discountRate">{{$product->sizes[0]->discount_percentage}}% Off</span>
-                           
+
                             @elseif(count($product->colors) > 0)
                                 <p>
                                     <del id="regularPrice">৳ {{$product->colors[0]->productRegularPrice}}</del>
                                     <span id="salePrice">   ৳ {{$product->colors[0]->productSalePrice}}</span></p>
                                 <span class="discount-rate" id="discountRate">{{$product->colors[0]->discount_percentage}}% Off</span>
-                            
+
                             @elseif(count($product->weights) > 0)
                                 <p>
                                     <del id="regularPrice">৳ {{$product->weights[0]->productRegularPrice}}</del>
                                     <span id="salePrice"> ৳ {{$product->weights[0]->productSalePrice}}</span>
                                 </p>
                                 <span class="discount-rate" id="discountRate">{{$product->weights[0]->discount_percentage}}% Off</span>
-                                
+
                             @endif
                         </div>
 
@@ -230,47 +231,49 @@
                         <div class="product-short-description">
                             <p>{{$product->short_desc}} </p>
                         </div>
-                        <form action="{{route('add-to-cart')}}" method="POST">
+                        <form id="addToCartForm">
 
-                        <div class="products-quantity">
-                            <div class="cart-quantity">
-                                <i class="bx bx-minus"></i>
-                                <input type="number" class="quantity" name="qty" readonly="" value="1" min="1" max="10">
-                                <i class="bx bx-plus"></i>
-                            </div>
+                            <div class="products-quantity">
+                                <div class="cart-quantity">
+                                    <i class="bx bx-minus"></i>
+                                    <input type="number" class="quantity" name="qty" readonly="" value="1" min="1"
+                                           max="10">
+                                    <i class="bx bx-plus"></i>
+                                </div>
 
-                            <div class="product-action-buttons">
-                                
-                                    
+                                <div class="product-action-buttons">
+
+
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $product->id }}">
                                     <input type="hidden" name="name" value="{{ $product->product_name }}">
-                                    <input type="hidden" name="image" value="{{ asset($product->productDetail->productThumbnail_img) }}">
-                                    
+                                    <input type="hidden" name="image"
+                                           value="{{ asset($product->productDetail->productThumbnail_img) }}">
+
                                     @if(count($product->sizes)>0)
-                                    <input type="hidden" name="price" value="{{ $product->sizes[0]->productSalePrice }}">
-                                     @elseif(count($product->colors)>0)
-                                        <input type="hidden" name="product_price" value="{{ $product->colors[0]->productSalePrice }}">
-                                        
+                                        <input type="hidden" id="pSize" name="price"
+                                               value="{{ $product->sizes[0]->productSalePrice }}">
+                                    @elseif(count($product->colors)>0)
+                                        <input id="pColor" type="hidden" name="product_price"
+                                               value="{{ $product->colors[0]->productSalePrice }}">
+
                                     @elseif(count($product->weights)>0)
-                                        <input type="hidden" name="product_price" value="{{ $product->weights[0]->productSalePrice }}">
-                                     @endif
-                                    <input type="hidden" name="color" id="product_color" >
-                                    <input type="hidden" name="size" id="product_size" >
+                                        <input id="pWeight" type="hidden" name="product_price"
+                                               value="{{ $product->weights[0]->productSalePrice }}">
+                                    @endif
+                                    <input type="hidden" name="color" id="product_color">
+                                    <input type="hidden" name="size" id="product_size">
                                     <input type="hidden" name="weight" id="product_weight">
 
-                                    
-                                    
-                                    
-                              
-                                <button class="product-cart-action-btn">
-                                    Add to Cart<i class="bx bx-shopping-bag"></i>
-                                </button>
-                        
-                                <button class="product-wishlist-action-btn"><i class="bx bx-heart"></i></button>
+
+                                    <button type="submit" class="product-cart-action-btn">
+                                        Add to Cart<i class="bx bx-shopping-bag"></i>
+                                    </button>
+
+                                    <button class="product-wishlist-action-btn"><i class="bx bx-heart"></i></button>
+                                </div>
+
                             </div>
-                            
-                        </div>
                         </form>
 
                         <div class="products-list-details">
@@ -618,6 +621,48 @@
 @push('add-scripts')
 
     <script>
+        $(document).ready(function () {
+
+            //Add To Cart
+            $('#addToCartForm').submit(function (e) {
+                e.preventDefault();
+
+                if ($('#product_color').val() === '' && $('#product_weight').val() === '' && $('#product_size').val() === '') {
+
+                    swal.fire({
+                        title: 'Error',
+                        text: 'Please Select Color, Weight or Size',
+                        icon: 'error'
+                    })
+                } else {
+
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('/add-to-cart') }}',
+                        data: new FormData(this),
+                        processData: false,  // Prevent jQuery from processing the data
+                        contentType: false,  // Prevent jQuery from setting contentType
+                        success: function (res) {
+                            cartData();
+                            swal.fire({
+                                title: 'success',
+                                text: 'Product Added to Cart',
+                                icon: 'success'
+                            })
+
+                        },
+                        error: function (e) {
+                            console.log(e)
+                        }
+
+                    });
+                }
+
+            });
+
+        });
+
         let product_id = {{$product->id}};
 
         //Get Price Based on Product Color
@@ -635,7 +680,9 @@
 
                 success: function (res) {
                     $('#product_color').val(res.color_title);
+                    $('#pColor').val(res.productSalePrice);
 
+                    $('#product_colorOr').val(res.color_title);
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
                     $('#priceSection').find('#salePrice').text('৳ ' + res.productSalePrice);
                     $('#priceSection').find('#discountRate').text(res.discount_percentage + '% Off');
@@ -653,11 +700,8 @@
                 }
             });
 
-            // $('#product_color').val(color);
-            //
-            // $('#product_colorOr').val(color);
-
-
+           
+            
         }
 
         //Get Price Based on Product Size
@@ -674,6 +718,7 @@
 
                 success: function (res) {
                     $('#product_size').val(res.size_title);
+                    $('#pSize').val(res.productSalePrice);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
                     $('#priceSection').find('#salePrice').text('৳ ' + res.productSalePrice);
@@ -713,6 +758,7 @@
 
                 success: function (res) {
                     $('#product_weight').val(res.weight_title);
+                    $('#pWeight').val(res.productSalePrice);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
                     $('#priceSection').find('#salePrice').text('৳ ' + res.productSalePrice);
@@ -737,6 +783,8 @@
 
 
         }
+
+
     </script>
 
 @endpush
