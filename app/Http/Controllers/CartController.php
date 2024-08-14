@@ -80,7 +80,8 @@ class CartController extends Controller
                 'image' => $request->image, 
                 'color' => $request->color, 
                 'size' => $request->size,
-                'weight' => $request->weight
+                'weight' => $request->weight,
+                'stock'=>$request->stock
             ],
         ]);
         
@@ -94,6 +95,8 @@ class CartController extends Controller
         $itemCount=Cart::count();
         $subTotal=Cart::subtotal(0);
         
+//        dd($data);
+      
        
      
         return response()->json(['data'=>$data,'count'=>$itemCount,'subTotal'=>$subTotal],200);

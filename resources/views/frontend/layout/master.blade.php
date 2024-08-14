@@ -144,8 +144,8 @@
                 }
             )
         }
-        
-        
+
+
         function removeCartItem(rowId) {
 
            

@@ -264,6 +264,8 @@
                                     <input type="hidden" name="color" id="product_color">
                                     <input type="hidden" name="size" id="product_size">
                                     <input type="hidden" name="weight" id="product_weight">
+                                    <input type="hidden" name="stock" id="product_weight" value="{{$product->productDetail->available_qty}}">
+                                    
 
 
                                     <button type="submit" class="product-cart-action-btn">

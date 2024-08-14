@@ -55,54 +55,9 @@
                                   </tr>
                                 </thead>
                                 
-                                <tbody>
-                                @foreach($data as $content) 
-                                  <tr class="all_tr">
-                                    <td class="all_td" width="50%" style="vertical-align: middle">
-                                        <div class="cart-product-list">
-                                            <img src="{{ asset($content->options->image) }}" alt="">
-                                            <h3>{{$content->name}}</h3>
-                                        </div>
-                                    </td>
+                                <tbody id="cartContentList">
 
-                                    <td class="all_td" style="vertical-align: middle">
-                                        <div class="cart-product-price">
-                                           <p>৳ {{$content->price}}</p>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle">
-                                        <div class="main-cart-quantity">
-                                            <div class="cart-quantity">
-                                                <i class='bx bx-minus'></i>
-                                                <input type="number" class="quantity" readonly value="{{$content->qty}}" min="1" max="10">
-                                                <i class='bx bx-plus'></i>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle">
-                                        <div class="cart-subTotal">
-                                            <p>৳  {{$content->price * $content->qty}}</p>
-                                        </div>
-                                    </td>
-
-                                    <td class="all_td" style="vertical-align: middle; text-align: end;">
-                                         <div class="cart-action">
-                                            <i class='bx bx-x'></i>
-                                         </div>
-                                    </td>
-                                  </tr>
-                                @endforeach
-                                 
-
-                                  <tr class="all_tr">
-                                     <td class="all_td" colspan="5">
-                                         <a href="">
-                                            <button class="btns secondary_btn">Return To Shop</button>
-                                         </a>
-                                     </td>
-                                  </tr>
+                                
                                 </tbody>
                             </table>
 
@@ -124,20 +79,20 @@
 
                             <div class="cart-calc-details">
                                 <p>Subtotal:</p>
-                                <span>৳ {{$subTotal}}</span>
+                                <span >৳ <span id="subTotal"> 0</span></span>
                             </div>
 
-                            <div class="cart-calc-details">
-                                <p>Shipping:</p>
-                                <span>Free</span>
-                            </div>
+{{--                            <div class="cart-calc-details">--}}
+{{--                                <p>Shipping:</p>--}}
+{{--                                <span>Free</span>--}}
+{{--                            </div>--}}
 
                             <div class="cart-calc-details">
                                 <p>Total:</p>
-                                <span>৳ {{$subTotal}}</span>
+                                <span >৳ <span id="total">0</span> </span>
                             </div>
 
-                            <a href="" class="cart-to-checkout">Proceed to checkout</a>
+                            <a href="{{route('checkout.index')}}" class="cart-to-checkout">Proceed to checkout</a>
                         </aside>
                     </div>
                 </div>
@@ -149,5 +104,119 @@
 
 
 @push('add-scripts')
+<script>
+    cartContent();
+    function cartContent() {
+        $.ajax(
+            {
+                type: 'GET',
+                url: '{{route('cart-data')}}',
 
+                success: function (res) {
+                    $('#cartContentList').empty();
+
+                    Object.values(res.data).forEach(function (item, index) {
+                        let sizeInfo = item.options.size ? `<p>Size: <span>${item.options.size}</span></p>` : '';
+                        let colorInfo = item.options.color ? `<p>Color: <span>${item.options.color}</span></p>` : '';
+                        let weightInfo = item.options.weight ? `<p>Weight: <span>${item.options.weight}</span></p>` : '';
+
+                        let content = `<tr class="all_tr">
+                                    <td class="all_td" width="50%" style="vertical-align: middle">
+                                        <div class="cart-product-list">
+                                            <img src="${item.options.image}" alt="">
+                                            <div class="mt-2">
+                                            <h3>${item.name}</h3>
+                                            
+                                            ${sizeInfo}
+                                            ${colorInfo}
+                                            ${weightInfo}
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="all_td" style="vertical-align: middle">
+                                        <div class="cart-product-price">
+                                           <p>৳  ${item.price}</p>
+                                        </div>
+                                    </td>
+
+                                    <td class="all_td" style="vertical-align: middle">
+                                        <div class="main-cart-quantity">
+                                            <div class="cart-quantity">
+                                                <i class='bx bx-minus'></i>
+                                                <input type="number" class="quantity" readonly value="${item.qty}" min="1" max="10">
+                                                <i class='bx bx-plus'></i>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="all_td" style="vertical-align: middle">
+                                        <div class="cart-subTotal">
+                                            <p>৳  ${item.price * item.qty}</p>
+                                        </div>
+                                    </td>
+
+                                    <td class="all_td" style="vertical-align: middle; text-align: end;">
+                                         <div class="cart-action">
+                                            <i class='bx bx-x' onclick="removeCartContent('${item.rowId}')"></i>
+                                         </div>
+                                    </td>
+                                  </tr>`
+                        $('#cartContentList').append(content);
+                    })
+                    $('#cartContentList').append(` <tr class="all_tr">
+                                     <td class="all_td" colspan="5">
+                                         <a href="">
+                                            <button class="btns secondary_btn">Return To Shop</button>
+                                         </a>
+                                     </td>
+                                  </tr>`);
+                    
+
+                    $('#subTotal').text(res.subTotal)
+                    $('#total').text(res.subTotal);
+
+
+                },
+                error: function (e) {
+
+                    console.log(e)
+                }
+            }
+        )
+    }
+    function removeCartContent(rowId) {
+
+        $.ajax(
+            {
+                type: 'POST',
+                url: '{{route('remove-cart-item')}}',
+                data: {
+                    rowId: rowId
+                },
+                success: function (res) {
+                  
+
+                    swal.fire(
+                        {
+                            title: 'success!',
+                            text: 'Item removed from cart',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        }
+                    )
+
+                    cartContent();
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            }
+        )
+        
+    }
+    
+    
+</script>
+    
 @endpush

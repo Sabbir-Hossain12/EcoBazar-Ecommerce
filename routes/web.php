@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\WebviewController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +24,11 @@ Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-ca
 Route::get('cart-data',[CartController::class,'cartData'])->name('cart-data');
 Route::post('remove-cart-item',[CartController::class,'removeCartItem'])->name('remove-cart-item');
 
+//Orders
+Route::resource('/orders', OrderController::class)->names('order');
 
+//Checkout
+Route::resource('/checkouts', CheckoutController::class)->names('checkout');
 
 //User Dashboard
 Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
