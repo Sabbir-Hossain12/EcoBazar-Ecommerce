@@ -46,8 +46,8 @@
                                 <img src="{{ asset('public/frontend/assets/images/all-icons/avtar.jpg') }}" alt="" class="img-fluid">
                             </div>
                             <div class="profile-detail">
-                                <h5>Mark Jecno</h5>
-                                <h6>mark.jecno@mail.com</h6>
+                                <h5>{{Auth::user()->name ?? ''}}</h5>
+                                <h6>{{Auth::user()->email ?? ''}}</h6>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                         <div class="tab-pane fade show active" id="info">
                             <div class="counter-section">
                                 <div class="welcome-msg">
-                                    <h4>Hello, MARK JECNO !</h4>
+                                    <h4>Hello, {{Auth::user()->name ?? ''}} !</h4>
                                     <p>From your My Account Dashboard you have the ability to view a snapshot of your
                                         recent
                                         account activity and update your account information. Select a link below to

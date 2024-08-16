@@ -15,7 +15,7 @@ class WebviewController extends Controller
 
     public function userDashboard ()
     {
-        $user= User:: get();
-        return view('frontend.pages.dashboard.user-dashboard',compact('user'));
+//        $user= User:: get();
+        return view('frontend.pages.dashboard.user-dashboard');
     }
 }

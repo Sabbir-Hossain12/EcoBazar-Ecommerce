@@ -12,9 +12,14 @@
     $(".bx-plus").on('click', function(){
         var $input = $(this).siblings('.quantity');
         var value = parseInt($input.val());
-        if (value < 10) {
+        var max = parseInt($input.attr('max'));
+
+        if (isNaN(max) || value < max) { // Check if max is set and current value is less than max
             $input.val(value + 1);
         }
+        // if (value < 10) {
+        //     $input.val(value + 1);
+        // }
     });
 
 });

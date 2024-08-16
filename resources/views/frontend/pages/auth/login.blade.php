@@ -70,7 +70,7 @@
 
                         <button type="submit" class="form-btn">Sign In</button>
 
-                        <p>Don’t have account? <a href="">Register</a></p>
+                        <p>Don’t have account? <a href="{{route('register')}}">Register</a></p>
                         </form>
                     </div><!-- End. form-field -->
                 </div><!-- End. main-form-field -->

@@ -166,7 +166,7 @@
                     })
                     $('#cartContentList').append(` <tr class="all_tr">
                                      <td class="all_td" colspan="5">
-                                         <a href="">
+                                         <a href="{{route('home')}}">
                                             <button class="btns secondary_btn">Return To Shop</button>
                                          </a>
                                      </td>

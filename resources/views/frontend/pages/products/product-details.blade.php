@@ -237,7 +237,7 @@
                                 <div class="cart-quantity">
                                     <i class="bx bx-minus"></i>
                                     <input type="number" class="quantity" name="qty" readonly="" value="1" min="1"
-                                           max="10">
+                                           max="{{$product->productDetail->available_qty}}">
                                     <i class="bx bx-plus"></i>
                                 </div>
 

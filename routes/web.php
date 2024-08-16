@@ -33,7 +33,7 @@ Route::resource('/checkouts', CheckoutController::class)->names('checkout');
 //User Dashboard
 Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
 Route::view('/checkout', 'frontend.pages.products.checkout');
-Route::view('/cart', 'frontend.pages.products.cart');
+//Route::view('/cart', 'frontend.pages.products.cart');
 Route::view('/wishlist', 'frontend.pages.products.wishlist');
 
 

@@ -245,7 +245,7 @@
                 <span id="cart-subtotal">$26.00</span>
             </div>
 
-            <button class="btns default_btn mb-2 f-w">Checkout</button>
+            <a href="{{route('checkout.index')}}" class="btn btns default_btn mb-2 f-w">Checkout</a>
             <a href="{{route('cart.index')}}" class="btn btns load_more_btn mb-2 f-w">Go To Cart</a>
         </div>
     </div>
