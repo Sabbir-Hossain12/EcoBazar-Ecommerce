@@ -40,6 +40,7 @@ class OrderController extends Controller
         }
         DB::beginTransaction();
         try {
+           
             $customer = new Customer();
             $customer->first_name = $request->first_name;
             $customer->last_name = $request->last_name;
@@ -65,6 +66,12 @@ class OrderController extends Controller
             $order->subtotal = $request->subtotal;
             $order->total = $request->total;
             $order->order_date = today();
+            $order->order_status = 'Pending';
+            $order->payment_status = 'Pending';
+            $order->payment_method = $request->payment_method;
+            
+            
+            
 
             $order->save();
 
@@ -89,7 +96,7 @@ class OrderController extends Controller
             Cart::destroy();
             DB::commit();
 
-            return view('frontend.pages.orders.order-success');
+            return view('frontend.pages.orders.order-success',compact('order','orderProduct'));
         } catch (Exception $exception) {
             DB::rollBack();
             dd($exception->getMessage());

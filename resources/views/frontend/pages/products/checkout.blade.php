@@ -194,22 +194,22 @@
                                     <h2>Payment Method</h2>
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="cod" checked="" value="cod">
+                                        <input type="radio" name="payment_method" id="cod" checked="" value="COD">
                                         <label for="cod" class="payment-label">Cash on Delivery</label>
                                     </div><!-- End. payment-form -->
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="ssl_commercez" value="sslcommerz">
+                                        <input type="radio" name="payment_method" id="ssl_commercez" value="SSLCOMMERZ">
                                         <label for="ssl_commercez" class="payment-label">SSL Commercez</label>
                                     </div><!-- End. payment-form -->
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="paypal" value="paypal">
+                                        <input type="radio" name="payment_method" id="paypal" value="Paypal">
                                         <label for="paypal" class="payment-label">Paypal</label>
                                     </div><!-- End. payment-form -->
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="stripe" value="stripe">
+                                        <input type="radio" name="payment_method" id="stripe" value="Stripe">
                                         <label for="stripe" class="payment-label">Stripe</label>
                                     </div><!-- End. payment-form -->
                                 </div><!-- End. payment-method -->

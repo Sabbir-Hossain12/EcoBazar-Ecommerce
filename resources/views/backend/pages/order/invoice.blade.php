@@ -1,3 +1,4 @@
+
 @extends('backend.layout.master')
 
 @push('backendCss')
@@ -12,155 +13,142 @@
 
 @section('contents')
 
+
+
+<div class="container-fluid">
+
+    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Admins</h4>
+                <h4 class="mb-sm-0 font-size-18">Invoice Detail</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                        <li class="breadcrumb-item active">Admins</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Invoices</a></li>
+                        <li class="breadcrumb-item active">Invoice Detail</li>
                     </ol>
                 </div>
 
             </div>
         </div>
     </div>
-
-    {{-- Table Starts--}}
+    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
-
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">Admins List</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            Create Admin
-                        </button>
-                    </div>
-
-                </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="adminTable">
-                            <thead>
-                            <tr>
-                                <th>SL</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div class="invoice-title">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-grow-1">
+                                <div class="mb-4">
+                                    <img src="assets/images/logo-sm.svg" alt="" height="24"><span class="logo-txt">Minia</span>
+                                </div>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div class="mb-4">
+                                    <h4 class="float-end font-size-16">Invoice # 12345</h4>
+                                </div>
+                            </div>
+                        </div>
 
-                            </tbody>
-                        </table>
+
+                        <p class="mb-1">1874 County Line Road City, FL 33566</p>
+                        <p class="mb-1"><i class="mdi mdi-email align-middle me-1"></i> abc@123.com</p>
+                        <p><i class="mdi mdi-phone align-middle me-1"></i> 012-345-6789</p>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>
+                                <h5 class="font-size-15 mb-3">Billed To:</h5>
+                                <h5 class="font-size-14 mb-2">Richard Saul</h5>
+                                <p class="mb-1">1208 Sherwood Circle
+                                    Lafayette, LA 70506</p>
+                                <p class="mb-1">RichardSaul@rhyta.com</p>
+                                <p>337-256-9134</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div>
+                                <div>
+                                    <h5 class="font-size-15">Order Date:</h5>
+                                    <p>February 16, 2020</p>
+                                </div>
+
+                                <div class="mt-4">
+                                    <h5 class="font-size-15">Payment Method:</h5>
+                                    <p class="mb-1">Visa ending **** 4242</p>
+                                    <p>richards@email.com</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-                <!-- end card body -->
-            </div>
-            <!-- end card -->
-        </div>
-        <!-- end col -->
-    </div>
+                    <div class="py-2 mt-3">
+                        <h5 class="font-size-15">Order summary</h5>
+                    </div>
+                    <div class="p-4 border rounded">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap align-middle mb-0">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70px;">No.</th>
+                                    <th>Item</th>
+                                    <th class="text-end" style="width: 120px;">Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">01</th>
+                                    <td>
+                                        <h5 class="font-size-15 mb-1">Minia</h5>
+                                        <p class="font-size-13 text-muted mb-0">Bootstrap 5 Admin Dashboard </p>
+                                    </td>
+                                    <td class="text-end">$499.00</td>
+                                </tr>
 
-    {{--    Table Ends--}}
+                                <tr>
+                                    <th scope="row">02</th>
+                                    <td>
+                                        <h5 class="font-size-15 mb-1">Skote</h5>
+                                        <p class="font-size-13 text-muted mb-0">Bootstrap 5 Admin Dashboard </p>
+                                    </td>
+                                    <td class="text-end">$499.00</td>
+                                </tr>
 
-    {{--    Create Categories Modal--}}
-    <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-         style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Admin</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form name="form" id="createAdmin">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="Name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="Name" name="name">
+                                <tr>
+                                    <th scope="row" colspan="2" class="text-end">Sub Total</th>
+                                    <td class="text-end">$998.00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" colspan="2" class="border-0 text-end">
+                                        Tax</th>
+                                    <td class="border-0 text-end">$12.00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" colspan="2" class="border-0 text-end">Total</th>
+                                    <td class="border-0 text-end"><h4 class="m-0">$1010.00</h4></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="col-form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="d-print-none mt-3">
+                        <div class="float-end">
+                            <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
+                            <a href="#" class="btn btn-primary w-md waves-effect waves-light">Send</a>
                         </div>
-                        <div class="mb-3">
-                            <label for="phone" class="col-form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="col-form-label">Role</label>
-                            <input type="text" class="form-control" name="type" id="type">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
-                        </div>
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{--    Edit Categories Modal--}}
-    <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-         style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Admin</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form name="form2" id="editAdmin">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="eName" class="col-form-label">Name</label>
-                            <input type="text" id="eName" class="form-control" name="name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="eEmail" class="col-form-label">Email</label>
-                            <input type="text" id="eEmail" class="form-control" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ePhone" class="col-form-label">Phone</label>
-                            <input type="text" id="ePhone" class="form-control" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="eType" class="col-form-label">Role</label>
-                            <input type="text" id="eType" class="form-control" name="type">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ePassword" class="col-form-label">Password</label>
-                            <input type="password" id="ePassword" class="form-control" name="password">
-                        </div>
-                        <input id="id" type="number" hidden>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- end row -->
+</div>
+
+
 @endsection
 
 @push('backendJs')

@@ -64,6 +64,36 @@
 
 {{--                    </ul>--}}
 {{--                </li>--}}
+
+{{--                 Categories,Subcategories  --}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-heart"></i>
+                        <span data-key="t-apps">Manage Categories</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{route('admin.category.index')}}">
+                                <span data-key="t-calendar">Categories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.subcategory.index')}}">
+                                <span data-key="t-calendar">Subcategories</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('admin.brand.index')}}">
+                                <span data-key="t-calendar">Brands</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </li>
+                
                 
                {{--Banners and Sliders--}}
                 <li>
@@ -118,21 +148,21 @@
                         <span data-key="t-apps">Products</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{route('admin.category.index')}}">
-                                <span data-key="t-calendar">Categories</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('admin.subcategory.index')}}">
-                                <span data-key="t-calendar">Subcategories</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('admin.brand.index')}}">
-                                <span data-key="t-calendar">Brands</span>
-                            </a>
-                        </li>
+{{--                        <li>--}}
+{{--                            <a href="{{route('admin.category.index')}}">--}}
+{{--                                <span data-key="t-calendar">Categories</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('admin.subcategory.index')}}">--}}
+{{--                                <span data-key="t-calendar">Subcategories</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('admin.brand.index')}}">--}}
+{{--                                <span data-key="t-calendar">Brands</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                         <li>
                             <a href="{{route('admin.product.index')}}">
                                 <span data-key="t-calendar">Products</span>
@@ -154,32 +184,58 @@
                 </li>
 
 {{--Order Panel--}}
-{{--                <li>--}}
-{{--                    <a href="javascript: void(0);" class="has-arrow">--}}
-{{--                        <i class="fa-solid fa-cart-shopping"></i>--}}
-{{--                        <span data-key="t-apps">Order Panel</span>--}}
-{{--                    </a>--}}
-{{--                    <ul class="sub-menu" aria-expanded="false">--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('admin.admins.index')}}">--}}
-{{--                                <span data-key="t-calendar">Orders</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('admin.admins.index')}}">--}}
-{{--                                <span data-key="t-calendar">Invoiced</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('admin.admins.index')}}">--}}
-{{--                                <span data-key="t-calendar">Delivered</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                     --}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span data-key="t-apps">Order Panel</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{route('admin.order.all.data')}}">
+                                <span data-key="t-calendar">All Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Pending Orders</span>
+                            </a>
+                        </li>
+                      
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Processed Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Dropped Off Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Shipped Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Out for Delivery Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Delivered Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.admins.index')}}">
+                                <span data-key="t-calendar">All Canceled Orders</span>
+                            </a>
+                        </li>
+                        
 
 
-{{--                    </ul>--}}
-{{--                </li>--}}
+                    </ul>
+                </li>
 {{--                --}}{{--Courier Panel--}}
 {{--                <li>--}}
 {{--                    <a href="javascript: void(0);" class="has-arrow">--}}

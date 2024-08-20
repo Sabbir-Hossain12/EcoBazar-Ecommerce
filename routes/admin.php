@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\BrandsController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\ProductsController;
 use App\Http\Controllers\Backend\ProfileController;
@@ -114,6 +115,21 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/change-product-popular-status', [ProductsController::class, 'popularStatusUpdate'])->name('admin.product.popularStatus');
 
     Route::post('/upload-ckeditor-image', [ProductsController::class, 'uploadCkeditorImage'])->name('admin.ckeditor.upload');
+    
+    //______ Orders _____//
+    Route::resource('/orders', OrderController::class)->names('admin.order');
+    
+    Route::get('/order-all-data', [OrderController::class, 'orderAllData'])->name('admin.order.all.data');
+    Route::get('/order-pending-data', [OrderController::class, 'orderPendingData'])->name('admin.order-data');
+    Route::get('/order-processing-data', [OrderController::class, 'orderProcessingData'])->name('admin.order-data');
+    Route::get('/order-dropped-off-data', [OrderController::class, 'orderDroppedData'])->name('admin.order-data');
+    Route::get('/order-shipped-data', [OrderController::class, 'orderShippedData'])->name('admin.order-data');
+    Route::get('/order-out-for-delivery-data', [OrderController::class, 'orderOutForDeliveryData'])->name('admin.order-data');
+    Route::get('/order-delivered-data', [OrderController::class, 'orderDeliveryData'])->name('admin.order-data');
+    Route::get('/order-cancelled-data', [OrderController::class, 'orderCancelledData'])->name('admin.order-data');
+    
+    Route::post('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('admin.order.status');
+    
     //______ Sliders _____//
     Route::resource('/sliders',SliderController::class)->names('admin.slider');
     Route::get('/slider-data',[SliderController::class,'getData'])->name('admin.slider-data');
