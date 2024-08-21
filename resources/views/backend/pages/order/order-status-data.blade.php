@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-{{--                <h4 class="mb-sm-0 font-size-18">Admins</h4>--}}
+                {{--                <h4 class="mb-sm-0 font-size-18">Admins</h4>--}}
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -36,7 +36,7 @@
                 <div class="card-header">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">All Orders</h4>
+                        <h4 class="card-title">{{$status}} Orders</h4>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdminModal">
                             Create Orders
                         </button>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0   w-100 dataTable no-footer dtr-inline text-center" id="adminTable">
+                        <table class="table mb-0   w-100 dataTable no-footer dtr-inline text-center" id="orderTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
@@ -175,21 +175,26 @@
     <script src="{{asset('public/backend')}}/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+        
 
+        let orderTable;
         $(document).ready(function () {
 
 
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+           
+           
+            
+             orderTable = $('#orderTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
                 processing: true,
                 serverSide: true,
-                
-                ajax: "{{route('admin.order.all.data')}}",
+
+                ajax: "{{route('admin.order.status.data',$status)}}",
                 // pageLength: 30,
 
                 columns: [
@@ -205,7 +210,7 @@
                     {
                         data: 'date',
                         width:'10%'
-                      
+
 
                     },
                     {
@@ -216,9 +221,7 @@
                     {
                         data: 'productInfo',
                         width: '20%'
-                        // render: function (data) {
-                        //     return data.slice(0,5); 
-                        // }
+                     
 
                     },
                     {
@@ -262,17 +265,17 @@
                                     ${options}
                                     </select>`;
                         }
-                       
+
 
                     },
                     {
-                      data:'payment_method',
+                        data:'payment_method',
                         render:function (data)
                         {
-                          return `<span class="badge badge-lg bg-success px-2">${data}</span>`
+                            return `<span class="badge badge-lg bg-success px-2">${data}</span>`
                         }
                     },
-                 
+
 
                     {
                         data: 'action',
@@ -303,7 +306,7 @@
                         if (res.message === 'success') {
                             $('#createAdminModal').modal('hide');
                             $('#createAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            orderTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Created !",
@@ -379,7 +382,7 @@
                         if (res.message === 'success') {
                             $('#editAdminModal').modal('hide');
                             $('#editAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            orderTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Edited !",
@@ -433,7 +436,7 @@
                                         icon: "success"
                                     });
 
-                                    adminTable.ajax.reload();
+                                    orderTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -450,48 +453,9 @@
 
             })
 
-            // Change Admin Status
-            $(document).on('click', '#adminStatus', function () {
-                let id = $(this).data('id');
-                let status = $(this).data('status')
-                console.log(id + status)
-                $.ajax(
-                    {
-                        type: 'post',
-                        url: "{{route('admin.status')}}",
-                        data: {
-                            '_token': token,
-                            id: id,
-                            status: status
-
-                        },
-                        success: function (res) {
-                            adminTable.ajax.reload();
-
-                            if (res.status == 1) {
-
-                                swal.fire(
-                                    {
-                                        title: 'Status Changed to Active',
-                                        icon: 'success'
-                                    })
-                            } else {
-                                swal.fire(
-                                    {
-                                        title: 'Status Changed to Inactive',
-                                        icon: 'success'
-                                    })
-
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err)
-                        }
-                    }
-                )
-            })
+           
+         
         });
-
         // Change Order Status
         function orderStatusChange(id,status)
         {
@@ -507,7 +471,7 @@
                     order_status:status
                 },
                 success: function (res) {
-
+                   
                     toastr.success(res.message);
                     orderTable.ajax.reload();
                 },

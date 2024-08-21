@@ -196,38 +196,38 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Pending')}}">
                                 <span data-key="t-calendar">All Pending Orders</span>
                             </a>
                         </li>
                       
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Processing')}}">
                                 <span data-key="t-calendar">All Processed Orders</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Dropped_Off')}}">
                                 <span data-key="t-calendar">All Dropped Off Orders</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Shipped')}}">
                                 <span data-key="t-calendar">All Shipped Orders</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Out_Delivery')}}">
                                 <span data-key="t-calendar">All Out for Delivery Orders</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Delivered')}}">
                                 <span data-key="t-calendar">All Delivered Orders</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.admins.index')}}">
+                            <a href="{{route('admin.order.status.data','Cancelled')}}">
                                 <span data-key="t-calendar">All Canceled Orders</span>
                             </a>
                         </li>

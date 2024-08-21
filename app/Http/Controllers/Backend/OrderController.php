@@ -129,84 +129,87 @@ class OrderController extends Controller
         return view('backend.pages.order.index', compact('orders'));
     }
 
-    public function orderPendingData()
+    public function orderStatusData(String $status)
     {
-        $pendingOrders = Order::where('order_status', 'Pending')->get();
+        $Orders = Order::where('order_status', $status)->get();
 
         if (request()->ajax()) {
-            return DataTables::of($pendingOrders)->make(true);
-        }
+            return DataTables::of($Orders)
+                ->addColumn('customerInfo', function ($order) {
+                    return $order->customer->first_name.' '.$order->customer->first_name.'<br>'.
+                        $order->customer->email.'<br>'.$order->customer->phone;
+                })
+                ->addColumn('date', function ($order) {
+                    return $order->created_at->format('d M, Y').'<br>'.$order->created_at->format('h:i A');
+                })
+                ->addColumn('productInfo', function ($order) {
+                    $productInfo = '';
+                    foreach ($order->orderProducts as $orderProduct) {
+                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight)
+                        {
+                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                $orderProduct->quantity.' x '.$orderProduct->color.
+                                ' x '.$orderProduct->size.' x '.$orderProduct->weight.'<br>';
+                        }
+                        else if ($orderProduct->color && $orderProduct->size )
+                        {
+                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                $orderProduct->quantity.' x '.$orderProduct->color.
+                                ' x '.$orderProduct->size.'<br>';
+                        }
+                        else if ($orderProduct->color )
+                        {
+                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                $orderProduct->quantity.' x '.$orderProduct->color.
+                                '<br>';
+                        }
+                        else  if ($orderProduct->size )
+                        {
+                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                $orderProduct->quantity.' x '.$orderProduct->size.
+                                '<br>';
+                        }
+                        else   if ($orderProduct->weight )
+                        {
+                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                $orderProduct->quantity.' x '.$orderProduct->weight.
+                                '<br>';
+                        }
 
-        return view('backend.pages.order.pending-order', compact('pendingOrders'));
-    }
 
-    public function orderProcessingData()
-    {
-        $processing = Order::where('order_status', 'processing')->get();
-
-        if (request()->ajax()) {
-            return DataTables::of($processing)->make(true);
-        }
-
-        return view('backend.pages.order.processing-order', compact('processing'));
-    }
-
-    public function orderDroppedData()
-    {
-        $droppedOrder = Order::where('order_status', 'dropped_off')->get();
-
-        if (request()->ajax()) {
-            return DataTables::of($droppedOrder)->make(true);
-        }
-        return view('backend.pages.order.dropped_off', compact('droppedOrder'));
-    }
-
-    public function orderShippedData()
-    {
-        $shippedOrder = Order::where('order_status', 'shipped')->get();
-
-        if (request()->ajax()) {
-            return DataTables::of($shippedOrder)->make(true);
-        }
-
-        return view('backend.pages.order.shipped-order', compact('shippedOrder'));
-    }
-
-    public function orderOutForDeliveryData()
-    {
-        $outForDeliveryOrders = Order::where('order_status', 'out_for_delivery')->get();
-
-        if (request()->ajax()) {
-            return DataTables::of($outForDeliveryOrders)->make(true);
-        }
-
-        return view('backend.pages.order.out-for-delivery-order', compact('outForDeliveryOrders'));
-    }
-
-    public function orderDeliveryData()
-    {
-        $deliveredOrder = Order::where('order_status', 'delivered')->get();
-
-        if (request()->ajax()) {
-            return DataTables::of($deliveredOrder)
+                    }
+                    return $productInfo;
+                })
+                ->addColumn('action', function ($order) {
+                    return '<div class="d-flex flex-column gap-2"><a class="viewButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target=""><i class="fas fa-print"></i></a>
+                            <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
+                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$order->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
+                                                           </div>';
+                })
                 ->addIndexColumn()
+                ->rawColumns(['customerInfo', 'action'])
+                ->escapeColumns([])
+                
                 ->make(true);
         }
 
-        return view('backend.pages.order.delivered-order', compact('deliveredOrder'));
+        return view('backend.pages.order.order-status-data', compact('Orders', 'status'));
     }
 
-
-    public function orderCancelledData()
+    public function orderStatusChange(Request $request)
     {
-        $cancelledOrders = Order::where('order_status', 'cancelled')->get();
+        $order_status= $request->order_status;
+        $order_id= $request->order_id;
+        
 
-        if (request()->ajax()) {
-            return DataTables::of($cancelledOrders)->make(true);
-        }
-
-        return view('backend.pages.order.cancelled-order', compact('cancelledOrders'));
+        $order = Order::find($order_id);
+        $order->order_status = $order_status;
+        $order->update();
+        
+        return response()->json(['message' => 'Order Status Changed to '.$order_status], 200);
+        
     }
+
 
 
 }

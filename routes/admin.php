@@ -120,13 +120,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/orders', OrderController::class)->names('admin.order');
     
     Route::get('/order-all-data', [OrderController::class, 'orderAllData'])->name('admin.order.all.data');
-    Route::get('/order-pending-data', [OrderController::class, 'orderPendingData'])->name('admin.order-data');
-    Route::get('/order-processing-data', [OrderController::class, 'orderProcessingData'])->name('admin.order-data');
-    Route::get('/order-dropped-off-data', [OrderController::class, 'orderDroppedData'])->name('admin.order-data');
-    Route::get('/order-shipped-data', [OrderController::class, 'orderShippedData'])->name('admin.order-data');
-    Route::get('/order-out-for-delivery-data', [OrderController::class, 'orderOutForDeliveryData'])->name('admin.order-data');
-    Route::get('/order-delivered-data', [OrderController::class, 'orderDeliveryData'])->name('admin.order-data');
-    Route::get('/order-cancelled-data', [OrderController::class, 'orderCancelledData'])->name('admin.order-data');
+    Route::get('/order/{status}', [OrderController::class, 'orderStatusData'])->name('admin.order.status.data');
+    Route::post('/order-status-change', [OrderController::class, 'orderStatusChange'])->name('admin.order.status.change');
+
     
     Route::post('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('admin.order.status');
     
