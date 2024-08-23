@@ -54,7 +54,7 @@
                         </form>
                     </div><!-- End. coupon-code -->
                 </div><!-- End. col-md-6 -->
-        <form action="{{route('order.store')}}" method="POST">
+        <form action="{{route('order.store')}}" method="POST" id="codPaymentForm">
             @csrf
                 <div class="col-lg-12">
                 <div class="checkout-container">
@@ -219,12 +219,15 @@
                                 <input type="text" name="subtotal" value="{{str_replace(',','',Cart::subtotal(0))}}" class="normal-forms" id="" hidden>
                                 
 
-                                <button type="submit" class="order-btn">Place Order</button>
+                                <button id="cod-btn" form="codPaymentForm" type="submit" class="order-btn">Cash On Delivery</button>
+                                <button id="ssl-btn" class="btn order-btn d-none" >Pay with SSL Commerz</button>
+                                <button id="paypal-btn" class="btn order-btn d-none" >Pay with PayPal</button>
+                                <button id="stripe-btn" class="btn order-btn d-none" >Pay with Stripe</button>
 
-                            </div><!-- End. order-summary -->
-                        </div><!-- End. main-order-summary -->
-                </div><!-- End. checkout-container -->
-                </div><!-- End. col-lg-12 -->
+                            </div>
+                        </div>
+                </div>
+                </div>
 </form>
             </div><!-- End. row -->
         </div><!-- End. container -->
@@ -234,5 +237,35 @@
 
 
 @push('add-scripts')
+    
+    <script>
+    $(document).ready(function(){
+        $("#cod").click(function(){
+            $('#cod-btn').removeClass('d-none');
+            $("#ssl-btn").addClass("d-none");
+            $("#paypal-btn").addClass("d-none");
+            $("#stripe-btn").addClass("d-none");
+        });
+        $("#ssl_commercez").click(function(){
+            $('#cod-btn').addClass('d-none'); 
+            $("#ssl-btn").removeClass("d-none");
+            $("#paypal-btn").addClass("d-none");
+            $("#stripe-btn").addClass("d-none");
+        });
+        $("#paypal").click(function(){
+            $('#cod-btn').addClass('d-none');
+            $("#ssl-btn").addClass("d-none");
+            $("#paypal-btn").removeClass("d-none");
+            $("#stripe-btn").addClass("d-none");
+        });
+        $("#stripe").click(function() {
+            $('#cod-btn').addClass('d-none');
+            $("#ssl-btn").addClass("d-none");
+            $("#paypal-btn").addClass("d-none");
+            $("#stripe-btn").removeClass("d-none");
+        });
+    });
+
+    </script>
 
 @endpush

@@ -67,6 +67,14 @@ class OrderController extends Controller
     public function orderAllData(Request $request)
     {
         $orders = Order::with(['orderProducts', 'customer'])->get();
+        $allOrdersCount = Order::count();
+        $pendingOrderCount = Order::where('order_status', 'Pending')->count();
+        $processingOrderCount = Order::where('order_status', 'Processing')->count();
+        $shippedOrderCount = Order::where('order_status', 'Shipped')->count();
+        $droppedOffOrderCount = Order::where('order_status', 'Dropped_Off')->count();
+        $outDeliveryOrderCount = Order::where('order_status', 'Out_Delivery')->count();
+        $deliveredOrderCount = Order::where('order_status', 'Delivered')->count();
+        $cancelledOrderCount = Order::where('order_status', 'Cancelled')->count();
 
         if (request()->ajax()) {
             return DataTables::of($orders)
@@ -80,38 +88,35 @@ class OrderController extends Controller
                 ->addColumn('productInfo', function ($order) {
                     $productInfo = '';
                     foreach ($order->orderProducts as $orderProduct) {
-                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight)
-                        {
+                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight) {
                             $productInfo .= $orderProduct->product_name.'<br>'.
                                 $orderProduct->quantity.' x '.$orderProduct->color.
                                 ' x '.$orderProduct->size.' x '.$orderProduct->weight.'<br>';
-                        }
-                       else if ($orderProduct->color && $orderProduct->size )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->color.
-                                 ' x '.$orderProduct->size.'<br>';
-                        }
-                       else if ($orderProduct->color )
-                        {
+                        } else {
+                            if ($orderProduct->color && $orderProduct->size) {
                                 $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->color.
-                                '<br>';
+                                    $orderProduct->quantity.' x '.$orderProduct->color.
+                                    ' x '.$orderProduct->size.'<br>';
+                            } else {
+                                if ($orderProduct->color) {
+                                    $productInfo .= $orderProduct->product_name.'<br>'.
+                                        $orderProduct->quantity.' x '.$orderProduct->color.
+                                        '<br>';
+                                } else {
+                                    if ($orderProduct->size) {
+                                        $productInfo .= $orderProduct->product_name.'<br>'.
+                                            $orderProduct->quantity.' x '.$orderProduct->size.
+                                            '<br>';
+                                    } else {
+                                        if ($orderProduct->weight) {
+                                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                                $orderProduct->quantity.' x '.$orderProduct->weight.
+                                                '<br>';
+                                        }
+                                    }
+                                }
+                            }
                         }
-                      else  if ($orderProduct->size )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->size.
-                                '<br>';
-                        }
-                    else   if ($orderProduct->weight )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->weight.
-                                '<br>';
-                        }
-                        
-                        
                     }
                     return $productInfo;
                 })
@@ -126,10 +131,13 @@ class OrderController extends Controller
                 ->escapeColumns([])
                 ->make(true);
         }
-        return view('backend.pages.order.index', compact('orders'));
+        return view('backend.pages.order.index', compact([
+            'orders', 'allOrdersCount', 'pendingOrderCount', 'processingOrderCount', 'shippedOrderCount',
+            'droppedOffOrderCount', 'outDeliveryOrderCount', 'deliveredOrderCount', 'cancelledOrderCount'
+        ]));
     }
 
-    public function orderStatusData(String $status)
+    public function orderStatusData(string $status)
     {
         $Orders = Order::where('order_status', $status)->get();
 
@@ -145,38 +153,35 @@ class OrderController extends Controller
                 ->addColumn('productInfo', function ($order) {
                     $productInfo = '';
                     foreach ($order->orderProducts as $orderProduct) {
-                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight)
-                        {
+                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight) {
                             $productInfo .= $orderProduct->product_name.'<br>'.
                                 $orderProduct->quantity.' x '.$orderProduct->color.
                                 ' x '.$orderProduct->size.' x '.$orderProduct->weight.'<br>';
+                        } else {
+                            if ($orderProduct->color && $orderProduct->size) {
+                                $productInfo .= $orderProduct->product_name.'<br>'.
+                                    $orderProduct->quantity.' x '.$orderProduct->color.
+                                    ' x '.$orderProduct->size.'<br>';
+                            } else {
+                                if ($orderProduct->color) {
+                                    $productInfo .= $orderProduct->product_name.'<br>'.
+                                        $orderProduct->quantity.' x '.$orderProduct->color.
+                                        '<br>';
+                                } else {
+                                    if ($orderProduct->size) {
+                                        $productInfo .= $orderProduct->product_name.'<br>'.
+                                            $orderProduct->quantity.' x '.$orderProduct->size.
+                                            '<br>';
+                                    } else {
+                                        if ($orderProduct->weight) {
+                                            $productInfo .= $orderProduct->product_name.'<br>'.
+                                                $orderProduct->quantity.' x '.$orderProduct->weight.
+                                                '<br>';
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        else if ($orderProduct->color && $orderProduct->size )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->color.
-                                ' x '.$orderProduct->size.'<br>';
-                        }
-                        else if ($orderProduct->color )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->color.
-                                '<br>';
-                        }
-                        else  if ($orderProduct->size )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->size.
-                                '<br>';
-                        }
-                        else   if ($orderProduct->weight )
-                        {
-                            $productInfo .= $orderProduct->product_name.'<br>'.
-                                $orderProduct->quantity.' x '.$orderProduct->weight.
-                                '<br>';
-                        }
-
-
                     }
                     return $productInfo;
                 })
@@ -189,7 +194,6 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->rawColumns(['customerInfo', 'action'])
                 ->escapeColumns([])
-                
                 ->make(true);
         }
 
@@ -198,18 +202,16 @@ class OrderController extends Controller
 
     public function orderStatusChange(Request $request)
     {
-        $order_status= $request->order_status;
-        $order_id= $request->order_id;
-        
+        $order_status = $request->order_status;
+        $order_id = $request->order_id;
+
 
         $order = Order::find($order_id);
         $order->order_status = $order_status;
         $order->update();
-        
-        return response()->json(['message' => 'Order Status Changed to '.$order_status], 200);
-        
-    }
 
+        return response()->json(['message' => 'Order Status Changed to '.$order_status], 200);
+    }
 
 
 }
