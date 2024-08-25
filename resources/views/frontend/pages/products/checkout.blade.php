@@ -54,7 +54,8 @@
                         </form>
                     </div><!-- End. coupon-code -->
                 </div><!-- End. col-md-6 -->
-        <form action="{{route('order.store')}}" method="POST" id="codPaymentForm">
+{{--        <form action="{{route('order.store')}}" method="POST" id="codPaymentForm">--}}
+        <form action="{{url('/pay')}}" method="POST" id="codPaymentForm">
             @csrf
                 <div class="col-lg-12">
                 <div class="checkout-container">
