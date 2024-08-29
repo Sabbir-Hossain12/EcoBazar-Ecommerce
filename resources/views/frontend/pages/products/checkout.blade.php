@@ -55,7 +55,7 @@
                     </div><!-- End. coupon-code -->
                 </div><!-- End. col-md-6 -->
 {{--        <form action="{{route('order.store')}}" method="POST" id="codPaymentForm">--}}
-        <form action="{{url('/pay')}}" method="POST" id="codPaymentForm">
+        <form action="{{route('order.store')}}" method="POST" id="codPaymentForm">
             @csrf
                 <div class="col-lg-12">
                 <div class="checkout-container">
@@ -195,28 +195,28 @@
                                     <h2>Payment Method</h2>
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="cod" checked="" value="COD">
+                                        <input type="radio" name="payment_method" id="cod" checked="" value="cod">
                                         <label for="cod" class="payment-label">Cash on Delivery</label>
                                     </div><!-- End. payment-form -->
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="ssl_commercez" value="SSLCOMMERZ">
+                                        <input type="radio" name="payment_method" id="ssl_commercez" value="sslcommerzz">
                                         <label for="ssl_commercez" class="payment-label">SSL Commercez</label>
                                     </div><!-- End. payment-form -->
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="paypal" value="Paypal">
+                                        <input type="radio" name="payment_method" id="paypal" value="paypal">
                                         <label for="paypal" class="payment-label">Paypal</label>
                                     </div><!-- End. payment-form -->
 
                                     <div class="payment-form">
-                                        <input type="radio" name="payment_method" id="stripe" value="Stripe">
+                                        <input type="radio" name="payment_method" id="stripe" value="stripe">
                                         <label for="stripe" class="payment-label">Stripe</label>
                                     </div><!-- End. payment-form -->
                                 </div><!-- End. payment-method -->
                                 
                                 
-                                <input type="text" name="total" value="{{Cart::subtotal(0,0,0)}}" class="normal-forms" id="" hidden>
+                                <input type="text" name="total" value="{{str_replace(',','',Cart::subtotal(0))}}" class="normal-forms" id="" hidden>
                                 <input type="text" name="subtotal" value="{{str_replace(',','',Cart::subtotal(0))}}" class="normal-forms" id="" hidden>
                                 
 

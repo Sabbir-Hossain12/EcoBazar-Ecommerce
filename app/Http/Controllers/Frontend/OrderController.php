@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -40,7 +41,8 @@ class OrderController extends Controller
         }
         DB::beginTransaction();
         try {
-           
+            
+//           Create Customer
             $customer = new Customer();
             $customer->first_name = $request->first_name;
             $customer->last_name = $request->last_name;
@@ -55,7 +57,7 @@ class OrderController extends Controller
 
             $customer->save();
 
-
+//          Create Order
             $order = new Order();
             $order->customer_id = $customer->id;
             $order->user_id = auth()->user()->id ?? null;
@@ -69,13 +71,10 @@ class OrderController extends Controller
             $order->order_status = 'Pending';
             $order->payment_status = 'Pending';
             $order->payment_method = $request->payment_method;
-            
-            
-            
 
             $order->save();
 
-
+//          Create Order Products
             foreach (Cart::content() as $cartItem) {
                 $orderProduct = new OrderProduct();
                 $orderProduct->order_id = $order->id;
@@ -93,8 +92,57 @@ class OrderController extends Controller
                 $orderProduct->save();
             }
 
-            Cart::destroy();
-            DB::commit();
+           
+            
+            if ($request->payment_method == 'sslcommerzz') {
+//                dd($request->all());
+
+                $post_data = array();
+                $post_data['total_amount'] = $request->total; # You cant not pay less than 10
+                $post_data['currency'] = "BDT";
+                $post_data['tran_id'] = uniqid(); // tran_id must be unique
+
+                # CUSTOMER INFORMATION
+                $post_data['cus_name'] = $request->first_name.' '.$request->last_name;
+                $post_data['cus_email'] = $request->email ?? 'customer@mail.com';
+                $post_data['cus_add1'] = $request->address_1;
+                $post_data['cus_add2'] = $request->address_2 ?? '';
+                $post_data['cus_city'] = $request->state_district ?? 'Dhaka' ;
+                $post_data['cus_state'] = $request->state_district ?? 'Dhaka';
+                $post_data['cus_postcode'] = $request->zip ?? '';
+                $post_data['cus_country'] = $request->country ?? 'Bangladesh'  ;
+                $post_data['cus_phone'] = $request->phone;
+                $post_data['cus_fax'] = "123456";
+
+                # SHIPMENT INFORMATION
+                $post_data['ship_name'] = $request->first_name.' '.$request->last_name;
+                $post_data['ship_add1'] = $request->address_1;
+                $post_data['ship_add2'] = $request->address_2 ?? '';
+                $post_data['ship_city'] = $request->state_district ?? 'Dhaka' ;
+                $post_data['ship_state'] = $request->state_district ?? 'Dhaka';
+                $post_data['ship_postcode'] = $request->zip ?? '';
+                $post_data['ship_phone'] = $request->phone;
+                $post_data['ship_country'] = $request->country ?? 'Bangladesh';
+
+                $post_data['shipping_method'] = "NO";
+                $post_data['product_name'] = "multivendor";
+                $post_data['product_category'] = "Goods";
+                $post_data['product_profile'] = "physical-goods";
+
+                $sslc = new SslCommerzNotification();
+                # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
+                $payment_options = $sslc->makePayment($post_data, 'hosted');
+
+                if (!is_array($payment_options)) {
+                    print_r($payment_options);
+                    $payment_options = array();
+                }
+
+                Cart::destroy();
+                DB::commit();
+                
+            
+            }
 
             return view('frontend.pages.orders.order-success',compact('order','orderProduct'));
         } catch (Exception $exception) {

@@ -66,7 +66,7 @@ class OrderController extends Controller
 
     public function orderAllData(Request $request)
     {
-        $orders = Order::with(['orderProducts', 'customer'])->get();
+        $orders = Order::with(['orderProducts', 'customer'])->orderBy( 'id','desc')->latest()->get();
         $allOrdersCount = Order::count();
         $pendingOrderCount = Order::where('order_status', 'Pending')->count();
         $processingOrderCount = Order::where('order_status', 'Processing')->count();
