@@ -15,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias(
             [
-                'VerifyCsrfToken'=> VerifyCsrfToken::class,
+//                'VerifyCsrfToken'=> VerifyCsrfToken::class,
                 'admin' => admin::class,
                 'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
                 'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,

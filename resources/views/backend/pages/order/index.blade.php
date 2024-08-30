@@ -253,7 +253,7 @@
                         data: 'payment_status',
                         width: '15%',
                         render: function (data, type, row) {
-                            let statuses = ['Complete','Pending']; // Example statuses
+                            let statuses = ['Paid','Pending']; // Example statuses
                             let options = '';
 
                             statuses.forEach(function(status) {

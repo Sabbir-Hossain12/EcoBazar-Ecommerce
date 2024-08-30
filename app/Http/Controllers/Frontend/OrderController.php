@@ -35,7 +35,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
+
         if (Cart::content()->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty. Please add items to your cart before placing an order.');
         }
@@ -56,12 +56,15 @@ class OrderController extends Controller
             $customer->email = $request->email;
 
             $customer->save();
+            
+            $tranId=uniqid();
 
 //          Create Order
             $order = new Order();
             $order->customer_id = $customer->id;
             $order->user_id = auth()->user()->id ?? null;
             $order->invoiceID = 'BM'.rand('100000', '999999');
+            $order->tran_id=$tranId;
             $order->payment_method = $request->payment_method;
             $order->shipping_charge = $request->shipping_charge;
             $order->order_note = $request->order_note;
@@ -92,7 +95,8 @@ class OrderController extends Controller
                 $orderProduct->save();
             }
 
-           
+            DB::commit();
+            Cart::destroy();
             
             if ($request->payment_method == 'sslcommerzz') {
 //                dd($request->all());
@@ -100,7 +104,7 @@ class OrderController extends Controller
                 $post_data = array();
                 $post_data['total_amount'] = $request->total; # You cant not pay less than 10
                 $post_data['currency'] = "BDT";
-                $post_data['tran_id'] = uniqid(); // tran_id must be unique
+                $post_data['tran_id'] = $tranId; // tran_id must be unique
 
                 # CUSTOMER INFORMATION
                 $post_data['cus_name'] = $request->first_name.' '.$request->last_name;
@@ -138,11 +142,12 @@ class OrderController extends Controller
                     $payment_options = array();
                 }
 
-                Cart::destroy();
-                DB::commit();
+             
                 
             
             }
+            
+         
 
             return view('frontend.pages.orders.order-success',compact('order','orderProduct'));
         } catch (Exception $exception) {

@@ -40,7 +40,7 @@ Route::view('/wishlist', 'frontend.pages.products.wishlist');
 
 Route::view('/about', 'frontend.pages.static-pages.about');
 Route::view('/contact', 'frontend.pages.static-pages.contact');
-Route::view('/order-success', 'frontend.pages.orders.order-success');
+Route::view('/order-success', 'frontend.pages.orders.order-success')->name('order.success');
 Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
 Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
 Route::view('/shop', 'frontend.pages.products.shop-page');
