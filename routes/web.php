@@ -30,7 +30,7 @@ Route::resource('/orders', OrderController::class)->names('order');
 
 //Checkout
 Route::resource('/checkouts', CheckoutController::class)->names('checkout');
-
+Route::post('/shipping-charge-update',[CheckoutController::class,'shippingChargeUpdate'])->name('shipping.charge.update');
 //User Dashboard
 Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
 //Route::view('/checkout', 'frontend.pages.products.checkout');
