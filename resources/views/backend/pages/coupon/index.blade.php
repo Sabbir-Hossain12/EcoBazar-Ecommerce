@@ -93,7 +93,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label" id="discount">Coupon Discount</label>
-                                <input class="form-control" id="discount" type="text" name="discount" required>
+                                <input class="form-control" id="discount" type="number" min="1" name="discount" required>
                             </div>
 
                             <div class="mb-3">

@@ -66,7 +66,7 @@ class CouponController extends Controller
     {
         $coupon = new Coupon();
 
-        $coupon->code            = Str::lower($request->code);
+        $coupon->code            = $request->code;
         $coupon->discount        = $request->discount;
         $coupon->amount          = $request->amount;
         $coupon->expire_date     = $request->expire_date;
@@ -119,7 +119,7 @@ class CouponController extends Controller
      */
     public function update(Request $request, Coupon $coupon)
     {
-        $coupon->code            = Str::lower($request->code);
+        $coupon->code            = $request->code;
         $coupon->discount        = $request->discount;
         $coupon->amount          = $request->amount;
         $coupon->expire_date     = $request->expire_date;

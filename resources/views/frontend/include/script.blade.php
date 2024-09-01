@@ -14,5 +14,9 @@
 
     <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
+{{--toastr.js--}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-   @stack('add-scripts')
+
+
+    @stack('add-scripts')

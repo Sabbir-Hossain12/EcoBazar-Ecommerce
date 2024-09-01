@@ -28,6 +28,10 @@ Route::post('remove-cart-item',[CartController::class,'removeCartItem'])->name('
 //Orders
 Route::resource('/orders', OrderController::class)->names('order');
 
+//Coupon
+
+Route::post('/apply-coupon',[CheckoutController::class,'applyCoupon'])->name('apply.coupon');
+
 //Checkout
 Route::resource('/checkouts', CheckoutController::class)->names('checkout');
 Route::post('/shipping-charge-update',[CheckoutController::class,'shippingChargeUpdate'])->name('shipping.charge.update');
@@ -47,11 +51,6 @@ Route::view('/shop', 'frontend.pages.products.shop-page');
 
 
 // SSLCOMMERZ Start
-//Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-//Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
-
-//Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-//Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);

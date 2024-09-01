@@ -31,5 +31,8 @@
  <!-- Main CSS File -->
  <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/theme.css') }}">
  <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/style.css') }}">
-
+ 
+{{-- tostr.js--}}
+ <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+ 
   @stack('add-css')

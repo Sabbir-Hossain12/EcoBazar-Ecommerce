@@ -48,11 +48,11 @@
 
                 <div class="col-md-6 mb-5">
                     <div class="coupon-code">
-                        <form action="">
-                            <input type="text" class="coupon-form" placeholder="Enter Code">
+                        <div>
+                            <input type="text" id="coupon_code" class="coupon-form" placeholder="Enter Code">
                             <i class="bx bx-purchase-tag-alt"></i>
-                            <button class="coupon-btn">Apply Coupon</button>
-                        </form>
+                            <button class="coupon-btn" onclick="applyCoupon()">Apply Coupon</button>
+                        </div>
                     </div><!-- End. coupon-code -->
                 </div><!-- End. col-md-6 -->
                 {{--        <form action="{{route('order.store')}}" method="POST" id="codPaymentForm">--}}
@@ -276,7 +276,7 @@
 
                                 <div class="order-summary-details">
                                     <p>Coupon Discount:</p>
-                                    <span>$0.00</span>
+                                    <span >$ <span id="couponCode">0.00</span></span>
                                 </div>
                         
                                 <div class="order-summary-details">
@@ -320,6 +320,41 @@
                 }
             });
        
+        }
+        
+        function applyCoupon() {
+            let coupon_code = $('#coupon_code').val();
+            
+            $.ajax({
+                type: "POST",
+                url: "{{ route('apply.coupon') }}",
+                data:
+                    {
+                        coupon_code: coupon_code
+                    },
+
+                success: function (res) {
+                    
+                    if (res.status === 'success')
+                    {
+                        $('#couponCode').text(res.discount_amount)
+                        $("#totalAmount").text(res.total_amount)
+                        toastr.options.closeButton = true;
+                        toastr.success(res.message, 'Success!')
+                    }
+                    else if (res.status==="failed")
+                    {
+                        toastr.options.closeButton = true;
+                        toastr.error(res.message, 'Failed!')
+                    }
+                    
+                   
+                },
+                error: function (err) {
+                    console.error('Error:', err);
+                    // toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+                }
+            });
         }
 
     </script>
