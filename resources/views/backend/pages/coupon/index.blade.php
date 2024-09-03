@@ -56,9 +56,11 @@
                     <thead>
                     <tr>
                         <th>#SL.</th>
+                        <th>Coupon Name</th>
                         <th>Coupon Code</th>
-                        <th>Coupon Expire</th>
                         <th>Coupon Discount</th>
+                        <th>Coupon Quantity</th>
+                        <th>Coupon Expire Date</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -87,29 +89,39 @@
                             @csrf
 
                             <div class="mb-3">
+                                <label class="form-label" id="code">Coupon Name</label>
+                                <input class="form-control" id="coupon_name" type="text" name="coupon_name" required>
+                            </div>
+                            
+                            <div class="mb-3">
                                 <label class="form-label" id="code">Coupon Code</label>
                                 <input class="form-control" id="code" type="text" name="code" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" id="discount">Coupon Discount</label>
-                                <input class="form-control" id="discount" type="text" name="discount" required>
+                                <label class="form-label" id="discount">Coupon Discount (%)</label>
+                                <input class="form-control" id="discount" type="number" min="1" name="discount" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" id="discount">Quantity (Overall)</label>
+                                <input class="form-control" id="quantity" type="number" min="1" name="quantity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="max_used" class="form-label" id="discount">User Max Use Limit</label>
+                                <input class="form-control" id="max_used" type="number" min="1" name="max_used" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="start_date" id="start_date" value="{{today()->format('Y-m-d')}}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="expire_date" class="form-label">Expire Date</label>
                                 <input type="date" class="form-control" name="expire_date" id="expire_date" required>
                             </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <select class="form-select" name="status">
-                                    <option value="" disabled selected>Select</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                            </div>
-
+                            
                             <div class="d-flex justify-content-end align-items-center">
                                 <button type="button" class="btn btn-secondary waves-effect me-3"
                                   data-bs-dismiss="modal">Close </button>
@@ -144,13 +156,32 @@
                             <input type="text" name="id" id="id" hidden>
 
                             <div class="mb-3">
+                                <label class="form-label" id="code">Coupon Name</label>
+                                <input class="form-control" id="coupon_name" type="text" name="coupon_name" required>
+                            </div>
+
+                            <div class="mb-3">
                                 <label class="form-label" for="code">Coupon Code</label>
                                 <input class="form-control" id="up_code" type="text" name="code" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="discount">Coupon Discount</label>
+                                <label class="form-label" for="discount">Coupon Discount (%)</label>
                                 <input class="form-control" id="up_discount" type="text" name="discount" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" id="discount">Quantity (Overall)</label>
+                                <input class="form-control" id="quantity" type="number" min="1" name="quantity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="max_used" class="form-label" id="discount">User Max Use Limit</label>
+                                <input class="form-control" id="max_used" type="number" min="1" name="max_used" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="start_date" id="start_date" value="{{today()}}" required>
                             </div>
 
                             <div class="mb-3">
@@ -158,14 +189,7 @@
                                 <input type="date" class="form-control" name="expire_date" id="up_expire_date" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <select class="form-select" id="up_status" name="status">
-                                    <option value="" disabled selected>Select</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                            </div>
+                           
 
                             <div class="d-flex justify-content-end align-items-center">
                                 <button type="button" class="btn btn-secondary waves-effect me-3"
@@ -212,14 +236,22 @@
                         data: 'id',
                     },
                     {
-                        data: 'code',
+                        data: 'coupon_name',
                     },
                     {
-                        data: 'expire_date',
+                        data: 'code',
                     },
                     {
                         data: 'discount',
                     },
+                    {
+                        data: 'quantity',
+                    },
+                    
+                    {
+                        data: 'expire_date',
+                    },
+                  
                     {
                         data: 'status',
                         orderable: false,
@@ -337,6 +369,11 @@
                         $('#up_amount').val(data.amount);
                         $('#up_expire_date').val(data.expire_date);
                         $('#up_status').val(data.status);
+                        
+                        $('#EditCoupon').find('#coupon_name').val(data.coupon_name);
+                        $('#EditCoupon').find('#quantity').val(data.quantity);
+                        $('#EditCoupon').find('#max_used').val(data.max_used);
+                        $('#EditCoupon').find('#start_date').val(data.start_date);
 
                     },
                     error: function (error) {

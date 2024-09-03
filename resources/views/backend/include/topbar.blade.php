@@ -5,19 +5,20 @@
             <div class="navbar-brand-box">
                 <a href="" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="{{asset('public/backend')}}/assets/images/logo-sm.svg" alt="" height="24">
+                                    
+{{--                                    <img src="{{asset($basic_info->black_logo)}}" alt="" width="80%" height="24">--}}
                                 </span>
                     <span class="logo-lg">
-                                    <img src="{{asset('public/backend')}}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Minia</span>
+                                    <img src="{{asset($basic_info->black_logo)}}" alt="" width="100%" height="50"> 
                                 </span>
                 </a>
 
                 <a href="" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{asset('public/backend')}}/assets/images/logo-sm.svg" alt="" height="24">
+{{--                                    <img src="{{asset($basic_info->light_logo)}}" alt="" height="24">--}}
                                 </span>
                     <span class="logo-lg">
-                                    <img src="{{asset('public/backend')}}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Minia</span>
+                                    <img src="{{asset($basic_info->light_logo)}}" alt="" height="24"> <span class="logo-txt">Minia</span>
                                 </span>
                 </a>
             </div>

@@ -13,4 +13,10 @@ class Review extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 }

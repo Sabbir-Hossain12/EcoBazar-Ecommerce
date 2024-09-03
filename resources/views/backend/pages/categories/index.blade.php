@@ -47,7 +47,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered mb-0" id="categoryTable">
+                <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="categoryTable" style="text-align: center;">
 
                     <thead>
                     <tr>

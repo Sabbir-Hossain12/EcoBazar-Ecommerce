@@ -100,7 +100,7 @@ class SliderController extends Controller
 
             // encoding jpeg data
             $encoded = $imgs->toWebp(80);
-
+            $encoded=$imgs->resize(884,549);
             // Save the encoded image to the file system
             $encodedFilename = time() . '.webp';
             $encoded->save(public_path('backend/assets/images/uploads/sliders') . '/' . $encodedFilename);
@@ -181,6 +181,7 @@ class SliderController extends Controller
 
             // encoding jpeg data
             $encoded = $imgs->toWebp(80);
+            $encoded=$imgs->resize(884,549);
 
             // Save the encoded image to the file system
             $encodedFilename = time() . '.webp';

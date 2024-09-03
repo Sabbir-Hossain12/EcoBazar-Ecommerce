@@ -7,7 +7,12 @@
           rel="stylesheet" type="text/css">
     <link href="{{asset('public/backend')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
           rel="stylesheet" type="text/css">
+<style>
 
+    #productTable td:nth-child(2) {
+        width: 50px; /* Adjust width as needed */
+    }
+</style>
 @endpush
 
 @section('contents')
@@ -45,7 +50,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline" id="productTable">
+                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline text-center" id="productTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
@@ -62,7 +67,7 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="productTable">
 
                             </tbody>
                         </table>
@@ -103,6 +108,10 @@
                 ajax: "{{route('admin.product-data')}}",
                 // pageLength: 30,
 
+                columnDefs: [
+                    { width: '10%', targets: 2 }, // Setting the width for the "Product Name" column
+                ],
+
                 columns: [
                     {
                         data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false
@@ -115,8 +124,10 @@
                     },
                     {
                         data: 'product_name',
+                        width: '10%',
 
-                    },  {
+                    },  
+                    {
                         data: 'sku',
 
                     }, 

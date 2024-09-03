@@ -482,7 +482,15 @@
                 
             //  CKEditor on Products Desctription
                 ClassicEditor
-                    .create(document.querySelector('#longDesc'))
+                    .create(document.querySelector('#longDesc'),{
+                        
+                        ckfinder:
+                            {
+                                uploadUrl: "{{route('admin.ckeditor.upload', ['_token' => csrf_token() ])}}",
+                            }
+                        
+                        
+                    })
                     .then(newEditor => {
                         jReq = newEditor;
                     })

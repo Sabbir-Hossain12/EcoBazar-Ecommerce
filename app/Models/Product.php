@@ -33,17 +33,31 @@ class Product extends Model
         return $this->hasMany(Weight::class);
     }
 
+    public function colors()
+    {
+        return $this->hasMany(Color::class);
+
+    }
+
+    public function sizes()
+    {
+        return $this->hasMany(Size::class);
+
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
+
+    public function activeReviews()
+    {
+        return $this->hasMany(Review::class)->active();
+    }
     
     
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
+   
 
 
 }

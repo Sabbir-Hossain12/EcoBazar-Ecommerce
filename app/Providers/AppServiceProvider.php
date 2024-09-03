@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\BasicInfo;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Slider;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +24,42 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View()->composer('frontend.include.header', function ($view) {
+            $basic_info = BasicInfo::first();
+            $frontCategories = Category::where('status', 1)->where('front_status', 1)->limit(9)->get();
+            $navCategories = Category::where('status', 1)->where('front_status', 1)->limit(6)->get();
+
+            $view->with([
+                'basic_info' => $basic_info, 'frontCategories' => $frontCategories, 'navCategories' => $navCategories
+            ]);
+        });
+
+
+        View()->composer('frontend.include.footer', function ($view) {
+            $basic_info = BasicInfo::first();
+            $view->with('basic_info', $basic_info);
+        });
+
+        View()->composer('backend.include.topbar', function ($view) {
+            $basic_info = BasicInfo::first();
+            $view->with('basic_info', $basic_info);
+        });
+
+        View()->composer('frontend.pages.webview', function ($view) {
+            $popular_categories = Category::where('status', 1)->where('topCategory_status', 1)->get();
+            $frontend_categories = Category::where('status', 1)->where('front_status', 1)->latest()->get();
+            $sliders= Slider::where('status', 1)->get();
+
+            $popular_products = Product::with([
+                'productDetail', 'weights', 'colors', 'sizes'
+            ])->whereHas('productDetail')->where('status', 1)->where('isPopular', 1)->get();
+
+
+            $view->with([
+                'frontend_categories' => $frontend_categories, 'popular_categories' => $popular_categories,
+                'popular_products' => $popular_products,
+                'sliders' => $sliders
+            ]);
+        });
     }
 }

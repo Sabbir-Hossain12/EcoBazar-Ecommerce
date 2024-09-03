@@ -3,6 +3,12 @@
 @push('backendCss')
     <link href="{{asset('public/backend')}}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
           rel="stylesheet" type="text/css">
+    
+    <style>
+        /*.fas{*/
+        /*    color: white;*/
+        /*}*/
+    </style>
 
 @endpush
 
@@ -29,91 +35,114 @@
     <div class="row">
         <div class="col-xl-3 col-md-6">
             <!-- card -->
-            <div class="card card-h-100">
+            <div class="card card-h-100 shadow">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">My Wallet</span>
+                        <div class="col-4 text-center  rounded">
+                            <i class="fas fa-cart-plus h2"></i>
+                        </div>
+                        
+                        <div class="col-8">
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Today's Orders</span>
                             <h4 class="mb-3">
                                 $<span class="counter-value" data-target="865.2">865.2</span>k
                             </h4>
+                            <div class="text-nowrap">
+                                <span class="badge bg-soft-success text-success">+$20.9k</span>
+                                <span class="ms-1 text-muted font-size-13">Since last week</span>
+                            </div>
                         </div>
 
                       
                     </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-soft-success text-success">+$20.9k</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
+                  
                 </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
             <!-- card -->
-            <div class="card card-h-100">
+            <div class="card card-h-100 shadow">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Number of Trades</span>
-                            <h4 class="mb-3">
-                                <span class="counter-value" data-target="6258">6258</span>
-                            </h4>
+                        <div class="col-4 text-center  rounded">
+                            <i class="fas fa-cart-plus h2"></i>
                         </div>
-                    </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-soft-danger text-danger">-29 Trades</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col-->
 
+                        <div class="col-8">
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Today's Orders</span>
+                            <h4 class="mb-3">
+                                $<span class="counter-value" data-target="865.2">865.2</span>k
+                            </h4>
+                            <div class="text-nowrap">
+                                <span class="badge bg-soft-success text-success">+$20.9k</span>
+                                <span class="ms-1 text-muted font-size-13">Since last week</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div><!-- end card body -->
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
             <!-- card -->
-            <div class="card card-h-100">
+            <div class="card card-h-100 shadow">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Invested Amount</span>
-                            <h4 class="mb-3">
-                                $<span class="counter-value" data-target="4.32">4.32</span>M
-                            </h4>
+                        <div class="col-4 text-center  rounded">
+                            <i class="fas fa-cart-plus h2"></i>
                         </div>
-                       
-                    </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-soft-success text-success">+ $2.8k</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
 
+                        <div class="col-8">
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Today's Orders</span>
+                            <h4 class="mb-3">
+                                $<span class="counter-value" data-target="865.2">865.2</span>k
+                            </h4>
+                            <div class="text-nowrap">
+                                <span class="badge bg-soft-success text-success">+$20.9k</span>
+                                <span class="ms-1 text-muted font-size-13">Since last week</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div><!-- end card body -->
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
             <!-- card -->
-            <div class="card card-h-100">
+            <div class="card card-h-100 shadow">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Profit Ration</span>
-                            <h4 class="mb-3">
-                                <span class="counter-value" data-target="12.57">12.57</span>%
-                            </h4>
+                        <div class="col-4 text-center  rounded">
+                            <i class="fas fa-cart-plus h2"></i>
                         </div>
-                        
+
+                        <div class="col-8">
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Today's Orders</span>
+                            <h4 class="mb-3">
+                                $<span class="counter-value" data-target="865.2">865.2</span>k
+                            </h4>
+                            <div class="text-nowrap">
+                                <span class="badge bg-soft-success text-success">+$20.9k</span>
+                                <span class="ms-1 text-muted font-size-13">Since last week</span>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-soft-success text-success">+2.95%</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
+
                 </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+            </div>
+        </div>
+
+
     </div>
 
 @endsection
