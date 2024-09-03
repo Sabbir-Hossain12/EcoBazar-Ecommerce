@@ -35,6 +35,7 @@ Route::post('/apply-coupon',[CheckoutController::class,'applyCoupon'])->name('ap
 //Checkout
 Route::resource('/checkouts', CheckoutController::class)->names('checkout');
 Route::post('/shipping-charge-update',[CheckoutController::class,'shippingChargeUpdate'])->name('shipping.charge.update');
+Route::get('/cart-calculate',[CheckoutController::class,'cartCalculate'])->name('cart.calculate');
 //User Dashboard
 Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
 //Route::view('/checkout', 'frontend.pages.products.checkout');

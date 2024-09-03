@@ -35,6 +35,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
 
         if (Cart::content()->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty. Please add items to your cart before placing an order.');

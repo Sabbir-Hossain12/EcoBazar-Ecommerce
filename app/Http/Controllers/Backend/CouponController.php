@@ -65,12 +65,15 @@ class CouponController extends Controller
     public function store(Request $request)
     {
         $coupon = new Coupon();
-
+        
+        $coupon->coupon_name= $request->coupon_name;
         $coupon->code            = $request->code;
         $coupon->discount        = $request->discount;
-        $coupon->amount          = $request->amount;
+        $coupon->start_date          = $request->start_date;
         $coupon->expire_date     = $request->expire_date;
-        $coupon->status          = $request->status;
+        $coupon->quantity     = $request->quantity;
+        $coupon->max_used     = $request->max_used;
+//        $coupon->status          = $request->status;
         
         // dd($coupon);
         $coupon->save();
@@ -119,11 +122,14 @@ class CouponController extends Controller
      */
     public function update(Request $request, Coupon $coupon)
     {
+        $coupon->coupon_name= $request->coupon_name;
         $coupon->code            = $request->code;
+        $coupon->quantity     = $request->quantity;
+        $coupon->max_used     = $request->max_used;
         $coupon->discount        = $request->discount;
-        $coupon->amount          = $request->amount;
+        $coupon->start_date          = $request->start_date;
         $coupon->expire_date     = $request->expire_date;
-        $coupon->status          = $request->status;
+//        $coupon->status          = $request->status;
         
         $coupon->save();
 

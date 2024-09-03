@@ -123,7 +123,7 @@
                                         <div class="col-lg-4 col-md-4 mb-3">
                                             <label for="" class="form-labels">Email</label>
                                             <input type="text" name="email" class="normal-forms" id=""
-                                                   placeholder="Email Address">
+                                                   placeholder="Email Address" required>
                                         </div>
 
                                         <div class="col-lg-4 col-md-4 mb-3">
@@ -134,7 +134,7 @@
 
                                         <div class="col-lg-4 col-md-4 mb-3">
                                             <label for="shipping_charge" class="form-labels">Shipping Charge</label>
-                                            <select name="shipping_charge" id="shipping_charge" class="normal-forms" onchange="shippingChargeUpdate()" required>
+                                            <select name="shipping_charge" id="shipping_charge" class="normal-forms" onchange="cartCalculation()" required>
                                                 <option value="" selected="" disabled="">Select Shipping Charge</option>
                                                 <option value="60">InSide Dhaka</option>
                                                 <option value="120">OutSide Dhaka</option>
@@ -211,7 +211,7 @@
                                     <input type="text" name="total" value="{{str_replace(',','',Cart::subtotal(0))}}"
                                            class="normal-forms" id="total_amount" hidden>
                                     <input type="text" name="subtotal" value="{{str_replace(',','',Cart::subtotal(0))}}"
-                                           class="normal-forms" id="" hidden>
+                                           class="normal-forms" id="subTotal" hidden>
 
 
                                     <button id="cod-btn" form="codPaymentForm" type="submit" class="order-btn">Cash On
@@ -271,56 +271,54 @@
             $('#orderSummery').append(
                 `<div class="order-summary-details">
                                     <p>Subtotal:</p>
-                                    <span>৳{{Cart::subtotal(0) }}</span>
+                                    <span>৳ {{Cart::subtotal(0) }}</span>
                                 </div>
 
                                 <div class="order-summary-details">
                                     <p>Coupon Discount:</p>
-                                    <span >$ <span id="couponCode">0.00</span></span>
+                                    <span >৳ <span id="couponCode">0.00</span></span>
                                 </div>
                         
                                 <div class="order-summary-details">
                                     <p>Shipping:</p>
-                                    <span>৳<span id="ship_charge">0.00</span></span>
+                                    <span>৳ <span id="ship_charge">0.00</span></span>
                                 </div>
                                 
 
                                 <div class="order-summary-details">
                                     <p>Total:</p>
-                                    <span>৳<span id="totalAmount">{{Cart::subtotal(0) }}</span></span>
+                                    <span>৳ <span id="totalAmount">{{Cart::subtotal(0) }}</span></span>
                                 </div>`
             )
         }
         
-        function shippingChargeUpdate()
-        {
-            let shipping_charge = $('#shipping_charge').val();
-      
-            $.ajax({
-                type: "POST",
-                url: "{{ route('shipping.charge.update') }}",
-                data:
-                    {
-                        shipping_charge: shipping_charge
-                    },
-               
-                success: function (res) {
-               
-                    console.log(res);
-                    $('#ship_charge').text(shipping_charge)
-                    $('#total_amount').val(res.total);
-                    $('#totalAmount').text(res.total);
-                    
-                    
-                },
-                error: function (err) {
-                    console.error('Error:', err);
-                    
-                  
-                }
-            });
-       
-        }
+        {{--function shippingChargeUpdate()--}}
+        {{--{--}}
+        {{--    let shipping_charge = $('#shipping_charge').val();--}}
+        
+        {{--    $.ajax({--}}
+        {{--        type: "POST",--}}
+        {{--        url: "{{ route('shipping.charge.update') }}",--}}
+        {{--        data:--}}
+        {{--            {--}}
+        {{--                shipping_charge: shipping_charge--}}
+        {{--            },--}}
+        {{--       --}}
+        {{--        success: function (res) {--}}
+        {{--       --}}
+        {{--            console.log(res);--}}
+        {{--            $('#ship_charge').text(shipping_charge)--}}
+        {{--            cartCalculation()   --}}
+        {{--            --}}
+        {{--        },--}}
+        {{--        error: function (err) {--}}
+        {{--            console.error('Error:', err);--}}
+        {{--            --}}
+        {{--          --}}
+        {{--        }--}}
+        {{--    });--}}
+        
+        {{--}--}}
         
         function applyCoupon() {
             let coupon_code = $('#coupon_code').val();
@@ -337,10 +335,13 @@
                     
                     if (res.status === 'success')
                     {
-                        $('#couponCode').text(res.discount_amount)
-                        $("#totalAmount").text(res.total_amount)
+
+                        cartCalculation()
+                      
                         toastr.options.closeButton = true;
                         toastr.success(res.message, 'Success!')
+                        
+                        $('#coupon_code').val('')
                     }
                     else if (res.status==="failed")
                     {
@@ -349,6 +350,42 @@
                     }
                     
                    
+                },
+                error: function (err) {
+                    console.error('Error:', err);
+                    // toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+                }
+            });
+        }
+
+        cartCalculation()
+        function cartCalculation()
+        {
+            let shipping_charge = $('#shipping_charge').val(); 
+            $.ajax({
+                type: "GET",
+                url: "{{ route('cart.calculate') }}",
+                data: {
+                    'shipping_charge': shipping_charge,
+                },
+                success: function (res) {
+
+                    if (res.status === 'success')
+                    {
+
+                        $('#couponCode').text(res.discount_amount)
+                        $("#totalAmount").text(res.total_amount)
+                        $('#ship_charge').text(shipping_charge)
+                        
+                        
+                        $('#total_amount').val(res.total_amount)
+                    }
+                    else 
+                    {
+                        console.log('failed')
+                    }
+
+
                 },
                 error: function (err) {
                     console.error('Error:', err);
