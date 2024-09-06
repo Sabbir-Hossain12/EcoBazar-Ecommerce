@@ -54,11 +54,15 @@ class AppServiceProvider extends ServiceProvider
                 'productDetail', 'weights', 'colors', 'sizes'
             ])->whereHas('productDetail')->where('status', 1)->where('isPopular', 1)->get();
 
+            $featured_products= Product::with([
+                'productDetail', 'weights', 'colors', 'sizes'
+            ])->whereHas('productDetail')->where('status', 1)->where('isFeatured', 1)->get();
 
             $view->with([
                 'frontend_categories' => $frontend_categories, 'popular_categories' => $popular_categories,
                 'popular_products' => $popular_products,
-                'sliders' => $sliders
+                'sliders' => $sliders,
+                'featured_products' => $featured_products
             ]);
         });
     }
