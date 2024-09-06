@@ -11,6 +11,7 @@ use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -35,7 +36,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
+//        dd(Session::get('coupon'));
 
         if (Cart::content()->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty. Please add items to your cart before placing an order.');
@@ -64,6 +66,11 @@ class OrderController extends Controller
             $order = new Order();
             $order->customer_id = $customer->id;
             $order->user_id = auth()->user()->id ?? null;
+            
+            if (Session::has('coupon')) {
+                $order->coupon_id = Session::get('coupon')['id'];
+            }
+            
             $order->invoiceID = 'BM'.rand('100000', '999999');
             $order->tran_id=$tranId;
             $order->payment_method = $request->payment_method;
@@ -98,6 +105,7 @@ class OrderController extends Controller
 
             DB::commit();
             Cart::destroy();
+            Session::forget('coupon');
             
             if ($request->payment_method == 'sslcommerzz') {
 //                dd($request->all());

@@ -1,7 +1,19 @@
 <!-- ========== Left Sidebar Start ========== -->
+
+<style>
+
+    #sidebar-menu > ul > li
+    {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d2d2e0;
+    }
+</style>
+
 <div class="vertical-menu">
 
     <div data-simplebar class="h-100">
+        
+     
 
         <!--- Sidemenu -->
         <div id="sidebar-menu">
@@ -9,7 +21,7 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Menu</li>
 
-                <li>
+                <li class=""> 
                     <a href="{{route('admin.dashboard.index')}}">
                         <i class="fa-solid fa-home"></i>
                         <span data-key="t-dashboard">Dashboard</span>

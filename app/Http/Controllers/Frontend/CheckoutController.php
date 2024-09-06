@@ -93,6 +93,7 @@ class CheckoutController extends Controller
 
         // Store coupon details in the session
         Session::put('coupon', [
+            'id' => $coupon->id,
             'code' => $coupon->code,
             'discount' => $coupon->discount,
         ]);

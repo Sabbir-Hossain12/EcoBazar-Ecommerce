@@ -9,6 +9,7 @@
         "anayarojo/shoppingcart": "^4.2",
         "intervention/image": "^3.7",
         "laravel/framework": "^11.9",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.7",
         "yajra/laravel-datatables-oracle": "^11.1"
