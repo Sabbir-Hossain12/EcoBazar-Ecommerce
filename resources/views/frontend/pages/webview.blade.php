@@ -166,65 +166,15 @@
 
                 <!-- For responsive category-responsive -->
                 <div class="owl-carousel owl-theme" id="categorySlider">
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/fresh_fruit.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
 
+                    @forelse($popular_categories as $popular_category)
                     <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/fresh_vegetables.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/meat_fish.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/snacks.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/beverage.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/beauty_health.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/bread_bekary.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/baking.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/cooking.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/diabetic_food.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
-
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/dish_detergent.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
+                        <img src="{{ asset($popular_category->category_img_path) }}" alt="">
+                        <h2>{{$popular_category->category_name}}</h2>
+                    </a>
+                    @empty
+                    @endforelse
                     
-                    <a href="#" class="category-details">
-                        <img src="{{ asset('public/frontend/assets/images/category_image/oil.png') }}" alt="">
-                        <h2>Fresh Fruit</h2>
-                    </a><!-- End. category-container -->
                 </div><!-- End. categorySlider -->
             </div><!-- End. row -->
         </div><!-- End. container -->
@@ -232,37 +182,28 @@
 
 
     <!-- Start Category Campaign Banner Section -->
+    @if(count($smallBanners)>0) 
     <section class="category-campaign-banner">
         <div class="container">
             <div class="row">
                 <div class="category-campaign-container">
-                    <div class="category-campaign-setup" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/category-banner-1.png') }}');">
+                    
+                    @foreach($smallBanners as $banner) 
+                    <div class="category-campaign-setup" style="background-image: url('{{ asset($banner->banner_img) }}');">
                         <div class="left-banner-title">
-                            <h1>100% Fresh Cow Milk</h1>
-                            <p><span>Starting at</span> $14.99</p>
-                            <button class="campaign_btns">Shop Now <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                            <h1>{{$banner->banner_title_1}}</h1>
+                            <p>{{$banner->banner_title_2}}</p>
+                            <a href="{{$banner->banner_btn_link}}" class="campaign_btns">{{$banner->banner_btn_name}} <i class="fa-solid fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
-
-                    <div class="category-campaign-setup" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/category-banner-2.png') }}');">
-                        <div class="right-banner-title">
-                            <p style="color: var(--theme-black); margin-bottom: 8px;">Drink Sale</p>
-                            <h1 style="color: var(--theme-black);">Water & Soft Drink</h1>
-                            <button class="campaign_btns">Shop Now <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="category-campaign-setup" style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/category-banner-3.png') }}');">
-                        <div class="left-banner-title">
-                            <p style="color: var(--theme-black); margin-bottom: 8px;">100% Organic</p>
-                            <h1 style="color: var(--theme-black);">Quick Breakfast</h1>
-                            <button class="campaign_btns">Shop Now <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>
     </section>
+
+    @endif
 
 
     <!-- Start Popular Products Section -->
@@ -330,45 +271,59 @@
 
                  <!-- For responsive product-responsive -->
                 <div class="owl-carousel owl-theme" id="popularSlider">
-                   
 
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/potato.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
 
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
+                    @forelse($popular_products as $popular_product)
+                        <div class="products-description">
+                            <div class="product-image">
+                                <a href="{{url('/product-details/'.$popular_product->slug)}}" > <img src="{{ asset($popular_product->productDetail->productThumbnail_img) }}" alt=""></a>
+                                @if(count($popular_product->colors)>0)
+                                    <span class="badges sale_badge product-badges">Sale {{$popular_product->colors[0]->discount_percentage}}%</span>
+                                @elseif(count($popular_product->weights)>0)
+                                    <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
+                                @else
+                                    <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
+                                @endif
+
+                                <ul class="product-icons-show">
+                                    <li>
+                                        <a href="#">
+                                            <i class="ri-heart-line"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ri-eye-line"></i>
+                                        </a>
+                                    </li>
+                                </ul><!-- End. product-icons-show -->
                             </div><!-- End. product-image -->
 
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div><!-- End. products-description -->
-                </div><!-- End. popularSlider -->
+                            <div class="product-info">
+                                <div class="product-bio">
+                                    <a href="{{url('/product-details/'.$popular_product->slug)}}" class="product-title">{{ $popular_product->product_name }}</a>
+                                    @if(count($popular_product->colors)>0)
+                                        <p>${{$popular_product->colors[0]->productRegularPrice}} <del><span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span></del></p>
+                                    @endif
+                                    <div class="product-review">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div><!-- End. client-review -->
+                                </div><!-- End. product-image -->
+
+                                <a href="#">
+                                    <i class='bx bx-shopping-bag'></i>
+                                </a>
+                            </div><!-- End. product-info -->
+                        </div>
+
+                    @empty
+                    @endforelse
+                </div>
 
             </div><!-- End. row -->
         </div><!-- End. container -->
@@ -542,48 +497,62 @@
 
                 <!-- For responsive product-responsive -->
                 <div class="owl-carousel owl-theme" id="featuredSlider">
-             
 
-                    <div class="products-description">
-                        <div class="product-image">
-                            <img src="{{ asset('public/frontend/assets/images/product_images/potato.png') }}" alt="">
-                            <ul class="product-icons-show">
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-heart-line"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                </li>
-                            </ul><!-- End. product-icons-show -->
-                        </div><!-- End. product-image -->
 
-                        <div class="product-info">
-                            <div class="product-bio">
-                                <a href="" class="product-title">Green Apple</a>
-                                <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
+                    @forelse($featured_products as $popular_product)
+                        <div class="products-description">
+                            <div class="product-image">
+                                <a href="{{url('/product-details/'.$popular_product->slug)}}" > <img src="{{ asset($popular_product->productDetail->productThumbnail_img) }}" alt=""></a>
+                                @if(count($popular_product->colors)>0)
+                                    <span class="badges sale_badge product-badges">Sale {{$popular_product->colors[0]->discount_percentage}}%</span>
+                                @elseif(count($popular_product->weights)>0)
+                                    <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
+                                @else
+                                    <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
-                                <div class="product-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div><!-- End. client-review -->
+                                @endif
+
+                                <ul class="product-icons-show">
+                                    <li>
+                                        <a href="#">
+                                            <i class="ri-heart-line"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ri-eye-line"></i>
+                                        </a>
+                                    </li>
+                                </ul><!-- End. product-icons-show -->
                             </div><!-- End. product-image -->
 
-                            <a href="#">
-                                <i class='bx bx-shopping-bag'></i>
-                            </a>
-                        </div><!-- End. product-info -->
-                    </div>
-                </div><!-- End. featuredSlider -->
+                            <div class="product-info">
+                                <div class="product-bio">
+                                    <a href="{{url('/product-details/'.$popular_product->slug)}}" class="product-title">{{ $popular_product->product_name }}</a>
+                                    @if(count($popular_product->colors)>0)
+                                        <p>${{$popular_product->colors[0]->productRegularPrice}} <del><span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span></del></p>
+                                    @endif
+                                    <div class="product-review">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div><!-- End. client-review -->
+                                </div><!-- End. product-image -->
 
-            </div><!-- End. row -->
-        </div><!-- End. container -->
+                                <a href="#">
+                                    <i class='bx bx-shopping-bag'></i>
+                                </a>
+                            </div><!-- End. product-info -->
+                        </div>
+
+                    @empty
+                    @endforelse
+                </div>
+
+            </div>
+        </div>
     </section>
 
     @endif

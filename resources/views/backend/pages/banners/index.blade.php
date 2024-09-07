@@ -50,7 +50,8 @@
                             <tr>
                                 <th>SL</th>
                                 <th>Image</th>
-                                <th>Title</th>
+                                <th>Title 1</th>
+                                <th>Banner Type</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -77,13 +78,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Slider</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Banner</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form name="form" id="createBanner">
                         @csrf
 
+                        <div class="mb-3">
+                            <label for="banner_type" class="col-form-label">Banner Type</label>
+                            <select class="form-control" name="banner_type" required>
+                                
+                                
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                                
+                            </select>
+                        </div>
+                        
                         <div class="mb-3">
                             <label for="Name" class="col-form-label">Banner Image</label>
                             <input type="file" class="form-control"  name="banner_img">
@@ -140,6 +153,17 @@
                     <form name="form2" id="editBanner">
                         @csrf
                         @method('PUT')
+
+                        <div class="mb-3">
+                            <label for="banner_type" class="col-form-label">Banner Type</label>
+                            <select class="form-control" name="banner_type" id="bannerType" required>
+                                
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+
+                            </select>
+                        </div>
 
                         <div class="mb-3">
                             <label for="Name" class="col-form-label">Banner Image</label>
@@ -223,6 +247,14 @@
                     },
                     {
                         data: 'banner_title_1',
+
+                    },
+                    {
+                        data: 'banner_type',
+                        render: function (data) {
+                            
+                            return      '<span class="badge badge-lg bg-primary rounded"> ' + data.toUpperCase() + ' </span>';
+                        }
 
                     },
                     {
@@ -313,6 +345,7 @@
                             $('#banner_link').val(res.data.banner_link);
                             $('#banner_btn_name').val(res.data.banner_btn_name);
                             $('#banner_btn_link').val(res.data.banner_btn_link)
+                            $('#bannerType').val(res.data.banner_type)
 
                         },
                         error: function (err) {
