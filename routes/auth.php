@@ -9,7 +9,10 @@ use App\Http\Controllers\Frontend\Auth\PasswordController;
 use App\Http\Controllers\Frontend\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Frontend\Auth\RegisteredUserController;
 use App\Http\Controllers\Frontend\Auth\VerifyEmailController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 Route::middleware('guest')->group(function () {
@@ -60,7 +63,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-//Socialite
+//Socialite GITHUB
 
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
@@ -68,6 +71,45 @@ Route::get('/auth/redirect', function () {
 
 Route::get('/auth/callback', function () {
     $user = Socialite::driver('github')->user();
+    
+  $gitUser=  User::firstOrCreate(
+      ['email' => $user->email],
+        [
+            'name' => $user->name,
+            'email' => $user->email,
+            'password'=> bcrypt(Str::random(8))
+        ]
+    );
 
-    dd($user);
+    Auth::login($gitUser);
+    
+    
+    return redirect('/');
+});
+
+
+//Google Login
+
+Route::get('/google/redirect', function () {
+    return Socialite::driver('google')->redirect();
+
+})->name('google.login');
+
+Route::get('/google/callback', function () {
+    $user = Socialite::driver('google')->user();
+
+//    dd($user);
+    $googleUser=  User::firstOrCreate(
+        ['email' => $user->email],
+        [
+            'name' => $user->name,
+            'email' => $user->email,
+            'password'=> bcrypt(Str::random(8))
+        ]
+    );
+
+    Auth::login($googleUser);
+
+
+    return redirect('/');
 });

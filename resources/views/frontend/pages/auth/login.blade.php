@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="form-details">
-                          <a>  <i class="fa-brands fa-google"></i></a>
+                          <a href="{{route('google.login')}}">  <i class="fa-brands fa-google"></i></a>
                         </div>
 
                         </div>
