@@ -52,10 +52,13 @@
 
                     <div class="col-lg-4">
                         <div class="searchBar-form">
+                            <form name="form" id="searchBar-form" method="post" action="{{route('search.product')}}">
+                                @csrf
                             <input type="text" name="search" class="form_controls"
                                    style="height: 45px; padding-left: 42px;" placeholder="Search" id="">
                             <i class='bx bx-search'></i>
                             <button class="search-form">Search</button>
+                            </form>
                         </div>
                     </div>
 
@@ -89,7 +92,7 @@
                         <ul>
                             @foreach($frontCategories as $frontCategory)
                                 <li>
-                                    <a href="">
+                                    <a href="{{route('product.by.category', $frontCategory->slug)}}">
                                         <img class="rounded" src="{{ asset($frontCategory->category_img_path) }}"
                                              alt="">
                                         <span>{{ $frontCategory->category_name }}</span>
@@ -149,10 +152,10 @@
                                 <a href="">Blog</a>
                             </li>
                             <li>
-                                <a href="">About Us</a>
+                                <a href="{{route('about')}}">About Us</a>
                             </li>
                             <li>
-                                <a href="">Contact Us</a>
+                                <a href="{{route('contact')}}">Contact Us</a>
                             </li>
                             @auth()
                                 <li>

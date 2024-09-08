@@ -55,36 +55,16 @@
  
                             <div class="bulk-list-data">
                                  <ul class="">
+                                     @forelse($categories as $key=>$category)
                                      <li>
-                                     <a class="category-list" type="button" data-val="0" data-id="1" >
+                                     <a class="category-list" type="button" data-val="0" data-id="{{$key+1}}" >
                                          <div class="circle-radio"></div>
-                                         <p>Fresh Fruit <span>(25)</span></p>
+                                         <p>{{$category->category_name}} <span>({{count($category->products)}})</span></p>
                                      </a>
                                      </li>
-                                     <li>
-                                     <a class="category-list" type="button" data-val="0" data-id="2" >
-                                         <div class="circle-radio"></div>
-                                         <p>Fresh Vegetables <span>(55)</span></p>
-                                     </a>
-                                     </li>
-                                     <li>
-                                     <a class="category-list" type="button" data-val="0" data-id="3" >
-                                         <div class="circle-radio"></div>
-                                         <p>Fresh Meat <span>(75)</span></p>
-                                     </a>
-                                     </li>
-                                     <li>
-                                     <a class="category-list" type="button" data-val="0" data-id="4" >
-                                         <div class="circle-radio"></div>
-                                         <p>Snakes <span>(35)</span></p>
-                                     </a>
-                                     </li>
-                                     <li>
-                                     <a class="category-list" type="button" data-val="0" data-id="5" >
-                                         <div class="circle-radio"></div>
-                                         <p>Drinks & Beverage <span>(45)</span></p>
-                                     </a>
-                                     </li>
+                                   @empty
+                                     
+                                     @endforelse
                                  </ul>
                             </div>
                          </div>
@@ -203,73 +183,7 @@
                                </div>
                             </div>
                         </div>
-
-                        <!-- Popular-tag-list filter -->
-                        <div class="popular-tag-list-filter">
-                            <div class="product-filter-toggle">
-                                <div class="filter-toggle-title">
-                                    <h4>Popular Tag</h4>
-                                    <i class='bx bx-chevron-down'></i>
-                               </div>
-
-                               <div class="bulk-list-data">
-                                   <div class="tag-list">
-                                       <a type="button" class="product-tag" data-val="0" data-id="1">Healthy</a>
-                                       <a type="button" class="product-tag" data-val="0" data-id="2">Low fat</a>
-                                       <a type="button" class="product-tag" data-val="0" data-id="3">Vegetarian</a>
-                                       <a type="button" class="product-tag" data-val="0" data-id="4">Kid foods</a>
-                                       <a type="button" class="product-tag" data-val="0" data-id="5">Vitamins</a>
-                                   </div>
-                               </div>
-                            </div>
-                        </div>
-
-                        <!-- Special Campaign Product feature -->
-                        <a href="#" class="special-campaign" style="background-image: url({{ asset('public/frontend/assets/images/campaign_image/offer_banner.png') }});"></a>
-
-                        <!-- Sale Product feature -->
-                        <a href="#" class="sale-product-features">
-                            <h2>Sale Products</h2>
-                            <ul>
-                              <li>
-                                  <div class="sale-product-show">
-                                     <img src="{{ asset('public/frontend/assets/images/product_images/capsicum.png') }}" alt="">
-
-                                     <div class="sale-product-title">
-                                         <h4>Green Capsicum</h4>
-                                         <p>$24.00 <del>$20.99</del></p>
-
-                                         <div class="product-review">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </div>
-                                     </div>
-                                  </div>
-                              </li>
-
-                              <li>
-                                  <div class="sale-product-show">
-                                     <img src="{{ asset('public/frontend/assets/images/product_images/bakchoy.png') }}" alt="">
-
-                                     <div class="sale-product-title">
-                                         <h4>Bakchoy</h4>
-                                         <p>$12.00 <del>$15.99</del></p>
-
-                                         <div class="product-review">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </div>
-                                     </div>
-                                  </div>
-                              </li>
-                            </ul>
-                        </a>
+                       
                    </div>
                </div>
 
@@ -290,383 +204,69 @@
                              <button class="mobile-filter-btn" id="mobile-filter-btn">
                                 <i class='bx bx-filter-alt'></i>Filter
                              </button>
-                            <p><span>52</span> Results Found</p>
+                            <p><span>{{count($products)}}</span> Results Found</p>
                         </div>
                     </div>
 
+                      @if(count($products)>0)
                     <div class="filter-product-show">
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/apple.png') }}" alt="">
-                                <span class="badges sale_badge product-badges">Sale 50%</span>
+                        @forelse($products as $popular_product)
+                            <div class="products-description">
+                                <div class="product-image">
+                                    <a href="{{url('/product-details/'.$popular_product->slug)}}"> <img
+                                                src="{{ asset($popular_product->productDetail->productThumbnail_img) }}"
+                                                alt=""></a>
+                                    @if(count($popular_product->colors)>0)
+                                        <span class="badges sale_badge product-badges">Sale {{$popular_product->colors[0]->discount_percentage}}%</span>
+                                    @elseif(count($popular_product->weights)>0)
+                                        <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
+                                    @else
+                                        <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
+                                    @endif
 
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
+                                    <ul class="product-icons-show">
+                                        <li>
+                                            <a href="#">
+                                                <i class="ri-heart-line"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </li>
+                                    </ul><!-- End. product-icons-show -->
                                 </div><!-- End. product-image -->
 
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
+                                <div class="product-info">
+                                    <div class="product-bio">
+                                        <a href="{{url('/product-details/'.$popular_product->slug)}}"
+                                           class="product-title">{{ $popular_product->product_name }}</a>
+                                        @if(count($popular_product->colors)>0)
+                                            <p>${{$popular_product->colors[0]->productRegularPrice}}
+                                                <del>
+                                                    <span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span>
+                                                </del>
+                                            </p>
+                                        @endif
+                                        <div class="product-review">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div><!-- End. client-review -->
+                                    </div><!-- End. product-image -->
 
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/bakchoy.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
+                                    <a href="#">
+                                        <i class='bx bx-shopping-bag'></i>
+                                    </a>
+                                </div><!-- End. product-info -->
+                            </div>
 
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/brinjel.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/capsicum.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/cauliflower.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/corn.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/green-paper.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/lettuce.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/orange.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-
-                        <div class="products-description">
-                            <div class="product-image">
-                                <img src="{{ asset('public/frontend/assets/images/product_images/potato.png') }}" alt="">
-                                <ul class="product-icons-show">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ri-heart-line"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="ri-eye-line"></i>
-                                        </a>
-                                    </li>
-                                </ul><!-- End. product-icons-show -->
-                            </div><!-- End. product-image -->
-
-                            <div class="product-info">
-                                <div class="product-bio">
-                                    <a href="" class="product-title">Green Apple</a>
-                                    <p>$14.99 <del><span class="discount-price">$20.99</span></del></p>
-
-                                    <div class="product-review">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div><!-- End. client-review -->
-                                </div><!-- End. product-image -->
-
-                                <a href="#">
-                                    <i class='bx bx-shopping-bag'></i>
-                                </a>
-                            </div><!-- End. product-info -->
-                        </div><!-- End. products-description -->
-  
+                        @empty
+                        @endforelse
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -789,6 +389,9 @@
                         </div>
 
                     </div>
+                      @else
+                          <p class="text-center">No Product Found</p>
+                      @endif
                   </div>
                </div>
             </div><!-- End. row -->

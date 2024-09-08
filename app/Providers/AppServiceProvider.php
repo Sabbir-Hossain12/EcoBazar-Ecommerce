@@ -51,7 +51,8 @@ class AppServiceProvider extends ServiceProvider
             $frontend_categories = Category::where('status', 1)->where('front_status', 1)->latest()->get();
             $sliders= Slider::where('status', 1)->get();
             $smallBanners= Banner::where('status', 1)->where('banner_type', 'small')->get();
-
+            $largeBanner= Banner::where('status', 1)->where('banner_type', 'large')->first();
+            $mediumBanners= Banner::where('status', 1)->where('banner_type', 'medium')->get();
             $popular_products = Product::with([
                 'productDetail', 'weights', 'colors', 'sizes'
             ])->whereHas('productDetail')->where('status', 1)->where('isPopular', 1)->get();
@@ -66,6 +67,8 @@ class AppServiceProvider extends ServiceProvider
                 'sliders' => $sliders,
                 'featured_products' => $featured_products,
                 'smallBanners' => $smallBanners
+                ,'largeBanner' => $largeBanner,
+                'mediumBanners' => $mediumBanners
             ]);
         });
     }

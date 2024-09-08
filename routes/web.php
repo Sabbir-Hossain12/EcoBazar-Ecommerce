@@ -38,27 +38,29 @@ Route::post('/shipping-charge-update',[CheckoutController::class,'shippingCharge
 Route::get('/cart-calculate',[CheckoutController::class,'cartCalculate'])->name('cart.calculate');
 //User Dashboard
 Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
-//Route::view('/checkout', 'frontend.pages.products.checkout');
-//Route::view('/cart', 'frontend.pages.products.cart');
+
 Route::view('/wishlist', 'frontend.pages.products.wishlist');
 
 
-Route::view('/about', 'frontend.pages.static-pages.about');
-Route::view('/contact', 'frontend.pages.static-pages.contact');
+//Webview Controller
+Route::get('/about', [WebviewController::class, 'aboutPage'])->name('about');
+Route::get('/contact', [WebviewController::class, 'contactPage'])->name('contact');
+Route::post('/search-product', [WebviewController::class, 'searchProduct'])->name('search.product');
+Route::post('/get-product-by-category/{product:slug}', [WebviewController::class, 'productByCategory'])->name('product.by.category');
+
+
 Route::view('/order-success', 'frontend.pages.orders.order-success')->name('order.success');
 Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
 Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
 Route::view('/shop', 'frontend.pages.products.shop-page');
 
 
-// SSLCOMMERZ Start
-
+// SSLCOMMERZ 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
-//SSLCOMMERZ END
+
 
 
 
