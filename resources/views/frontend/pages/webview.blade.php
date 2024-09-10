@@ -159,12 +159,12 @@
             <div class="row">
                 <div class="header-titles">
                     <h1>Popular Categories</h1>
-                    <a href="#" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                    <a href="{{route('product.all')}}" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
                 </div>
 
                 <div class="category-container">
                     @forelse($popular_categories as $popular_category)
-                        <a href="#" class="category-details">
+                        <a href="{{route('product.by.category', $popular_category->slug)}}" class="category-details">
                             <img src="{{ asset($popular_category->category_img_path) }}" alt="">
                             <h2>{{$popular_category->category_name}}</h2>
                         </a>
@@ -228,7 +228,7 @@
             <div class="row">
                 <div class="header-titles">
                     <h1>Popular Products</h1>
-                    <a href="#" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                    <a href="{{route('product.all')}}" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
                 </div><!-- End. header-titles -->
 
                 <div class="products-container">
@@ -434,7 +434,7 @@
                 <div class="row">
                     <div class="header-titles">
                         <h1>Featured Products</h1>
-                        <a href="#" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        <a href="{{route('product.all')}}" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
                     </div><!-- End. header-titles -->
 
                     <div class="products-container">

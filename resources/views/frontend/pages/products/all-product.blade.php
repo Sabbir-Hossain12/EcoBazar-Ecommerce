@@ -23,8 +23,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:;">
-                                    Shop Page
+                                <a href="{{route('product.all')}}">
+                                    All Products
                                 </a>
                             </li>
                         </ul>
@@ -57,6 +57,7 @@
                                  <ul class="">
                                      @forelse($categories as $key=>$category)
                                      <li>
+                                        
                                      <a class="category-list" type="button" data-val="0" data-id="{{$key+1}}" >
                                          <div class="circle-radio"></div>
                                          <p>{{$category->category_name}} <span>({{count($category->products)}})</span></p>

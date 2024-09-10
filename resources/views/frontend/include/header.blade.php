@@ -131,7 +131,7 @@
                                                         <ul class="">
                                                             @foreach($navCategory->subCategories as $subCategory)
                                                                 <li>
-                                                                    <a href="">{{$subCategory->subcategory_name}}</a>
+                                                                    <a href="{{route('product.by.subcategory', $subCategory->slug)}}">{{$subCategory->subcategory_name}}</a>
                                                                 </li>
 
                                                             @endforeach

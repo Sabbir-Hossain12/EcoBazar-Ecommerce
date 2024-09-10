@@ -46,8 +46,9 @@ Route::view('/wishlist', 'frontend.pages.products.wishlist');
 Route::get('/about', [WebviewController::class, 'aboutPage'])->name('about');
 Route::get('/contact', [WebviewController::class, 'contactPage'])->name('contact');
 Route::post('/search-product', [WebviewController::class, 'searchProduct'])->name('search.product');
-Route::post('/get-product-by-category/{product:slug}', [WebviewController::class, 'productByCategory'])->name('product.by.category');
-
+Route::get('/get-product-by-category/{category:slug}', [WebviewController::class, 'productByCategory'])->name('product.by.category');
+Route::get('/get-product-by-subcategory/{subcategory:slug}', [WebviewController::class, 'productBySubCategory'])->name('product.by.subcategory');
+Route::get('/get-all-products', [WebviewController::class, 'allProducts'])->name('product.all');
 
 Route::view('/order-success', 'frontend.pages.orders.order-success')->name('order.success');
 Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
