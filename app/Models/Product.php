@@ -54,6 +54,11 @@ class Product extends Model
     {
         return $this->hasMany(Review::class)->active();
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_products');
+    }
     
     
 

@@ -45,6 +45,12 @@ class AppServiceProvider extends ServiceProvider
             $basic_info = BasicInfo::first();
             $view->with('basic_info', $basic_info);
         });
+        
+        View()->composer('*', function ($view) {
+            $basic_info = BasicInfo::first();
+            $view->with('basic_info', $basic_info);
+        });
+        
 
         View()->composer('frontend.pages.webview', function ($view) {
             $popular_categories = Category::where('status', 1)->where('topCategory_status', 1)->get();

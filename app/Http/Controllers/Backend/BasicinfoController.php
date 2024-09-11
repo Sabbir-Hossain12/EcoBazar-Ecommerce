@@ -50,6 +50,7 @@ class BasicinfoController extends Controller
             $data->chatbox_script = $request->chatbox_script;
             $data->marquee_text = $request->marquee_text;
             $data->short_desc = $request->short_desc;
+            $data->currency_symbol= $request->currency_symbol;
             
             if ($request->hasFile('black_logo')) {
                 
