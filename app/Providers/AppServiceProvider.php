@@ -7,6 +7,7 @@ use App\Models\BasicInfo;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\ThemeColor;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
@@ -48,7 +49,8 @@ class AppServiceProvider extends ServiceProvider
         
         View()->composer('*', function ($view) {
             $basic_info = BasicInfo::first();
-            $view->with('basic_info', $basic_info);
+            $themeColor= ThemeColor::first();
+            $view->with(['basic_info'=> $basic_info,'themeColor'=> $themeColor]);
         });
         
 

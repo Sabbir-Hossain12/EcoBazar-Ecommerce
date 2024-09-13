@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
+use App\Models\ThemeColor;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 
@@ -69,6 +70,23 @@ class WebviewController extends Controller
         return view('frontend.pages.products.all-product', compact('products', 'categories'));
 
     }
+
+    public function getThemeColor()
+    {
+        $themeColor= ThemeColor::first();
+        
+//        dd($themeColor);
+        if ($themeColor)
+        {
+            return response()->view('css.dynamic-theme', compact('themeColor'));
+//                ->header('Content-Type', 'text/css');
+        }
+        return response('/* Default CSS if no theme settings are found */', 200)
+            ->header('Content-Type', 'text/css');
+    }
+    
+    
+    
 
 
 }

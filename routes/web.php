@@ -56,6 +56,10 @@ Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
 Route::view('/shop', 'frontend.pages.products.shop-page');
 
 
+//Dynamic Theme Color 
+Route::get('/get-theme-color',[WebviewController::class,'getThemeColor'])->name('get.theme.color');
+
+
 // SSLCOMMERZ 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);

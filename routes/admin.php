@@ -20,6 +20,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubcategoryController;
+use App\Http\Controllers\Backend\ThemeColorController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -170,4 +171,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/review-data', [ReviewController::class, 'getData'])->name('admin.review-data');
     Route::post('/change-review-status', [ReviewController::class, 'changeReviewStatus'])->name('admin.review.status');
 
+    //______ Theme Color _____//
+    Route::resource('/theme-colors', ThemeColorController::class)->names('admin.theme');
+    
+    
 });

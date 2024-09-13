@@ -6,36 +6,36 @@
         <!-- Start header Section -->
 <header>
     <!-- Start header-topBar -->
-    <div style="border-bottom: 1px solid var(--theme-secondary-1); padding: 10px 0;">
-        <div class="container">
-            <div class="header-topBar">
-                <div class="address">
-                    <i class='bx bx-map'></i>
-                    <p> {{$basic_info->store_location}}</p>
-                </div>
+{{--    <div style="border-bottom: 1px solid var(--theme-secondary-1); padding: 10px 0;">--}}
+{{--        <div class="container">--}}
+{{--            <div class="header-topBar">--}}
+{{--                <div class="address">--}}
+{{--                    <i class='bx bx-map'></i>--}}
+{{--                    <p> {{$basic_info->store_location}}</p>--}}
+{{--                </div>--}}
 
-                <div class="localization">
-                    <div class="language me-2">
-                        <i class='bx bx-chevron-down'></i>
-                        <select name="" class="select-form" id="">
-                            <option value="eng">Eng</option>
-                            <option value="ban">Ban</option>
-                            <option value="spa">Spa</option>
-                        </select>
-                    </div>
+{{--                <div class="localization">--}}
+{{--                    <div class="language me-2">--}}
+{{--                        <i class='bx bx-chevron-down'></i>--}}
+{{--                        <select name="" class="select-form" id="">--}}
+{{--                            <option value="eng">Eng</option>--}}
+{{--                            <option value="ban">Ban</option>--}}
+{{--                            <option value="spa">Spa</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
 
-                    <div class="currency">
-                        <i class='bx bx-chevron-down'></i>
-                        <select name="" class="select-form" id="">
-                            <option value="USD">USD</option>
-                            <option value="TAKA">TAKA</option>
-                            <option value="PESO">PESO</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                    <div class="currency">--}}
+{{--                        <i class='bx bx-chevron-down'></i>--}}
+{{--                        <select name="" class="select-form" id="">--}}
+{{--                            <option value="USD">USD</option>--}}
+{{--                            <option value="TAKA">TAKA</option>--}}
+{{--                            <option value="PESO">PESO</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <!-- Start logo-searchBar-section -->
     <div class="logo-searchBar-section">
