@@ -315,6 +315,11 @@
                                 <span data-key="t-calendar">Basic Info</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.theme.index')}}">
+                                <span data-key="t-calendar">Website Appearance</span>
+                            </a>
+                        </li>
 
 
                     </ul>

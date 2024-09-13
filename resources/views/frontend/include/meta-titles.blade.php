@@ -29,6 +29,7 @@
  <link rel="stylesheet" href="{{ asset('public/frontend/plugin/owl-carousel/css/owl.theme.default.min.css') }}">
 
  <!-- Main CSS File -->
+{{-- <link rel="stylesheet" href="{{ url('/get-theme-color') }}">--}}
  <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/theme.css') }}">
  <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/style.css') }}">
  

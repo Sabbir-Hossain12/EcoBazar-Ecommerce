@@ -69,15 +69,15 @@ class BannerController extends Controller
         $request->validate([
             'banner_title_1' => [ 'string'],
             'banner_title_2' => [ 'string'],
-            'banner_title_3' => [ 'string'],
             'banner_img' => ['max:2048'],
-            'banner_link'=> [ 'string'],
+           
             'banner_btn_name'=> [ 'string'],
-            'banner_btn_link'=> [ 'string'],
+           
         ]);
 
 
         $banner = new Banner();
+        $banner->banner_type = $request->banner_type;
         $banner->banner_title_1 = $request->banner_title_1;
         $banner->banner_title_2 = $request->banner_title_2;
         $banner->banner_title_3 = $request->banner_title_3;
@@ -141,15 +141,13 @@ class BannerController extends Controller
         $request->validate([
             'banner_title_1' => [ 'string'],
             'banner_title_2' => [ 'string'],
-            'banner_title_3' => [ 'string'],
             'banner_img' => ['max:2048'],
-            'banner_link'=> [ 'string'],
             'banner_btn_name'=> [ 'string'],
-            'banner_btn_link'=> [ 'string'],
+            
         ]);
 
 
-      
+        $banner->banner_type = $request->banner_type;
         $banner->banner_title_1 = $request->banner_title_1;
         $banner->banner_title_2 = $request->banner_title_2;
         $banner->banner_title_3 = $request->banner_title_3;

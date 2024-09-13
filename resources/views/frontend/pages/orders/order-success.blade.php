@@ -52,7 +52,7 @@
                         </div>
                         <h2>thank you</h2>
                         <p>Payment is successfully processsed and your order is on the way</p>
-                        <p class="font-weight-bold">Transaction ID:267676GHERT105467</p>
+                        <p class="font-weight-bold">Order Id: #{{ $order->id }}</p>
                     </div>
                 </div>
             </div>
@@ -67,57 +67,39 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="product-order">
-                        <div class="row product-order-detail">
-                            <div class="col-3"><img src="{{ asset('public/frontend/assets/images/all-icons/27.jpg') }}" alt="" class="img-fluid blur-up lazyloaded"></div>
-                            <div class="col-3 order_detail">
+                        @forelse($order->orderProducts as $product) 
+                        <div class="row product-order-detail align-items-center">
+                            <div class="col-3"><img src="{{ asset($product->product->productDetail->productThumbnail_img) }}" alt="" class="img-fluid blur-up lazyloaded"></div>
+                            <div class="col-5 order_detail">
                                 <div>
                                     <h4>product name</h4>
-                                    <h5>cotton shirt</h5>
+                                    <h5 class="fw-normal">{{$product->product_name}}</h5>
                                 </div>
                             </div>
-                            <div class="col-3 order_detail">
+                            <div class="col-2 order_detail">
                                 <div>
                                     <h4>quantity</h4>
-                                    <h5>1</h5>
+                                    <h5>{{$product->quantity}}</h5>
                                 </div>
                             </div>
-                            <div class="col-3 order_detail">
+                            <div class="col-2 order_detail">
                                 <div>
                                     <h4>price</h4>
-                                    <h5>$555.00</h5>
+                                    <h5>{{$basic_info->currency_symbol}}{{$product->product_price}}</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="row product-order-detail">
-                            <div class="col-3"><img src="{{ asset('public/frontend/assets/images/all-icons/27.jpg') }}" alt="" class="img-fluid blur-up lazyloaded"></div>
-                            <div class="col-3 order_detail">
-                                <div>
-                                    <h4>product name</h4>
-                                    <h5>cotton shirt</h5>
-                                </div>
-                            </div>
-                            <div class="col-3 order_detail">
-                                <div>
-                                    <h4>quantity</h4>
-                                    <h5>1</h5>
-                                </div>
-                            </div>
-                            <div class="col-3 order_detail">
-                                <div>
-                                    <h4>price</h4>
-                                    <h5>$555.00</h5>
-                                </div>
-                            </div>
-                        </div>
+                        @empty
+                        @endforelse
                         <div class="total-sec">
                             <ul>
-                                <li>subtotal <span>$55.00</span></li>
-                                <li>shipping <span>$12.00</span></li>
-                                <li>tax(GST) <span>$10.00</span></li>
+                                <li>subtotal <span>{{$basic_info->currency_symbol}}{{$order->subtotal}}</span></li>
+                                <li>shipping <span>{{$basic_info->currency_symbol}}{{$order->shipping_charge}}</span></li>
+{{--                                <li>Coupon discount <span>-{{$basic_info->currency_symbol}} {{$order->coupon_discount}}</span></li>--}}
                             </ul>
                         </div>
                         <div class="final-total">
-                            <h3>total <span>$77.00</span></h3>
+                            <h3>total <span>{{$basic_info->currency_symbol}}{{$order->total}}</span></h3>
                         </div>
                     </div>
                 </div>
@@ -127,36 +109,52 @@
                             <div class="col-sm-6">
                                 <h4>summery</h4>
                                 <ul class="order-detail">
-                                    <li>order ID: 5563853658932</li>
-                                    <li>Order Date: October 22, 2018</li>
-                                    <li>Order Total: $907.28</li>
+                                    <li>Order ID: {{$order->id}}</li>
+                                    <li>invoice ID: {{$order->invoiceID}}</li>
+                                    <li>Order Date: {{$order->order_date->format('d M Y')}}</li>
+                                    <li>Order Total: {{$basic_info->currency_symbol}}{{$order->total}}</li>
                                 </ul>
                             </div>
                             <div class="col-sm-6">
                                 <h4>shipping address</h4>
                                 <ul class="order-detail">
-                                    <li>gerg harvell</li>
-                                    <li>568, suite ave.</li>
-                                    <li>Austrlia, 235153</li>
-                                    <li>Contact No. 987456321</li>
+                                    <li>{{$order->customer->address_1}}</li>
+                                    <li>{{$order->customer->address_2}}</li>
+                                    <li>{{$order->customer->state_district}},{{$order->customer->state_district}}</li>
+                                    <li>Contact No. {{$order->customer->phone}}</li>
                                 </ul>
                             </div>
-                            <div class="col-sm-12 payment-mode">
+                            <div class="col-sm-12 payment-mode mt-3">
                                 <h4>payment method</h4>
-                                <p>Pay on Delivery (Cash/Card). Cash on delivery (COD) available. Card/Net banking
-                                    acceptance subject to device availability.</p>
+                                @if($order->payment_status=='paid') 
+                                <p>Cash on Delivery</p>
+                                @else
+                                    <p class="text-uppercase"> {{$order->payment_method}}</p>
+                                @endif
                             </div>
-                            <div class="col-md-12">
-                                <div class="delivery-sec">
-                                    <h3>expected date of delivery: <span>october 22, 2018</span></h3>
-                                    <a href="order-tracking.html">track order</a>
-                                </div>
-                            </div>
+{{--                            <div class="col-md-12">--}}
+{{--                                <div class="delivery-sec">--}}
+{{--                                    <h3>expected date of delivery: <span>october 22, 2018</span></h3>--}}
+{{--                                    <a href="order-tracking.html">track order</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center align-items-center mt-2">
+                            <a href="{{ url('/') }}" class="btn btn-solid btn-info">continue shopping</a>
                         </div>
                     </div>
                 </div>
+                
+               
             </div>
+            
+           
         </div>
+
+       
     </section>
     <!--  Order Details section end -->
 

@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\WebviewController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,29 +38,40 @@ Route::post('/apply-coupon',[CheckoutController::class,'applyCoupon'])->name('ap
 Route::resource('/checkouts', CheckoutController::class)->names('checkout');
 Route::post('/shipping-charge-update',[CheckoutController::class,'shippingChargeUpdate'])->name('shipping.charge.update');
 Route::get('/cart-calculate',[CheckoutController::class,'cartCalculate'])->name('cart.calculate');
-//User Dashboard
-Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
-//Route::view('/checkout', 'frontend.pages.products.checkout');
-//Route::view('/cart', 'frontend.pages.products.cart');
+
+
 Route::view('/wishlist', 'frontend.pages.products.wishlist');
 
 
-Route::view('/about', 'frontend.pages.static-pages.about');
-Route::view('/contact', 'frontend.pages.static-pages.contact');
+//Webview Controller
+Route::get('/about', [WebviewController::class, 'aboutPage'])->name('about');
+Route::get('/contact', [WebviewController::class, 'contactPage'])->name('contact');
+Route::post('/search-product', [WebviewController::class, 'searchProduct'])->name('search.product');
+Route::get('/get-product-by-category/{category:slug}', [WebviewController::class, 'productByCategory'])->name('product.by.category');
+Route::get('/get-product-by-subcategory/{subcategory:slug}', [WebviewController::class, 'productBySubCategory'])->name('product.by.subcategory');
+Route::get('/get-all-products', [WebviewController::class, 'allProducts'])->name('product.all');
+
 Route::view('/order-success', 'frontend.pages.orders.order-success')->name('order.success');
 Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
 Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
 Route::view('/shop', 'frontend.pages.products.shop-page');
 
+//Wishlist
+Route::resource('/wishlists', WishlistController::class)->names('wishlist');
 
-// SSLCOMMERZ Start
+//Dynamic Theme Color 
+Route::get('/get-theme-color',[WebviewController::class,'getThemeColor'])->name('get.theme.color');
 
+//User Dashboard
+Route::get('/user-dashboard',[DashboardController::class,'index'])->name('user.dashboard');
+Route::post('/update-profile-image',[DashboardController::class,'updateProfileImage'])->name('update.profile.image');
+
+// SSLCOMMERZ 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
-//SSLCOMMERZ END
+
 
 
 

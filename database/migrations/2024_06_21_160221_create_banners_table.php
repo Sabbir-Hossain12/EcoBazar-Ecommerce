@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('banner_img')->nullable();
             $table->text('banner_link')->nullable();
-            
+            $table->string('banner_type')->comment('small,medium,large')->default('small');
             $table->string('banner_title_1')->nullable();
             $table->string('banner_title_2')->nullable();
             $table->string('banner_title_3')->nullable();

@@ -38,7 +38,7 @@
             color: #000;
             background: #fff;
 
-            border: 1px solid #00b207;
+            border: 1px solid #fe5200;
             font-size: 16px;
             font-weight: 600;
             padding: 0px 12px;
@@ -49,7 +49,7 @@
             color: #000;
             background: #fff;
 
-            border: 1px solid #00b207;
+            border: 1px solid #fe5200;
             font-size: 16px;
             font-weight: 600;
             padding: 0px 12px;
@@ -60,7 +60,7 @@
             color: #000;
             background: #fff;
 
-            border: 1px solid #00b207;
+            border: 1px solid #fe5200;
             font-size: 16px;
             font-weight: 600;
             padding: 0px 12px;
@@ -69,7 +69,7 @@
 
         .colortext:hover, .weighttext:hover, .sizetext:hover {
             cursor: pointer;
-            background: #00b207;
+            background: #fe5200;
             color: white;
         }
 
@@ -692,7 +692,7 @@
                     $('.colortext').css('color', '#000');
                     $('.colortext').css('background', '#fff');
                     $('#colorAttr' + color).css('color', '#fff');
-                    $('#colorAttr' + color).css('background', '#00b207');
+                    $('#colorAttr' + color).css('background', '#fe5200');
 
                 },
                 error: function (error) {
@@ -729,7 +729,7 @@
                     $('.sizetext').css('color', '#000');
                     $('.sizetext').css('background', '#fff');
                     $('#sizeAttr' + size).css('color', '#fff');
-                    $('#sizeAttr' + size).css('background', '#00b207');
+                    $('#sizeAttr' + size).css('background', '#fe5200');
 
                 },
                 error: function (error) {
@@ -769,7 +769,7 @@
                     $('.weighttext').css('color', '#000');
                     $('.weighttext').css('background', '#fff');
                     $('#weightAttr' + weight).css('color', '#fff');
-                    $('#weightAttr' + weight).css('background', '#00b207');
+                    $('#weightAttr' + weight).css('background', '#fe5200');
 
                 },
                 error: function (error) {

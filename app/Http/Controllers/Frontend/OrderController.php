@@ -40,11 +40,11 @@ class OrderController extends Controller
 //        dd(Session::get('coupon'));
 
         if (Cart::content()->isEmpty()) {
-            return redirect()->back()->with('error', 'Your cart is empty. Please add items to your cart before placing an order.');
+            return redirect()->back()->with('error',
+                'Your cart is empty. Please add items to your cart before placing an order.');
         }
         DB::beginTransaction();
         try {
-            
 //           Create Customer
             $customer = new Customer();
             $customer->first_name = $request->first_name;
@@ -59,20 +59,20 @@ class OrderController extends Controller
             $customer->email = $request->email;
 
             $customer->save();
-            
-            $tranId=uniqid();
+
+            $tranId = uniqid();
 
 //          Create Order
             $order = new Order();
             $order->customer_id = $customer->id;
             $order->user_id = auth()->user()->id ?? null;
-            
+
             if (Session::has('coupon')) {
                 $order->coupon_id = Session::get('coupon')['id'];
             }
-            
+
             $order->invoiceID = 'BM'.rand('100000', '999999');
-            $order->tran_id=$tranId;
+            $order->tran_id = $tranId;
             $order->payment_method = $request->payment_method;
             $order->shipping_charge = $request->shipping_charge;
             $order->order_note = $request->order_note;
@@ -106,7 +106,7 @@ class OrderController extends Controller
             DB::commit();
             Cart::destroy();
             Session::forget('coupon');
-            
+
             if ($request->payment_method == 'sslcommerzz') {
 //                dd($request->all());
 
@@ -120,10 +120,10 @@ class OrderController extends Controller
                 $post_data['cus_email'] = $request->email ?? 'customer@mail.com';
                 $post_data['cus_add1'] = $request->address_1;
                 $post_data['cus_add2'] = $request->address_2 ?? '';
-                $post_data['cus_city'] = $request->state_district ?? 'Dhaka' ;
+                $post_data['cus_city'] = $request->state_district ?? 'Dhaka';
                 $post_data['cus_state'] = $request->state_district ?? 'Dhaka';
                 $post_data['cus_postcode'] = $request->zip ?? '';
-                $post_data['cus_country'] = $request->country ?? 'Bangladesh'  ;
+                $post_data['cus_country'] = $request->country ?? 'Bangladesh';
                 $post_data['cus_phone'] = $request->phone;
                 $post_data['cus_fax'] = "123456";
 
@@ -131,7 +131,7 @@ class OrderController extends Controller
                 $post_data['ship_name'] = $request->first_name.' '.$request->last_name;
                 $post_data['ship_add1'] = $request->address_1;
                 $post_data['ship_add2'] = $request->address_2 ?? '';
-                $post_data['ship_city'] = $request->state_district ?? 'Dhaka' ;
+                $post_data['ship_city'] = $request->state_district ?? 'Dhaka';
                 $post_data['ship_state'] = $request->state_district ?? 'Dhaka';
                 $post_data['ship_postcode'] = $request->zip ?? '';
                 $post_data['ship_phone'] = $request->phone;
@@ -150,15 +150,8 @@ class OrderController extends Controller
                     print_r($payment_options);
                     $payment_options = array();
                 }
-
-             
-                
-            
             }
-            
-         
-
-            return view('frontend.pages.orders.order-success',compact('order','orderProduct'));
+            return view('frontend.pages.orders.order-success', compact('order' ));
         } catch (Exception $exception) {
             DB::rollBack();
             dd($exception->getMessage());

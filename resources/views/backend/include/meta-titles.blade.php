@@ -16,8 +16,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('public/backend/assets/images/favicon.ico')}}">
 
-    <!-- preloader css -->
-    <link rel="stylesheet" href="{{asset('public/backend/assets/css/preloader.min.css')}}" type="text/css"/>
+{{--    <!-- preloader css -->--}}
+{{--    <link rel="stylesheet" href="{{asset('public/backend/assets/css/preloader.min.css')}}" type="text/css"/>--}}
 
     <!-- Bootstrap Css -->
     <link href="{{asset('public/backend/assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet"
@@ -37,9 +37,13 @@
     <!-- Style CSS-->
     <link rel="stylesheet" href="{{ asset('public/backend/assets/css/style.css') }}">
 
-    {{-- Tostr js   --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{{--    --}}{{-- Tostr js   --}}
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"--}}
+{{--          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="--}}
+{{--          crossorigin="anonymous" referrerpolicy="no-referrer"/>--}}
+
+
+    {{-- tostr.js--}}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @stack('backendCss')
 </head>
