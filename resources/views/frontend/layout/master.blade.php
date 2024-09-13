@@ -83,12 +83,12 @@
     @include('frontend.include.script')
 
     <script>
-        @if (Session::has('message'))
+        @if (Session::has('success'))
             toastr.options = {
             "closeButton": true,
             "progressBar": true
         }
-        toastr.success("{{ session('message') }}");
+        toastr.success("{{ session('success') }}");
         @endif
 
                 @if (Session::has('error'))

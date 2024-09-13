@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\WebviewController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +38,7 @@ Route::post('/apply-coupon',[CheckoutController::class,'applyCoupon'])->name('ap
 Route::resource('/checkouts', CheckoutController::class)->names('checkout');
 Route::post('/shipping-charge-update',[CheckoutController::class,'shippingChargeUpdate'])->name('shipping.charge.update');
 Route::get('/cart-calculate',[CheckoutController::class,'cartCalculate'])->name('cart.calculate');
-//User Dashboard
-Route::get('/user-dashboard',[WebviewController::class,'userDashboard'])->name('user-dashboard');
+
 
 Route::view('/wishlist', 'frontend.pages.products.wishlist');
 
@@ -55,10 +56,15 @@ Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
 Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
 Route::view('/shop', 'frontend.pages.products.shop-page');
 
+//Wishlist
+Route::resource('/wishlists', WishlistController::class)->names('wishlist');
 
 //Dynamic Theme Color 
 Route::get('/get-theme-color',[WebviewController::class,'getThemeColor'])->name('get.theme.color');
 
+//User Dashboard
+Route::get('/user-dashboard',[DashboardController::class,'index'])->name('user.dashboard');
+Route::post('/update-profile-image',[DashboardController::class,'updateProfileImage'])->name('update.profile.image');
 
 // SSLCOMMERZ 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);

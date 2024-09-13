@@ -16,13 +16,7 @@ class WebviewController extends Controller
     {
         return view('frontend.pages.webview');
     }
-
-    public function userDashboard()
-    {
-//        $user= User:: get();
-        return view('frontend.pages.dashboard.user-dashboard');
-    }
-
+    
     public function aboutPage()
     {
         return view('frontend.pages.static-pages.about');

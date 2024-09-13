@@ -159,7 +159,7 @@
                             </li>
                             @auth()
                                 <li>
-                                    <a href="{{route('user-dashboard')}}">Dashboard</a>
+                                    <a href="{{route('user.dashboard')}}">Dashboard</a>
                                 </li>
                             @endauth
 
@@ -169,7 +169,7 @@
                     <div class="menu-right">
                         <ul>
                             <li>
-                                <a href="" class="item-count">
+                                <a href="{{route('wishlist.index')}}" class="item-count">
                                     <i class='bx bx-heart'></i>
                                     <span>0</span>
                                 </a>
@@ -209,7 +209,7 @@
                                     <div class="accounts-menu-list">
                                         <ul>
                                             <li>
-                                                <a href="{{route('login')}}">Dashboard</a>
+                                                <a href="{{route('user.dashboard')}}">Dashboard</a>
                                             </li>
                                             <li>
                                                 <form method="POST" action="{{ route('logout') }}">
