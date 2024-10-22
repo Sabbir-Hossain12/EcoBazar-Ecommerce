@@ -24,10 +24,8 @@ class AdminController extends Controller implements HasMiddleware
             new Middleware('permission:Create Admin,admin', only: ['store']),
             new Middleware('permission:Edit Admin,admin', only: ['update']),
             new Middleware('permission:Delete Admin,admin', only: ['destroy']),
-
             new Middleware('permission:Delete Admin,admin', only: ['destroy']),
-
-
+            
         ];
     }
 
