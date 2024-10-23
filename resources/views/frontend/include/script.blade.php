@@ -17,6 +17,7 @@
 {{--toastr.js--}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
+    {{-- Laravel Share--}}
+    <script src="{{ asset('js/share.js') }}"></script>
 
     @stack('add-scripts')

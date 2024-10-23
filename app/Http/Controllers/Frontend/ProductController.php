@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Size;
 use App\Models\Weight;
 use Illuminate\Http\Request;
+use Jorenvh\Share\Share;
 
 class ProductController extends Controller
 {
@@ -81,13 +82,22 @@ class ProductController extends Controller
         $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=',
             $product->id)->inRandomOrder()->take(10)->get();
 
+
+       $shareLinks = (new \Jorenvh\Share\Share)->page(url('/product-details/' . $product->slug), $product->name)
+            ->facebook()
+            ->twitter()
+            ->linkedin('Extra linkedin summary can be passed here')
+            ->whatsapp();
+//            ->getRawLinks();
+
         return view('frontend.pages.products.product-details', [
             'product' => $product,
             'sliderimgs' => $sliderimgs,
             'productTags' => $productTags,
             'reviewRatingAvg' => $reviewRatingAvg,
             'ActiveReviews' => $ActiveReviews,
-            'relatedProducts' => $relatedProducts
+            'relatedProducts' => $relatedProducts,
+            'shareLinks' => $shareLinks
         ]);
     }
 

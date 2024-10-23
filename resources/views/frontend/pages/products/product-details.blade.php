@@ -1,8 +1,35 @@
 @extends('frontend.layout.master')
 
 @push('titles')
-    EcoBazaar - Bootstrap eCommerce Template
+    {{$product->product_name}} 
 @endpush
+
+
+
+    @push('seo')
+        <meta name="app-url" content="{{ route('product-details', $product->slug) }}" />
+        <meta name="robots" content="index, follow" />
+        <meta name="description" content="{{ $product->short_desc }}" />
+        <meta name="keywords" content="{{ $product->slug }}" />
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="product" />
+        <meta name="twitter:site" content="{{ $product->product_name }}" />
+        <meta name="twitter:title" content="{{ $product->product_name }}" />
+        <meta name="twitter:description" content="{{ $product->short_desc }}" />
+        <meta name="twitter:creator" content="" />
+        <meta property="og:url" content="{{ route('product-details', $product->slug) }}" />
+        <meta name="twitter:image" content="{{ asset($product->productDetail->productThumbnail_img) }}" />
+
+        <!-- Open Graph data -->
+        <meta property="og:title" content="{{ $product->product_name }}" />
+        <meta property="og:type" content="product" />
+        <meta property="og:url" content="{{ route('product-details', $product->slug) }}" />
+        <meta property="og:image" content="{{ asset($product->productDetail->productThumbnail_img) }}" />
+        <meta property="og:description" content="{{ $product->short_desc }}" />
+        <meta property="og:site_name" content="{{ $product->name }}" />
+    @endpush
+
 
 @push('add-css')
 
@@ -204,27 +231,30 @@
                             <div class="share-products-social-media">
                                 <h4>Share Item:</h4>
                                 <ul>
-                                    <li>
-                                        <a href="">
-                                            <i class="fa-brands fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i class="fa-brands fa-x-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i class="fa-brands fa-pinterest-p"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a href="{{Share::currentPage()->facebook()}}">--}}
+{{--                                            <i class="fa-brands fa-facebook-f"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="">--}}
+{{--                                            <i class="fa-brands fa-x-twitter"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="">--}}
+{{--                                            <i class="fa-brands fa-pinterest-p"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="">--}}
+{{--                                            <i class="fa-brands fa-instagram"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
                                 </ul>
+                               
+                                {!! $shareLinks !!}
+                               
                             </div>
                         </div>
 

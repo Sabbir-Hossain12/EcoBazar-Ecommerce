@@ -3,9 +3,13 @@
  <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="keywords" content="HTML5 Template">
- <meta name="description" content="EcoBazaar - Bootstrap eCommerce Template">
- <meta name="author" content="p-themes">
+ <meta name="keywords" content="">
+ <meta name="description" content="EcoBazaar -">
+ <meta name="author" content="Sabbir&Nazmul">
+ 
+ 
+ @stack('seo')
+ 
  <link rel="icon" href="" type="image/x-icon">
  <link rel="shortcut icon" href="" type="image/x-icon">
 
@@ -35,5 +39,6 @@
  
 {{-- tostr.js--}}
  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
- 
+
+
   @stack('add-css')
