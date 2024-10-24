@@ -72,12 +72,10 @@
                                                         class="nav-link">My Orders</a></li>
                                 <li class="nav-item"><a data-bs-toggle="tab" data-bs-target="#wishlist"
                                                         class="nav-link">My Wishlist</a></li>
-                                <li class="nav-item"><a data-bs-toggle="tab" data-bs-target="#payment"
-                                                        class="nav-link">Saved Cards</a></li>
+                                
                                 <li class="nav-item"><a data-bs-toggle="tab" data-bs-target="#profile"
                                                         class="nav-link">Profile</a></li>
-                                <li class="nav-item"><a data-bs-toggle="tab" data-bs-target="#security"
-                                                        class="nav-link">Security</a></li>
+                               
                                 <li class="nav-item"><a href="" class="nav-link">Log Out</a></li>
                             </ul>
                         </div>
@@ -256,8 +254,8 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                     <tr class="table-head">
-                                                        <th scope="col">image</th>
-                                                        <th scope="col">Order Id</th>
+                                                        <th scope="col">SL</th>
+                                                        <th scope="col">Invoice Id</th>
                                                         <th scope="col">Product Details</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Price</th>
@@ -265,79 +263,44 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @forelse($user->orders as $key => $order) 
                                                     <tr>
                                                         <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
+                                                          {{$loop->iteration}}
                                                         </td>
                                                         <td>
-                                                            <p>#125367</p>
+                                                            <p>{{$order->invoiceID}}</p>
                                                         </td>
                                                         <td>
-                                                            <p class="fs-6">Sleevless white top</p>
-                                                        </td>
-                                                        <td>
-                                                                <span
-                                                                        class="badge rounded-pill bg-danger custom-badge">Pending</span>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <i class="fa fa-eye text-theme"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                            @forelse($order->orderProducts as $product) 
+                                                            <p class="fs-6">{{$product->product_name}}X{{$product->quantity}}</p>
+                                                            
+                                                                @if(isset($product->size) && isset($product->color) && isset($product->weight))
+                                                                    <p >Size: <span class="text-primary">{{$product->size}}</span></p>
+                                                                    <p >Color : <span class="text-primary">{{$product->color}}</span></p>
+                                                                    <p >Weight: <span class="text-primary">{{$product->weight}}</span></p>
+                                                                @endif
 
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p>#127569</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="fs-6">Candy red solid tshirt</p>
-                                                        </td>
-                                                        <td>
-                                                                <span
-                                                                        class="badge rounded-pill bg-success custom-badge">Shipped</span>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <i class="fa fa-eye text-theme"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                                @if(isset($product->size) && isset($product->color))
+                                                                    <p >Size: <span class="text-primary">{{$product->size}}</span></p>
+                                                                    <p >Color: <span class="text-primary">{{$product->color}}</span></p>
+                                                                   
+                                                                @endif
 
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p>#125753</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="fs-6">multicolored polo tshirt</p>
+                                                                @if(isset($product->size))
+                                                                    <p class="text-primary">Size: <span>{{$product->size}}</span></p>
+                                                                @endif
+
+
+                                                            @empty
+                                                            @endforelse
                                                         </td>
                                                         <td>
                                                                 <span
-                                                                        class="badge rounded-pill bg-secondary custom-badge">Canceled</span>
+                                                                        class="badge rounded-pill bg-danger custom-badge">{{$order->status}}</span>
                                                         </td>
                                                         <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
+                                                            <p class="theme-color fs-6">{{$basic_info->currency_symbol}}{{$order->total}}</p>
                                                         </td>
                                                         <td>
                                                             <a href="javascript:void(0)">
@@ -345,6 +308,8 @@
                                                             </a>
                                                         </td>
                                                     </tr>
+                                                    @empty  
+                                                    @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -620,7 +585,7 @@
                                                         <li>
                                                             <div class="details">
                                                                 <div class="left">
-                                                                    <h6>company name</h6>
+                                                                    <h6>Name</h6>
                                                                 </div>
                                                                 <div class="right">
                                                                     <h6>Fashion Store</h6>
@@ -650,7 +615,7 @@
                                                         <li>
                                                             <div class="details">
                                                                 <div class="left">
-                                                                    <h6>Year Established</h6>
+                                                                    <h6>Email</h6>
                                                                 </div>
                                                                 <div class="right">
                                                                     <h6>2018</h6>
@@ -658,26 +623,7 @@
                                                             </div>
                                                         </li>
 
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Total Employees</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>101 - 200 People</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>category</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>clothing</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                       
                                                         <li>
                                                             <div class="details">
                                                                 <div class="left">
@@ -758,141 +704,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="security">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card mt-0">
-                                        <div class="card-body">
-                                            <div class="dashboard-box">
-                                                <div class="dashboard-title">
-                                                    <h4>settings</h4>
-                                                </div>
-                                                <div class="dashboard-detail">
-                                                    <div class="account-setting">
-                                                        <h5>Notifications</h5>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios"
-                                                                           id="exampleRadios1" value="option1" checked>
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios1">
-                                                                        Allow Desktop Notifications
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios"
-                                                                           id="exampleRadios2" value="option2">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios2">
-                                                                        Enable Notifications
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios"
-                                                                           id="exampleRadios3" value="option3">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios3">
-                                                                        Get notification for my own activity
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios"
-                                                                           id="exampleRadios4" value="option4">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios4">
-                                                                        DND
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="account-setting">
-                                                        <h5>deactivate account</h5>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios1"
-                                                                           id="exampleRadios4" value="option4" checked>
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios4">
-                                                                        I have a privacy concern
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios1"
-                                                                           id="exampleRadios5" value="option5">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios5">
-                                                                        This is temporary
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios1"
-                                                                           id="exampleRadios6" value="option6">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios6">
-                                                                        other
-                                                                    </label>
-                                                                </div>
-                                                                <button type="button"
-                                                                        class="btn btn-solid btn-xs">Deactivate
-                                                                    Account
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="account-setting">
-                                                        <h5>Delete account</h5>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios3"
-                                                                           id="exampleRadios7" value="option7" checked>
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios7">
-                                                                        No longer usable
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios3"
-                                                                           id="exampleRadios8" value="option8">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios8">
-                                                                        Want to switch on other account
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                           type="radio" name="exampleRadios3"
-                                                                           id="exampleRadios9" value="option9">
-                                                                    <label class="form-check-label"
-                                                                           for="exampleRadios9">
-                                                                        other
-                                                                    </label>
-                                                                </div>
-                                                                <button type="button"
-                                                                        class="btn btn-solid btn-xs">Delete Account
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
