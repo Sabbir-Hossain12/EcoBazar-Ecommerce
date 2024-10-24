@@ -59,6 +59,9 @@ Route::view('/shop', 'frontend.pages.products.shop-page');
 //Wishlist
 Route::resource('/wishlists', WishlistController::class)->names('wishlist');
 
+//review
+Route::get('/get-reviews/{id}', [WebviewController::class, 'getReviews'])->name('get.reviews');
+Route::post('/submit-review', [WebviewController::class, 'submitReview'])->name('submit.review');
 //Dynamic Theme Color 
 Route::get('/get-theme-color',[WebviewController::class,'getThemeColor'])->name('get.theme.color');
 

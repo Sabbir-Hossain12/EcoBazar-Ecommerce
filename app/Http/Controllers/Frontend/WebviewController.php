@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Subcategory;
 use App\Models\ThemeColor;
 use http\Client\Curl\User;
@@ -78,9 +79,36 @@ class WebviewController extends Controller
         return response('/* Default CSS if no theme settings are found */', 200)
             ->header('Content-Type', 'text/css');
     }
-    
-    
-    
+
+
+    public function getReviews($id)
+    {
+         $reviews=   Review::where('status', 1)->where('product_id', $id)  ->with('user')->get();
+            
+            
+            return response()->json(['reviews' => $reviews], 200);
+    }
+
+    public function submitReview(Request $request)
+    {
+//        dd($request->all());
+        $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'review_text' => 'required|string',
+        ]);
+        
+        $review= new Review();
+        $review->user_id = auth()->user()->id;
+        $review->product_id = $request->product_id;
+        $review->rating = $request->rating;
+        $review->review_text = $request->review_text;
+        $review->status = 0;
+        $review->review_date=today();
+        $review->save();
+        
+        return response()->json(['message' => 'Review submitted successfully and Pending for Approval'], 200);
+    }
+        
 
 
 }

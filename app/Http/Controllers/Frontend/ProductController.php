@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Size;
 use App\Models\Weight;
 use Illuminate\Http\Request;
@@ -78,7 +79,8 @@ class ProductController extends Controller
 
         $reviewRatingAvg = $product->reviews->avg('rating');
         $product->load('activeReviews');
-        $ActiveReviews = $product->activeReviews;
+//        $ActiveReviews = $product->activeReviews;
+        $activeReviews= Review::where('product_id', $product->id)->where('status', 1)->select('review_text', 'rating', 'review_date','status')->get();
         $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=',
             $product->id)->inRandomOrder()->take(10)->get();
 
@@ -95,7 +97,7 @@ class ProductController extends Controller
             'sliderimgs' => $sliderimgs,
             'productTags' => $productTags,
             'reviewRatingAvg' => $reviewRatingAvg,
-            'ActiveReviews' => $ActiveReviews,
+            'activeReviews' => $activeReviews,
             'relatedProducts' => $relatedProducts,
             'shareLinks' => $shareLinks
         ]);

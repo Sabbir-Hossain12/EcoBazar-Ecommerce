@@ -14,7 +14,7 @@
 
         <!-- Twitter Card data -->
         <meta name="twitter:card" content="product" />
-        <meta name="twitter:site" content="{{ $product->product_name }}" />
+        <meta name="twitter:site" content="" />
         <meta name="twitter:title" content="{{ $product->product_name }}" />
         <meta name="twitter:description" content="{{ $product->short_desc }}" />
         <meta name="twitter:creator" content="" />
@@ -27,7 +27,7 @@
         <meta property="og:url" content="{{ route('product-details', $product->slug) }}" />
         <meta property="og:image" content="{{ asset($product->productDetail->productThumbnail_img) }}" />
         <meta property="og:description" content="{{ $product->short_desc }}" />
-        <meta property="og:site_name" content="{{ $product->name }}" />
+        <meta property="og:site_name" content="" />
     @endpush
 
 
@@ -105,47 +105,8 @@
             margin-right: 10px;
         }
     </style>
-
-    <!-- start Breadcrumb section -->
-    <section class="breadcrumb-section"
-             style="background-image: url({{ asset('public/frontend/assets/images/breadcrumb_image/Breadcrumbs.png') }});">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-details">
-                        <ul>
-                            <li>
-                                <a href="{{url('/')}}">
-                                    <i class="bx bx-home"></i> <i class="bx bx-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span>{{$product->category->category_name}}</span>
-                                    <i class="bx bx-chevron-right"></i>
-                                </a>
-                            </li>
-                            @if($product->subcategory != null)
-                                <li>
-                                    <a href="">
-                                        <span>{{$product->subcategory->subcategory_name}} </span>
-                                        <i class="bx bx-chevron-right"></i>
-                                    </a>
-                                </li>
-                            @endif
-                            <li>
-                                <a href="javascript:;">
-                                    <span>{{$product->product_name}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+    
+    
     <!-- Product Details Page section -->
     <section class="product-details-section">
         <div class="container">
@@ -192,7 +153,7 @@
                                     @endfor
                                 </div>
 
-                                <span>{{count($product->reviews)}} Review</span>
+                                <span>{{count($activeReviews)}} Review</span>
                             </div>
 
                             <div class="middle-dot"></div>
@@ -482,65 +443,28 @@
                         {{--Customer--}}
                         <div class="description-contents">
                             <div class="product-description-container" style="align-items: start;">
-                                <div class="customer-feedback px-2">
+                                <div class="customer-feedback px-2" id="reviewData">
 
-                                    @foreach($ActiveReviews as $review)
 
-                                        <div class="customer-message">
-                                            <div class="customer-content">
-                                                <div class="customer-bio">
-                                                    <img src="{{ asset($review->reviewer_img) }}"
-                                                         alt="" width="40px" style="border-radius: 50%">
-
-                                                    <div class="customer-ratings">
-                                                        <h5>{{$review->reviewer_name}}</h5>
-
-                                                        <div class="star-ratings">
-                                                            @for($i=0; $i<5; $i++)
-
-                                                                @if($i < $review->rating)
-                                                                    <i class="fa-solid fa-star"></i>
-                                                                @else
-
-                                                                    <i class="fa-regular fa-star"></i>
-                                                                @endif
-                                                            @endfor
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <span>{{$review->created_at->diffForHumans()}}</span>
-                                            </div>
-
-                                            <p>{{$review->review_text}}</p>
-                                        </div>
-
-                                    @endforeach
                                 </div>
 
+                                
+                                @guest()
+                                    <div class="customer-review">
+                                        <a href="{{route('login')}}" class="review-btn">Please Login to Submit Review</a>
+
+                                    </div>
+                                @endguest
+                                @auth('web')
                                 <div class="customer-review">
                                     <h3>Reviews</h3>
 
-                                    <form action="" method="post">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="review_label" for="name">Name</label>
-                                                    <input type="text" name="name" id="name" class="normal-forms"
-                                                           placeholder="Enter Your Name">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="review_label" for="email">Email</label>
-                                                    <input type="email" name="email" id="email" class="normal-forms"
-                                                           placeholder="Email">
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                    <form id="reviewSubmit">
+                                        @csrf
+                                        <input type="number" name="product_id" value="{{$product->id}}" hidden="">
                                         <div class="mb-3">
                                             <label class="review_label" for="ratings">Ratings</label>
-                                            <select class="select-form-decoration" name="ratings" id="ratings">
+                                            <select class="select-form-decoration" name="rating" id="ratings">
                                                 <option value="" disabled selected>Select Ratings</option>
                                                 <option value="1">1 Star</option>
                                                 <option value="2">2 Star</option>
@@ -552,19 +476,21 @@
 
                                         <div class="mb-3">
                                             <label class="review_label" for="text_review">Text Review</label>
-                                            <textarea name="text_review" class="normal-forms" style="height: 100px;"
+                                            <textarea name="review_text" class="normal-forms" style="height: 100px;"
                                                       id="text_review" placeholder="Write Message"></textarea>
                                         </div>
 
                                         <button type="submit" class="review-btn">Submit Your Reviews</button>
                                     </form>
                                 </div>
+                                @endauth
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+         
             <!-- Related Product section -->
             @if(count($relatedProducts)>0)
                 <div class="row">
@@ -653,6 +579,7 @@
 @push('add-scripts')
 
     <script>
+        loadReview();
         $(document).ready(function () {
 
             //Add To Cart
@@ -816,7 +743,95 @@
 
         }
 
+        //Load All Reviews
+        function loadReview()
+        {
+            $.ajax({
+                type: 'GET',
+                url: '{{ url('/get-reviews/' . $product->id  ) }}',
+               
+                success: function (res) {
 
+                  
+                    
+                  res.reviews.forEach(function (item, index) {
+
+                      
+                      let starRatings = '';
+                      for (let i = 0; i < 5; i++) {
+                          if (i < item.rating) {
+                              starRatings += '<i class="fa-solid fa-star"></i>';
+                          } else {
+                              starRatings += '<i class="fa-regular fa-star"></i>';
+                          }
+                      }
+                      
+                      
+                      let content = `<div class="customer-message">
+                                            <div class="customer-content">
+                                                <div class="customer-bio">
+                                                    <img src="{{asset('')}}/${item.user.profile_pic}"
+                                                         alt="" width="40px" style="border-radius: 50%">
+
+                                                    <div class="customer-ratings">
+                                                        <h5>${item.user.name}</h5>
+
+                                                      <div class="star-ratings">
+                                                          ${starRatings}
+                                                      
+                                                       </div>
+                                                       
+                                                       <span>${item.review_date}</span>
+                                                       
+                                                      </div>
+                                                      
+                                                </div>
+
+                                            </div>
+            
+
+                                            <p> ${item.review_text} </p>
+                                      </div>`;
+                      
+                      $('#reviewData').append(content);
+                      
+                      
+                  });
+                    
+                    
+                    // $('#reviewData').html(res);
+                },
+                error: function (error) {
+                    console.log('error');
+                }
+            });
+        }
+        
+        //Submit Review
+        $('#reviewSubmit').on('submit', function (e) {
+            
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('/submit-review') }}',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    
+                    $('#reviewSubmit').trigger('reset');
+                    // console.log(res.message);
+                    
+                    toastr.success(res.message);
+                    
+                },
+                error: function (error) {
+                    toastr.error(error.responseJSON.message);
+                }
+            });
+        });
+            
+                    
     </script>
 
 @endpush

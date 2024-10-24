@@ -47,11 +47,13 @@ class AppServiceProvider extends ServiceProvider
             $view->with('basic_info', $basic_info);
         });
         
-        View()->composer('*', function ($view) {
+        View()->composer('*', function ($view)
+        {
             $basic_info = BasicInfo::first();
             $themeColor= ThemeColor::first();
             $view->with(['basic_info'=> $basic_info,'themeColor'=> $themeColor]);
-        });
+        }
+        );
         
 
         View()->composer('frontend.pages.webview', function ($view) {

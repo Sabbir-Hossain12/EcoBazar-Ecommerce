@@ -48,7 +48,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered mb-0" id="reviewTable">
+                <table class="table w-100 dataTable table-striped no-footer dtr-inline text-center" id="reviewTable">
 
                     <thead>
                     <tr>
@@ -97,10 +97,14 @@
                         data: 'id',
                     },
                     {
-                        data: 'reviewer_name',
+                        data: 'name',
                     },
                     {
-                        data: 'reviewer_img',
+                        data: 'profile_pic',
+                        render: function (data) {
+                            
+                            return `<img src="{{asset('')}}/${data}" alt="" class="img-fluid rounded" style="width: 50px">`;
+                        }
                     },
                     {
                         data: 'review_text',
@@ -164,7 +168,7 @@
             })
 
 
-            // Delete Coupon
+            // Delete Review
             $(document).on("click", "#deleteBtn", function () {
                 let id = $(this).data('id')
 
@@ -182,7 +186,7 @@
                             $.ajax({
                                 type: 'DELETE',
 
-                                url: "{{ url('admin/reviewTables/') }}/" + id,
+                                url: "{{ url('admin/reviews') }}/" + id,
                                 data: {
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

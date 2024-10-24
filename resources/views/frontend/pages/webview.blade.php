@@ -4,6 +4,22 @@
     EcoBazaar - Bootstrap eCommerce Template
 @endpush
 
+@push('seo')
+<meta name="app-url" content="" />
+<meta name="robots" content="index, follow" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+
+<!-- Open Graph data -->
+<meta property="og:title" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:image" content="{{ asset($basic_info->light_logo) }}" />
+<meta property="og:description" content="" />
+
+@endpush
+
+
 @push('add-css')
 
     <style>
@@ -573,194 +589,7 @@
 
     <!-- End. featured-product-section -->
 
-
-    <!-- Start Blog Section -->
-    <section class="blog-section">
-        <div class="container">
-            <div class="row">
-                <h1>Latest News</h1>
-
-                <div class="blog-container">
-                    <div class="blog-details">
-                        <div class="blog-image-container">
-                            <img src="{{ asset('public/frontend/assets/images/blog_image/blog-1.png') }}" alt="">
-                            <div class="blog-dates">
-                                <p>18</p>
-                                <span>Nov</span>
-                            </div><!-- End. blog-dates -->
-                        </div><!-- End. blog-image-container -->
-
-                        <div class="blog-titles">
-                            <ul class="blog-list">
-                                <li><i class="ri-bookmark-line"></i> Food</li>
-                                <li><i class="ri-user-3-line"></i> By Admin</li>
-                                <li><i class="ri-chat-1-line"></i> 65 Comments</li>
-                            </ul>
-                            <p>Curabitur porttitor orci eget neque accumsan venenatis. Nunc fermentum.</p>
-                            <a href="#" class="read-more-btn">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
-                        </div><!-- End. blog-titles -->
-                    </div><!-- End. blog-details -->
-
-                    <div class="blog-details">
-                        <div class="blog-image-container">
-                            <img src="{{ asset('public/frontend/assets/images/blog_image/blog-2.png') }}" alt="">
-                            <div class="blog-dates">
-                                <p>18</p>
-                                <span>Nov</span>
-                            </div><!-- End. blog-dates -->
-                        </div><!-- End. blog-image-container -->
-
-                        <div class="blog-titles">
-                            <ul class="blog-list">
-                                <li><i class="ri-bookmark-line"></i> Food</li>
-                                <li><i class="ri-user-3-line"></i> By Admin</li>
-                                <li><i class="ri-chat-1-line"></i> 65 Comments</li>
-                            </ul>
-                            <p>Curabitur porttitor orci eget neque accumsan venenatis. Nunc fermentum.</p>
-                            <a href="#" class="read-more-btn">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
-                        </div><!-- End. blog-titles -->
-                    </div><!-- End. blog-details -->
-
-                    <div class="blog-details">
-                        <div class="blog-image-container">
-                            <img src="{{ asset('public/frontend/assets/images/blog_image/blog-3.png') }}" alt="">
-                            <div class="blog-dates">
-                                <p>18</p>
-                                <span>Nov</span>
-                            </div><!-- End. blog-dates -->
-                        </div><!-- End. blog-image-container -->
-
-                        <div class="blog-titles">
-                            <ul class="blog-list">
-                                <li><i class="ri-bookmark-line"></i> Food</li>
-                                <li><i class="ri-user-3-line"></i> By Admin</li>
-                                <li><i class="ri-chat-1-line"></i> 65 Comments</li>
-                            </ul>
-                            <p>Curabitur porttitor orci eget neque accumsan venenatis. Nunc fermentum.</p>
-                            <a href="" class="read-more-btn">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
-                        </div><!-- End. blog-titles -->
-                    </div><!-- End. blog-details -->
-                </div><!-- End. blog-container -->
-            </div><!-- End. row -->
-        </div><!-- End. container -->
-    </section><!-- End. Blog-section -->
-
-
-    <!-- Start Testimonial Section -->
-    <section class="testimonial-section">
-        <div class="container">
-            <div class="row">
-                <div class="testimonial-title">
-                    <h1>Client Testimonial</h1>
-                    <div class="verticle-line"></div>
-                </div><!-- End. row -->
-
-                <!-- <div class="col-lg-4"> -->
-                <div class="owl-carousel owl-theme" id="testimonial">
-                    <div class="testimonial-card item">
-                        <i class='bx bxs-quote-alt-right'></i>
-                        <p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu
-                            magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p>
-
-                        <div class="our-client">
-                            <div class="client-bio">
-                                <img src="{{ asset('public/frontend/assets/images/testimonial_section/user-1.png') }}"
-                                     alt="">
-                                <div class="client-details">
-                                    <h4>Robert Fox</h4>
-                                    <p>Customer</p>
-                                </div><!-- End. client-details -->
-                            </div><!-- End. client-bio -->
-
-                            <div class="client-review">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div><!-- End. client-review -->
-                        </div><!-- End. our-client -->
-                    </div><!-- End. testimonial-card -->
-
-                    <div class="testimonial-card item">
-                        <i class='bx bxs-quote-alt-right'></i>
-                        <p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu
-                            magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p>
-
-                        <div class="our-client">
-                            <div class="client-bio">
-                                <img src="{{ asset('public/frontend/assets/images/testimonial_section/user-2.png') }}"
-                                     alt="">
-                                <div class="client-details">
-                                    <h4>Robert Fox</h4>
-                                    <p>Customer</p>
-                                </div><!-- End. client-details -->
-                            </div><!-- End. client-bio -->
-
-                            <div class="client-review">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div><!-- End. client-review -->
-                        </div><!-- End. our-client -->
-                    </div><!-- End. testimonial-card -->
-
-                    <div class="testimonial-card item">
-                        <i class='bx bxs-quote-alt-right'></i>
-                        <p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu
-                            magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p>
-
-                        <div class="our-client">
-                            <div class="client-bio">
-                                <img src="{{ asset('public/frontend/assets/images/testimonial_section/user-3.png') }}"
-                                     alt="">
-                                <div class="client-details">
-                                    <h4>Robert Fox</h4>
-                                    <p>Customer</p>
-                                </div><!-- End. client-details -->
-                            </div><!-- End. client-bio -->
-
-                            <div class="client-review">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div><!-- End. client-review -->
-                        </div><!-- End. our-client -->
-                    </div><!-- End. testimonial-card -->
-
-                    <div class="testimonial-card item">
-                        <i class='bx bxs-quote-alt-right'></i>
-                        <p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu
-                            magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p>
-
-                        <div class="our-client">
-                            <div class="client-bio">
-                                <img src="{{ asset('public/frontend/assets/images/testimonial_section/user-3.png') }}"
-                                     alt="">
-                                <div class="client-details">
-                                    <h4>Robert Fox</h4>
-                                    <p>Customer</p>
-                                </div><!-- End. client-details -->
-                            </div><!-- End. client-bio -->
-
-                            <div class="client-review">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div><!-- End. client-review -->
-                        </div><!-- End. our-client -->
-                    </div><!-- End. testimonial-card -->
-                </div><!-- End. testimonial -->
-
-            </div><!-- End. row -->
-        </div><!-- End. container -->
-    </section><!-- End. testimonial-section -->
+    
 
 
     <!-- Start Business Logo Section -->

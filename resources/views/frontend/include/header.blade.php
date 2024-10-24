@@ -45,7 +45,7 @@
                     <div class="col-lg-4">
                         <div class="logo">
                             <a href="{{url('/')}}">
-                                <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px" alt="">
+                                <img src="{{ asset($basic_info->black_logo) }}" style="height: 50px !important;" alt="">
                             </a>
                         </div>
                     </div>
