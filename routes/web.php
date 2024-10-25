@@ -68,7 +68,9 @@ Route::get('/get-theme-color',[WebviewController::class,'getThemeColor'])->name(
 //User Dashboard
 Route::get('/user-dashboard',[DashboardController::class,'index'])->name('user.dashboard');
 Route::post('/update-profile-image',[DashboardController::class,'updateProfileImage'])->name('update.profile.image');
-
+Route::get('/get-profile-details',[DashboardController::class,'getProfileDetails'])->name('get.profile.details');
+Route::post('/update-profile-details',[DashboardController::class,'updateProfileDetails'])->name('update.profile.details');
+Route::post('/update-password',[DashboardController::class,'updatePassword'])->name('update.password');
 // SSLCOMMERZ 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);

@@ -37,4 +37,53 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('success', 'Profile Image Updated Successfully');
     }
+
+
+    public function getProfileDetails()
+    {
+        $user = User::find(auth()->user()->id);
+        return response()->json($user);
+    }
+    public function updateProfileDetails(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|string',
+            'phone' => 'string|max:11',
+            'address' => 'string',
+            'state_district' => 'string|max:255',
+            'zip_code' => 'string|max:255',
+        ]);
+        
+        $user = User::find(auth()->user()->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->company_name = $request->company_name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->state_district = $request->state_district;
+        $user->zip_code = $request->zip_code;
+        $user->save();
+        
+        return response()->json(['message' => 'Profile Details Updated Successfully'],200);
+    }
+
+    public function updatePassword(Request $request)
+    {
+//        dd($request->all());
+        $request->validate([
+            'old_password' => 'required|string',
+            'password' => 'required|string|min:8',
+            
+        ]);
+        
+        $user = User::find(auth()->user()->id);
+        if (password_verify($request->old_password, $user->password)) {
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return response()->json(['message' => 'Password Updated Successfully'],200);
+        } else {
+            return response()->json(['message' => 'Old Password Does Not Match'], 400);
+        }
+    }
 }
