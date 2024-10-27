@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
@@ -13,10 +14,12 @@ class WishlistController extends Controller
      */
     public function index()
     {
-//        $wishlists = auth()->user()->wishlists;
         
+     $wishlists=   Wishlist::where('user_id',Auth::user()->id)->with('product')->get();
         
-        return view('frontend.pages.products.wishlist');
+//     dd($wishlist);
+     return view('frontend.pages.products.wishlist',compact('wishlists'));
+     
     }
 
     /**
@@ -32,7 +35,24 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
+        $product_id=$request->product_id;
+        $user_id=auth()->user()->id;
+        $check = Wishlist::where('user_id',$user_id)->where('product_id',$product_id)->first();
+        if($check)
+        {
+            $check->delete();
+            return response()->json(['message' => 'Product Removed From Wishlist'],204);
+        }
+        
+        $wishlist = new Wishlist();
+        $wishlist->user_id = $user_id;
+        $wishlist->product_id = $product_id;
+        $wishlist->save();
+        
+        
+        return response()->json(['message' => 'Product Added To Wishlist'],200);
+        
     }
 
     /**
@@ -64,6 +84,21 @@ class WishlistController extends Controller
      */
     public function destroy(Wishlist $wishlist)
     {
-        //
+        $wishlist->delete();
+        return response()->json(['message' => 'Removed From Wishlist'],200);
+    }
+
+
+    public function wishlistValidate(Request $request)
+    {
+        $user_id=auth()->user()->id;
+        $product_id=$request->product_id;
+        
+        $check = Wishlist::where('user_id',$user_id)->where('product_id',$product_id)->first();
+        if($check)
+        {
+            return response()->json(['message' => 'Product Added To Wishlist','check' => true],200);
+        }
+        return response()->json(['message' => 'Product Not Added To Wishlist','check' => false],200);
     }
 }

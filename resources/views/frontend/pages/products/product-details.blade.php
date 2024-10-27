@@ -185,9 +185,11 @@
                         </div>
 
                         <div class="product-social-brand-show">
+                            @if(isset($product->brand->brand_image)) 
                             <div class="product-brand-show">
                                 <p>Brands: <img src="{{ asset($product->brand->brand_image) }}" alt=""></p>
                             </div>
+                            @endif
 
                             <div class="share-products-social-media">
                                 <h4>Share Item:</h4>
@@ -263,10 +265,17 @@
                                         Add to Cart<i class="bx bx-shopping-bag"></i>
                                     </button>
 
-                                    <button class="product-wishlist-action-btn"><i class="bx bx-heart"></i></button>
+                                    
+                                    <button type="submit" form="addToWishlist" class="product-wishlist-action-btn ">
+                                        <i class="bx bx-heart"></i>
+                                    </button>
                                 </div>
 
                             </div>
+                        </form>
+                        <form id="addToWishlist" method="post" action="{{route('wishlist.store')}}">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
                         </form>
 
                         <div class="products-list-details">
@@ -401,7 +410,7 @@
                                         <li>
                                             <div class="product-full-bio">
                                                 <h4>Sub Category:</h4>
-                                                <span>{{$product->subcategory->subcategory_name}}</span>
+                                                <span>{{$product->subcategory->subcategory_name ?? ''}}</span>
                                             </div>
                                         </li>
                                         <li>
@@ -421,12 +430,14 @@
                                             </div>
                                         </li>
                                         <li>
+                                            @if(isset($productTags)) 
                                             <div class="product-full-bio">
                                                 <h4>Tags:</h4>
                                                 <span>@foreach($productTags as $tag)
                                                         {{$tag}},
                                                     @endforeach</span>
                                             </div>
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>
@@ -565,7 +576,7 @@
                     </div><!-- End. RelatedProductSlider -->
                 </div>
             @endif
-
+ <input hidden="" id="productId" value="{{$product->id}}"/>
         </div><!-- End. container -->
     </section><!-- End. product-details-section -->
 
@@ -579,7 +590,7 @@
 @push('add-scripts')
 
     <script>
-        loadReview();
+        
         $(document).ready(function () {
 
             //Add To Cart
@@ -622,8 +633,10 @@
 
         });
 
-        let product_id = {{$product->id}};
-
+        {{--let product_id = {{$product->id}};--}}
+        let product_id = $('#productId').val();
+        wishlistValidate();
+        loadReview();
         //Get Price Based on Product Color
         function getColor(color) {
 
@@ -639,6 +652,7 @@
 
                 success: function (res) {
                     $('#product_color').val(res.color_title);
+                    $('#product_colorW').val(res.id);
                     $('#pColor').val(res.productSalePrice);
 
                     $('#product_colorOr').val(res.color_title);
@@ -677,6 +691,7 @@
 
                 success: function (res) {
                     $('#product_size').val(res.size_title);
+                    $('#product_sizeW').val(res.id);
                     $('#pSize').val(res.productSalePrice);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
@@ -716,7 +731,9 @@
                 },
 
                 success: function (res) {
+                    
                     $('#product_weight').val(res.weight_title);
+                    $('#product_weightW').val(res.id);
                     $('#pWeight').val(res.productSalePrice);
 
                     $('#priceSection').find('#regularPrice').text('৳ ' + res.productRegularPrice);
@@ -806,6 +823,64 @@
                 }
             });
         }
+        
+        //Load Wish Icon
+        function wishlistValidate()
+        {
+            $.ajax({
+                type: 'GET',
+                url: '{{ route('wishlist-validate') }}',
+                data: {
+                    product_id: product_id
+                },
+                success: function (res) {
+
+                    if (res.check === true)
+                    {
+                        $('.bx-heart').addClass('wish-active')  
+                    }
+                },
+                error: function (error) 
+                {
+                    console.log(error);
+                }
+            })
+        }
+        //Add to Wishlist
+        $('#addToWishlist').on('submit', function (e) {
+            e.preventDefault();
+            
+           
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('wishlist.store') }}',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function (res,xyz,jqXHR) {
+                        
+                        if (jqXHR.status===204)
+                        {
+                            $('.bx-heart').removeClass('wish-active')
+                            toastr.error('Product Removed From Wishlist');
+                        }
+                        else if (jqXHR.status===200)
+                        {
+                            $('.bx-heart').addClass('wish-active')
+                            toastr.success(res.message);
+                        }
+                        
+                        $('#addToWishlist').trigger('reset');
+                        
+                        
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.message);
+                        
+                    }
+                });
+            
+        });
         
         //Submit Review
         $('#reviewSubmit').on('submit', function (e) {

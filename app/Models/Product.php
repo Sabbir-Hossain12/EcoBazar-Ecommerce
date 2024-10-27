@@ -60,6 +60,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class, 'order_products');
     }
     
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+    
     
 
    

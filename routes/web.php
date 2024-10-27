@@ -40,9 +40,6 @@ Route::post('/shipping-charge-update',[CheckoutController::class,'shippingCharge
 Route::get('/cart-calculate',[CheckoutController::class,'cartCalculate'])->name('cart.calculate');
 
 
-Route::view('/wishlist', 'frontend.pages.products.wishlist');
-
-
 //Webview Controller
 Route::get('/about', [WebviewController::class, 'aboutPage'])->name('about');
 Route::get('/contact', [WebviewController::class, 'contactPage'])->name('contact');
@@ -58,7 +55,7 @@ Route::view('/shop', 'frontend.pages.products.shop-page');
 
 //Wishlist
 Route::resource('/wishlists', WishlistController::class)->names('wishlist');
-
+Route::get('/wishlist-validate', [WishlistController::class, 'wishlistValidate'])->name('wishlist-validate');
 //review
 Route::get('/get-reviews/{id}', [WebviewController::class, 'getReviews'])->name('get.reviews');
 Route::post('/submit-review', [WebviewController::class, 'submitReview'])->name('submit.review');

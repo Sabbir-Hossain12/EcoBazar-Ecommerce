@@ -121,52 +121,7 @@
     </section><!-- End. banner-section -->
 
 
-    <!-- Start ECommerce Featured Section -->
-    <section class="eCommerce-featured">
-        <div class="container">
-            <div class="row featured-container">
-                <div class="col-6 col-lg-3">
-                    <div class="featured-details">
-                        <img src="{{ asset('public/frontend/assets/images/all-icons/delivery-truck.png') }}" alt="">
-                        <div class="featured-title">
-                            <h3>Free Shipping</h3>
-                            <p>Free shipping on all your order</p>
-                        </div><!-- End. featured-title -->
-                    </div><!-- End. featured-details -->
-                </div><!-- End. col-6 col-lg-3 -->
 
-                <div class="col-6 col-lg-3">
-                    <div class="featured-details">
-                        <img src="{{ asset('public/frontend/assets/images/all-icons/support.png') }}" alt="">
-                        <div class="featured-title">
-                            <h3>Free Shipping</h3>
-                            <p>Free shipping on all your order</p>
-                        </div><!-- End. featured-title -->
-                    </div><!-- End. featured-details -->
-                </div><!-- End. col-6 col-lg-3 -->
-
-                <div class="col-6 col-lg-3">
-                    <div class="featured-details">
-                        <img src="{{ asset('public/frontend/assets/images/all-icons/shopping-bag.png') }}" alt="">
-                        <div class="featured-title">
-                            <h3>Free Shipping</h3>
-                            <p>Free shipping on all your order</p>
-                        </div><!-- End. featured-title -->
-                    </div><!-- End. featured-details -->
-                </div><!-- End. col-6 col-lg-3 -->
-
-                <div class="col-6 col-lg-3">
-                    <div class="featured-details">
-                        <img src="{{ asset('public/frontend/assets/images/all-icons/box.png') }}" alt="">
-                        <div class="featured-title">
-                            <h3>Free Shipping</h3>
-                            <p>Free shipping on all your order</p>
-                        </div><!-- End. featured-title -->
-                    </div><!-- End. featured-details -->
-                </div><!-- End. col-6 col-lg-3 -->
-            </div><!-- End. row -->
-        </div><!-- End. container -->
-    </section><!-- End. website-featured -->
 
 
     <!-- Start Category Section -->
@@ -282,9 +237,9 @@
                                     <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                        class="product-title">{{ $popular_product->product_name }}</a>
                                     @if(count($popular_product->colors)>0)
-                                        <p>${{$popular_product->colors[0]->productRegularPrice}}
+                                        <p>${{$popular_product->colors[0]->productSalePrice}}
                                             <del>
-                                                <span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span>
+                                                <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
                                             </del>
                                         </p>
                                     @endif
@@ -346,9 +301,9 @@
                                     <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                        class="product-title">{{ $popular_product->product_name }}</a>
                                     @if(count($popular_product->colors)>0)
-                                        <p>${{$popular_product->colors[0]->productRegularPrice}}
+                                        <p>${{$popular_product->colors[0]->productSalePrice}}
                                             <del>
-                                                <span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span>
+                                                <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
                                             </del>
                                         </p>
                                     @endif
@@ -490,9 +445,9 @@
                                         <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                            class="product-title">{{ $popular_product->product_name }}</a>
                                         @if(count($popular_product->colors)>0)
-                                            <p>${{$popular_product->colors[0]->productRegularPrice}}
+                                            <p>${{$popular_product->colors[0]->productSalePrice}}
                                                 <del>
-                                                    <span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span>
+                                                    <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
                                                 </del>
                                             </p>
                                         @endif
@@ -555,9 +510,9 @@
                                         <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                            class="product-title">{{ $popular_product->product_name }}</a>
                                         @if(count($popular_product->colors)>0)
-                                            <p>${{$popular_product->colors[0]->productRegularPrice}}
+                                            <p>${{$popular_product->colors[0]->productSalePrice}}
                                                 <del>
-                                                    <span class="discount-price">${{$popular_product->colors[0]->productSalePrice}}</span>
+                                                    <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
                                                 </del>
                                             </p>
                                         @endif

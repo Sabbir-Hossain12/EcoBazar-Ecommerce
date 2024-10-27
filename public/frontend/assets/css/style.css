@@ -4199,6 +4199,17 @@ input[type="radio"]{
     border-radius: 50px;
 }
 
+.product-wishlist-action-btn .bx-heart:hover
+{
+    background: red;
+    color: var(--theme-white);
+}
+.product-wishlist-action-btn .wish-active
+{
+    background: red !important;
+    color: var(--theme-white) !important;
+}
+
 .products-list-details{
     margin-top: 24px;
 }
