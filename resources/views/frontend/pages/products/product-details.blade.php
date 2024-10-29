@@ -869,13 +869,39 @@
                             $('.bx-heart').addClass('wish-active')
                             toastr.success(res.message);
                         }
-                        
                         $('#addToWishlist').trigger('reset');
                         
                         
                     },
-                    error: function (error) {
+                    error: function (error,xyz,jqXHR) {
+
+                       
+                        if (error.status===401)
+                        {
+                            Swal.fire({
+                                // title: "Are you sure?",
+                                text: "You are not logged in",
+                                icon: "info",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Log In"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '{{ route('login') }}';
+                                }
+                            });
+                            
+                            
+
+                            
+                        }
+                        else
+                        {
                         toastr.error(error.responseJSON.message);
+                            
+                        }
+
                         
                     }
                 });

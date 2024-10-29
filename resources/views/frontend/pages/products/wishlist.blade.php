@@ -5,7 +5,16 @@
 @endpush
 
 @push('add-css')
-
+    <style>
+        .icon-button {
+            background: none;      /* Remove background */
+            border: none;          /* Remove border */
+            padding: 0;            /* Remove padding */
+            cursor: pointer;       /* Show pointer on hover */
+            color: inherit;        /* Use icon color */
+            font-size: 1.5em;      /* Adjust icon size as needed */
+        }
+    </style>
 @endpush
 
 @section('body-content')
@@ -63,10 +72,17 @@
                                 </div>
                             </td>
 
+                           
                             <td class="all_td" style="vertical-align: middle; text-align: end;">
                                  <div class="wishlist-action">
                                     <a href="{{route('product-details',$wishlist->product->slug)}}" class="wishlist_btn">View Product</a>
-                                    <i class='bx bx-x'></i>
+                                     
+                                     <form id="deleteWishForm" action="{{route('wishlist.destroy', $wishlist->id)}}" method="POST">
+                                         <input type="text" name="id" value="{{$wishlist->id}}" hidden>
+                                         @csrf
+                                         @method('DELETE')
+                                         <button type="submit" class="icon-button" >  <i class='bx bx-x'></i> </button>
+                                     </form>
                                  </div>
                             </td>
                           </tr>

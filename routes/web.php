@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\WebviewController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +56,7 @@ Route::view('/shop', 'frontend.pages.products.shop-page');
 
 //Wishlist
 Route::resource('/wishlists', WishlistController::class)->names('wishlist');
+Route::post('/wishlists',[WishlistController::class,'store'])->name('wishlist.store')->middleware('auth');
 Route::get('/wishlist-validate', [WishlistController::class, 'wishlistValidate'])->name('wishlist-validate');
 //review
 Route::get('/get-reviews/{id}', [WebviewController::class, 'getReviews'])->name('get.reviews');
@@ -74,7 +76,12 @@ Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
+Route::get('check',function (){
 
+    Toastr::success('Success','Your message has been sent successfully.');
+
+    return redirect()->back();
+});
 
 
 
@@ -82,7 +89,7 @@ require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 
 
-Route::fallback(function () {
-    
-    return view('frontend.pages.static-pages.404');
-});
+//Route::fallback(function () {
+//    
+//    return view('frontend.pages.static-pages.404');
+//});

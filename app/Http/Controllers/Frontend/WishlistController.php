@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,10 +15,13 @@ class WishlistController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         
      $wishlists=   Wishlist::where('user_id',Auth::user()->id)->with('product')->get();
         
-//     dd($wishlist);
+//   dd($wishlist);
      return view('frontend.pages.products.wishlist',compact('wishlists'));
      
     }
@@ -82,10 +86,15 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Wishlist $wishlist)
+    public function destroy(Wishlist $wishlist,Request $request)
     {
+//        dd($request->all());
+        
         $wishlist->delete();
-        return response()->json(['message' => 'Removed From Wishlist'],200);
+
+        Toastr::success('Success','Your message has been sent successfully.')
+        return redirect()->back();
+//        return response()->json(['message' => 'Removed From Wishlist'],200);
     }
 
 

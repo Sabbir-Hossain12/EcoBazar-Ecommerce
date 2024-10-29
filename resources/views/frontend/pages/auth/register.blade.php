@@ -10,37 +10,6 @@
 
 @section('body-content')
 
-    <!-- start Breadcrumb section -->
-    <section class="breadcrumb-section" style="background-image: url({{ asset('public/frontend/assets/images/breadcrumb_image/Breadcrumbs.png') }});">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-details">
-                        <ul>
-                            <li>
-                                <a href="">
-                                    <i class='bx bx-home'></i>  <i class='bx bx-chevron-right'></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span>Account</span>
-                                    <i class='bx bx-chevron-right'></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Create Account
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <!-- start Register section -->
     <section class="form-section">
         <div class="container">
