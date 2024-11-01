@@ -92,7 +92,7 @@ class WishlistController extends Controller
         
         $wishlist->delete();
 
-        Toastr::success('Success','Your message has been sent successfully.')
+        Toastr::success('Success','Your message has been sent successfully.');
         return redirect()->back();
 //        return response()->json(['message' => 'Removed From Wishlist'],200);
     }

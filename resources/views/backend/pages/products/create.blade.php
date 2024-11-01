@@ -124,7 +124,7 @@
                             
                             <div class="col-lg-12 mb-3">
                                 <label for="long_desc" class="form-label">Long Description</label>
-                                <textarea class="form-control" name="long_desc" id="longDesc" rows="5"></textarea>
+                                <textarea class="form-control" id="longDesc" rows="5"></textarea>
                             </div>
 
                            
@@ -374,6 +374,7 @@
                 $('#createProduct').submit(function(e)
                 {
                     e.preventDefault();
+                    let long_desc= jReq.getData();
                     // Weight variants store
                     var wProduct = [];
                     var wProductCount = 0 ;
@@ -422,7 +423,7 @@
                     
                    
                     var formData = new FormData(this);
-
+                    formData.append('long_desc', long_desc);
                     // Appending Weight variant data
                     formData.append('weightProduct', JSON.stringify(wProduct)); 
                     // Appending Color variant data
@@ -481,6 +482,7 @@
                 
                 
             //  CKEditor on Products Desctription
+                let jReq;
                 ClassicEditor
                     .create(document.querySelector('#longDesc'),{
                         

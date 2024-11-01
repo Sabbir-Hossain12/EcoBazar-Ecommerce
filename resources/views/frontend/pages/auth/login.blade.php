@@ -23,11 +23,11 @@
                             @csrf
                             <h3>Sign In</h3>
                             <div class="mb-3">
-                                <input type="email" name="email" class="normal-forms" placeholder="Email">
+                                <input type="email" name="email" value="{{old('email')}}" class="normal-forms" placeholder="Email">
                             </div>
 
                             <div class="mb-3 password-form">
-                                <input type="password" name="password" class="normal-forms" id="password-form"
+                                <input type="password" name="password"  class="normal-forms" id="password-form"
                                        placeholder="Password">
                                 <i class="ri-eye-line" id="password-icon"></i>
                             </div>

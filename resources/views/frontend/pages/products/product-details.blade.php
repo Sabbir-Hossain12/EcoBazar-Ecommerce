@@ -37,10 +37,10 @@
 
 @section('body-content')
     <style>
-        img {
-            max-width: 100%;
-            height: auto !important;
-        }
+        /*img {*/
+        /*    max-width: 100%;*/
+        /*    height: auto !important;*/
+        /*}*/
 
         input[type="radio"] {
             /*display: none;*/
@@ -113,7 +113,7 @@
             <div class="main-product-control-div">
                 <div class="main-product-image-container">
                     <div class="single-product-image-container">
-                        <div class="single-product-image p-4">
+                        <div class="single-product-image">
                             <img src="{{ asset($product->productDetail->productThumbnail_img) }}" alt="">
                         </div>
 
@@ -275,7 +275,7 @@
                         </form>
                         <form id="addToWishlist" method="post" action="{{route('wishlist.store')}}">
                             @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="product_id" id="pId" value="{{ $product->id }}">
                         </form>
 
                         <div class="products-list-details">
@@ -416,7 +416,7 @@
                                         <li>
                                             <div class="product-full-bio">
                                                 <h4>Brand:</h4>
-                                                <span>{{$product->brand->brand_name}}</span>
+                                                <span>{{$product->brand->brand_name ?? ''}}</span>
                                             </div>
                                         </li>
                                         <li>
@@ -576,7 +576,7 @@
                     </div><!-- End. RelatedProductSlider -->
                 </div>
             @endif
- <input hidden="" id="productId" value="{{$product->id}}"/>
+{{-- <input id="productId" class="form-control" value="{{$product->slug}}"/>--}}
         </div><!-- End. container -->
     </section><!-- End. product-details-section -->
 
@@ -590,7 +590,7 @@
 @push('add-scripts')
 
     <script>
-        
+        let product_id = $('#pId').val();
         $(document).ready(function () {
 
             //Add To Cart
@@ -634,7 +634,7 @@
         });
 
         {{--let product_id = {{$product->id}};--}}
-        let product_id = $('#productId').val();
+        
         wishlistValidate();
         loadReview();
         //Get Price Based on Product Color
@@ -680,6 +680,7 @@
         //Get Price Based on Product Size
         function getSize(size) {
 
+            console.log(product_id,size);
 
             $.ajax({
                 type: 'GET',

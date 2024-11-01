@@ -49,7 +49,12 @@
                                 <li class="nav-item"><a data-bs-toggle="tab" data-bs-target="#profile"
                                                         class="nav-link">Profile</a></li>
                                
-                                <li class="nav-item"><a href="" class="nav-link">Log Out</a></li>
+                                <li class="nav-item">
+                                    <form action="{{route('logout')}}" method="post">
+                                        @csrf
+                                    <button type="submit" class="nav-link">Log Out</button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
 
@@ -94,7 +99,7 @@
                                             <img src="{{ asset('public/frontend/assets/images/all-icons/order.png') }}"
                                                  class="img-fluid">
                                             <div>
-                                                <h3>50</h3>
+                                                <h3>{{$wishlists ?? '0'}}</h3>
                                                 <h5>Wishlist</h5>
                                             </div>
                                         </div>
@@ -161,8 +166,7 @@
                                                             @endforelse
                                                         </td>
                                                         <td>
-                                                                <span
-                                                                        class="badge rounded-pill bg-danger custom-badge">{{$order->status}}</span>
+                                                            <span class="badge rounded-pill bg-danger custom-badge">{{$order->status}}</span>
                                                         </td>
                                                         <td>
                                                             <p class="theme-color fs-6">{{$basic_info->currency_symbol}}{{$order->total}}</p>
@@ -197,156 +201,44 @@
                                                     <thead>
                                                     <tr class="table-head">
                                                         <th scope="col">image</th>
-                                                        <th scope="col">Order Id</th>
-                                                        <th scope="col">Product Details</th>
+                                                        <th scope="col">Product Name</th>
                                                         <th scope="col">Price</th>
-                                                        <th scope="col">Action</th>
+                                                        <th scope="col">Details</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p class="mt-0">#125021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Purple polo tshirt</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                                Move to Cart
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p class="mt-0">#125367</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Sleevless white top</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                                Move to Cart
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p>#125948</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>multi color polo tshirt</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                                Move to Cart
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p>#127569</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Candy red solid tshirt</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                                Move to Cart
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p>#125753</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>multicolored polo tshirt</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                                Move to Cart
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)">
-                                                                <img src="{{ asset('public/frontend/assets/images/all-icons/28.jpg') }}"
-                                                                     class="blur-up lazyloaded" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p>#125021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Men's Sweatshirt</p>
-                                                        </td>
-                                                        <td>
-                                                            <p class="theme-color fs-6">$49.54</p>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                                Move to Cart
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                    @forelse($user->wishlists as $key => $wishlist)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="javascript:void(0)">
+                                                                    <img src="{{ asset($wishlist->product->productDetail->productThumbnail_img) }}"
+                                                                         class="blur-up lazyloaded" alt="">
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <p class="mt-0">{{$wishlist->product->product_name}}</p>
+                                                            </td>
+                                                            <td>
+                                                                @if(count($wishlist->product->weights)>0)
+                                                                    <p>{{$basic_info->currency_symbol}}{{ $wishlist->product->weights[0]->productSalePrice }} </p>
+                                                                @elseif(count($wishlist->product->sizes)>0)
+                                                                    <p>{{$basic_info->currency_symbol}}{{ $wishlist->product->sizes[0]->productSalePrice }} </p>
+                                                                @else
+                                                                    <p>{{$basic_info->currency_symbol}}{{ $wishlist->product->colors[0]->productSalePrice }} </p>
+                                                                @endif
+                                                            </td>
+                                                           
+                                                            <td>
+                                                                <a href="{{route('product-details', $wishlist->product->slug)}}"
+                                                                   class="btn btn-xs btn-solid">
+                                                                    Product Details
+                                                                </a>
+                                                            </td>
+                                                        </tr> 
+                                                    @empty
+                                                    @endforelse
+                                                    
+                                                    
                                                     </tbody>
                                                 </table>
                                             </div>

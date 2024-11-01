@@ -11,10 +11,11 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::with('orders.orderProducts','wishlists.product.productDetail','wishlists.product.sizes','wishlists.product.colors','wishlists.product.weights')->find(auth()->user()->id);
         $total_orders = $user->orders->count();
         $pending_orders = $user->orders->where('status', 'Pending')->count();
-        return view('frontend.pages.dashboard.user-dashboard', compact('user', 'total_orders', 'pending_orders'));
+        $wishlists = $user->wishlists()->count();
+        return view('frontend.pages.dashboard.user-dashboard', compact('user', 'total_orders', 'pending_orders','wishlists'));
     }
 
 

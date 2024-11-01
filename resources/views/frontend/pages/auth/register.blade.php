@@ -21,11 +21,11 @@
                         <h3>Create Account</h3>
                         
                         <div class="mb-3">
-                            <input type="email" name="email" class="normal-forms" placeholder="Email">
+                            <input type="email" value="{{old('email')}}" name="email" class="normal-forms" placeholder="Email">
                         </div>
 
                         <div class="mb-3">
-                            <input type="text" name="name" class="normal-forms" placeholder="Name">
+                            <input type="text" name="name" value="{{old('name')}}" class="normal-forms" placeholder="Name">
                         </div>
 
                         <div class="mb-3 password-form">

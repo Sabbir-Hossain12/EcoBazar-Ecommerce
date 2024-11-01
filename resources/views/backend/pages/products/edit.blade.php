@@ -468,7 +468,7 @@
             $('#editProduct').submit(function (e) {
                 e.preventDefault();
                 const long_desc = data.getData();
-                console.log($('#long_Desc').text());
+                // console.log($('#long_Desc').text());
                 // Weight variants store
                 var wProduct = [];
                 var wProductCount = 0;

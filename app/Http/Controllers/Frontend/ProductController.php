@@ -73,6 +73,8 @@ class ProductController extends Controller
 
     public function productDetails(Product $product)
     {
+//        dd($product);
+//        $product = Product::with('reviews', 'productDetail', 'brand', 'category', 'subcategory', 'weights', 'colors', 'sizes')->where('slug', $product->slug)->first();
         $sliderimgs = json_decode($product->productDetail->product_img, true);
 
         $productTags = json_decode($product->tag, true);
