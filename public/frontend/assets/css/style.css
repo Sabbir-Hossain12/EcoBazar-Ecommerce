@@ -4342,7 +4342,7 @@ input[type="radio"]{
     font-weight: 400;
     color: #808080;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     margin-bottom: 10px;
 }
 .product-description ul li::before{
@@ -4352,7 +4352,7 @@ input[type="radio"]{
     height: 25px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     border-radius: 50px;
     background-color: var(--theme-green);
     color: var(--theme-white);

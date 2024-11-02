@@ -766,7 +766,7 @@
         {
             $.ajax({
                 type: 'GET',
-                url: '{{ url('/get-reviews/' . $product->id  ) }}',
+                url: '{{ url('/get-reviews' ) }}/' + product_id,
                
                 success: function (res) {
 

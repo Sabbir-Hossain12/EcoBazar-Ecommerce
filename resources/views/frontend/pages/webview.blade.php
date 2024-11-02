@@ -166,31 +166,31 @@
 
 
     <!-- Start Category Campaign Banner Section -->
-    @if(count($smallBanners)>0)
-        <section class="category-campaign-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="category-campaign-container">
+{{--    @if(count($smallBanners)>0)--}}
+{{--        <section class="category-campaign-banner">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row">--}}
+{{--                    <div class="category-campaign-container">--}}
 
-                        @foreach($smallBanners as $banner)
-                            <div class="category-campaign-setup"
-                                 style="background-image: url('{{ asset($banner->banner_img) }}');">
-                                <div class="left-banner-title">
-                                    <h1>{{$banner->banner_title_1}}</h1>
-                                    <p>{{$banner->banner_title_2}}</p>
-                                    <a href="{{$banner->banner_btn_link}}"
-                                       class="campaign_btns">{{$banner->banner_btn_name}} <i
-                                                class="fa-solid fa-arrow-right ms-2"></i></a>
-                                </div>
-                            </div>
-                        @endforeach
+{{--                        @foreach($smallBanners as $banner)--}}
+{{--                            <div class="category-campaign-setup"--}}
+{{--                                 style="background-image: url('{{ asset($banner->banner_img) }}');">--}}
+{{--                                <div class="left-banner-title">--}}
+{{--                                    <h1>{{$banner->banner_title_1}}</h1>--}}
+{{--                                    <p>{{$banner->banner_title_2}}</p>--}}
+{{--                                    <a href="{{$banner->banner_btn_link}}"--}}
+{{--                                       class="campaign_btns">{{$banner->banner_btn_name}} <i--}}
+{{--                                                class="fa-solid fa-arrow-right ms-2"></i></a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
 
-                    </div>
-                </div>
-            </div>
-        </section>
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
 
-    @endif
+{{--    @endif--}}
 
 
     <!-- Start Popular Products Section -->
@@ -214,7 +214,7 @@
                                 @elseif(count($popular_product->weights)>0)
                                     <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
                                 @else
-                                    <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
+                                    <span class="badges sale_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
                                 @endif
 
@@ -278,7 +278,7 @@
                                 @elseif(count($popular_product->weights)>0)
                                     <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
                                 @else
-                                    <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
+                                    <span class="badges sale_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
                                 @endif
 
@@ -422,7 +422,7 @@
                                     @elseif(count($popular_product->weights)>0)
                                         <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
                                     @else
-                                        <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
+                                        <span class="badges sale_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
                                     @endif
 
@@ -487,7 +487,7 @@
                                     @elseif(count($popular_product->weights)>0)
                                         <span class="badges sale_badge product-badges">Sale {{$popular_product->weights[0]->discount_percentage}}%</span>
                                     @else
-                                        <span class="badges new_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
+                                        <span class="badges sale_badge product-badges">Sale {{$popular_product->sizes[0]->discount_percentage}}%</span>
 
                                     @endif
 
