@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
@@ -94,9 +95,8 @@ class SslCommerzPaymentController extends Controller
         $sslc = new SslCommerzNotification();
 
         #Check order status in order tabel against the transaction id or order id.
-        $order_details = DB::table('orders')
-            ->where('tran_id', $tran_id)
-            ->select('tran_id', 'payment_status', 'currency', 'total')->first();
+        $order_details = Order::with('orderProducts')
+            ->where('tran_id', $tran_id)->first();
         
 //        dd($order_details);
 
@@ -115,14 +115,15 @@ class SslCommerzPaymentController extends Controller
                     ->where('tran_id', $tran_id)
                     ->update(['payment_status' => 'Paid']);
 
-                return view('frontend.pages.orders.order-success',compact('update_product'));
+                return view('frontend.pages.orders.order-success',['order'=>$order_details, 'update_product'=>'update_product']);
 
             }
         } else if ($order_details->payment_status == 'Paid') {
             /*
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
-            return view('frontend.pages.orders.order-success');
+            return view('frontend.pages.orders.order-success',['order'=>$order_details, 'update_product'=>'update_product']);
+
 
         }
         else {

@@ -105,6 +105,34 @@
             margin-right: 10px;
         }
     </style>
+    <section class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-details">
+                        <ul>
+                            <li>
+                                <a href="{{url('/')}}">
+                                    <i class='bx bx-home'></i> <i class='bx bx-chevron-right'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('product.by.category', $product->category->slug)}}">
+                                    <span>{{$product->category->category_name}}</span>
+                                    <i class='bx bx-chevron-right'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    {{$product->product_name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
     
     <!-- Product Details Page section -->

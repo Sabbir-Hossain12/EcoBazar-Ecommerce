@@ -1956,12 +1956,14 @@
 
 /* Start form section
 =======================================================*/
-.breadcrumb-section{
-    padding: 40px 0;
+.breadcrumb-section
+{
+    padding: 40px 0 0 0;
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .breadcrumb-details ul{
     display: flex;
     align-items: center;
@@ -3306,7 +3308,7 @@ input[type="radio"]{
 /* Start Shop Page 
 =======================================================*/
 .shop-page-section{
-   padding: 5rem 0;
+   padding: 3rem 0;
 }
 .product-filter-left-sidebar{
     position: relative;

@@ -111,7 +111,7 @@
                                 <ul class="order-detail">
                                     <li>Order ID: {{$order->id}}</li>
                                     <li>invoice ID: {{$order->invoiceID}}</li>
-                                    <li>Order Date: {{$order->order_date->format('d M Y')}}</li>
+{{--                                    <li>Order Date: {{$order->order_date->format('d M Y')}}</li>--}}
                                     <li>Order Total: {{$basic_info->currency_symbol}}{{$order->total}}</li>
                                 </ul>
                             </div>

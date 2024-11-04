@@ -181,12 +181,12 @@
                 768: {
                     nav: true,
                     dots: false,
-                    items: 4
+                    items: 5
                 },
                 992: {
                     nav: true,
                     dots: false,
-                    items: 4
+                    items: 5
                 },
             }
         })

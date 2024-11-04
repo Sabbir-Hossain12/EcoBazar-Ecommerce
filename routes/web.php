@@ -49,7 +49,7 @@ Route::get('/get-product-by-category/{category:slug}', [WebviewController::class
 Route::get('/get-product-by-subcategory/{subcategory:slug}', [WebviewController::class, 'productBySubCategory'])->name('product.by.subcategory');
 Route::get('/get-all-products', [WebviewController::class, 'allProducts'])->name('product.all');
 
-Route::view('/order-success', 'frontend.pages.orders.order-success')->name('order.success');
+//Route::view('/order-success', 'frontend.pages.orders.order-success')->name('order.success');
 Route::view('/order-tracking', 'frontend.pages.orders.order-tracking');
 Route::view('/user-profile', 'frontend.pages.dashboard.user-profile');
 Route::view('/shop', 'frontend.pages.products.shop-page');

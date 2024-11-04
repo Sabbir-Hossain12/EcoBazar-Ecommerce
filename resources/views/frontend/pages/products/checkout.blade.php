@@ -11,8 +11,7 @@
 @section('body-content')
 
     <!-- start Breadcrumb section -->
-    <section class="breadcrumb-section"
-             style="background-image: url({{ asset('public/frontend/assets/images/breadcrumb_image/Breadcrumbs.png') }});">
+    <section class="breadcrumb-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

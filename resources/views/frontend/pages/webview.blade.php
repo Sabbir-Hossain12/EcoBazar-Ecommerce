@@ -229,7 +229,8 @@
                                             <i class="ri-eye-line"></i>
                                         </a>
                                     </li>
-                                </ul><!-- End. product-icons-show -->
+                                </ul>
+                                <!-- End. product-icons-show -->
                             </div><!-- End. product-image -->
 
                             <div class="product-info">
@@ -548,39 +549,39 @@
 
 
     <!-- Start Business Logo Section -->
-    <section class="business-logo-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="owl-carousel owl-theme" id="businessLogo">
-                        <div class="company-logo-show">
-                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-1.png') }}" alt="">
-                        </div>
+{{--    <section class="business-logo-section">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-12">--}}
+{{--                    <div class="owl-carousel owl-theme" id="businessLogo">--}}
+{{--                        <div class="company-logo-show">--}}
+{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-1.png') }}" alt="">--}}
+{{--                        </div>--}}
 
-                        <div class="company-logo-show">
-                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-2.png') }}" alt="">
-                        </div>
+{{--                        <div class="company-logo-show">--}}
+{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-2.png') }}" alt="">--}}
+{{--                        </div>--}}
 
-                        <div class="company-logo-show">
-                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-3.png') }}" alt="">
-                        </div>
+{{--                        <div class="company-logo-show">--}}
+{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-3.png') }}" alt="">--}}
+{{--                        </div>--}}
 
-                        <div class="company-logo-show">
-                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-4.png') }}" alt="">
-                        </div>
+{{--                        <div class="company-logo-show">--}}
+{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-4.png') }}" alt="">--}}
+{{--                        </div>--}}
 
-                        <div class="company-logo-show">
-                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-5.png') }}" alt="">
-                        </div>
+{{--                        <div class="company-logo-show">--}}
+{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-5.png') }}" alt="">--}}
+{{--                        </div>--}}
 
-                        <div class="company-logo-show">
-                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-6.png') }}" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!-- End. Business Logo Section -->
+{{--                        <div class="company-logo-show">--}}
+{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-6.png') }}" alt="">--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section><!-- End. Business Logo Section -->--}}
 
 
     <!-- Start Subscription Section -->
