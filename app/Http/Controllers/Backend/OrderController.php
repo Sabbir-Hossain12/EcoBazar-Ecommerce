@@ -121,10 +121,11 @@ class OrderController extends Controller
                     return $productInfo;
                 })
                 ->addColumn('action', function ($order) {
-                    return '<div class="d-flex flex-column gap-2"><a class="viewButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target=""><i class="fas fa-print"></i></a>
-                            <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
-                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$order->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
-                                                           </div>';
+                    return '<div class="d-flex flex-column gap-2">
+                             <a class="viewButton btn btn-sm btn-primary" href="'. route('admin.order.invoice', $order->id).'" ><i class="fas fa-print"></i></a>
+                             <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
+                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$order->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
+                            </div>';
                 })
                 ->addIndexColumn()
                 ->rawColumns(['customerInfo', 'action'])
@@ -211,6 +212,12 @@ class OrderController extends Controller
         $order->update();
 
         return response()->json(['message' => 'Order Status Changed to '.$order_status], 200);
+    }
+
+    public function orderInvoice(string $id)
+    {
+        $order = Order::find($id);
+        return view('backend.pages.order.invoice',compact('order'));
     }
 
 

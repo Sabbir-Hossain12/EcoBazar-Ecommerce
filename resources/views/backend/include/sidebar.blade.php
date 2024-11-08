@@ -348,6 +348,34 @@
 
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa-solid fa-file"></i>
+                        <span data-key="t-dashboard">API Integrations</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="">
+                                <span data-key="t-calendar">Payment Gateways</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span data-key="t-calendar">SMS Gateways</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="">
+                                <span data-key="t-calendar">Courier Gateways</span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+                </li>
+
 
             </ul>
 

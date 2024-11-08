@@ -5,17 +5,17 @@
 @endpush
 
 @push('seo')
-<meta name="app-url" content="" />
-<meta name="robots" content="index, follow" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
+    <meta name="app-url" content=""/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
 
-<!-- Open Graph data -->
-<meta property="og:title" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="" />
-<meta property="og:image" content="{{ asset($basic_info->light_logo) }}" />
-<meta property="og:description" content="" />
+    <!-- Open Graph data -->
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content="{{ asset($basic_info->light_logo) }}"/>
+    <meta property="og:description" content=""/>
 
 @endpush
 
@@ -27,7 +27,7 @@
         /* Only for ( Banner section ) */
         .banner-page {
             /*background-color: #EDF2EE;*/
-            background: url("{{asset('public/backend/assets/images/uploads/banners/1725709289.webp')}}") no-repeat center center;
+            {{--background: url("{{asset('public/backend/assets/images/uploads/banners/1725709289.webp')}}") no-repeat center center;--}}
             background-size: cover;
         }
 
@@ -94,29 +94,15 @@
                 <div class="col-lg-9 offset-lg-3">
                     <div class="owl-carousel owl-theme" id="bannerSlider">
                         @foreach($sliders as $slider)
-                            <div class="banner-page">
+                            <div class="banner-page" style="background-image: url('{{ asset($slider->slider_img) }}');">
 
 
-                            {{--                                <div class="banner-details order-first">--}}
-                            {{--                                    <span>{{$slider->slider_title_1}}</span>--}}
-                            {{--                                    <h1>{{$slider->slider_title_2}}</h1>--}}
-                            {{--                                    <h5>{!! $slider->slider_title_3!!}</h5>--}}
-                            {{--                                    <p>{{$slider->slider_text}}</p>--}}
-                            {{--                                    <a href="{{$slider->slider_btn_link}}"--}}
-                            {{--                                       class="banner-btn">{{$slider->slider_btn_name}} <i--}}
-                            {{--                                                class="fa-solid fa-arrow-right ms-2"></i></a>--}}
-                            {{--                                </div>--}}
+                            </div>
+                        @endforeach
 
-                            {{--                                <div class="banner-images order-second">--}}
-                            {{--                                    <img class="rounded" src="{{ asset($slider->slider_img) }}" alt="">--}}
-                            {{--                                </div>--}}
-
-                    </div>
-                    @endforeach
-
-                </div><!-- End. bannerSlider -->
-            </div><!-- End. col-lg-9 -->
-        </div><!-- End. row -->
+                    </div><!-- End. bannerSlider -->
+                </div><!-- End. col-lg-9 -->
+            </div><!-- End. row -->
         </div><!-- End. container -->
     </section><!-- End. banner-section -->
 
@@ -130,7 +116,8 @@
             <div class="row">
                 <div class="header-titles">
                     <h1>Popular Categories</h1>
-                    <a href="{{route('product.all')}}" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                    <a href="{{route('product.all')}}" class="link_btn">View All <i
+                                class="fa-solid fa-arrow-right ms-2"></i></a>
                 </div>
 
                 <div class="category-container">
@@ -166,31 +153,31 @@
 
 
     <!-- Start Category Campaign Banner Section -->
-{{--    @if(count($smallBanners)>0)--}}
-{{--        <section class="category-campaign-banner">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="category-campaign-container">--}}
+    {{--    @if(count($smallBanners)>0)--}}
+    {{--        <section class="category-campaign-banner">--}}
+    {{--            <div class="container">--}}
+    {{--                <div class="row">--}}
+    {{--                    <div class="category-campaign-container">--}}
 
-{{--                        @foreach($smallBanners as $banner)--}}
-{{--                            <div class="category-campaign-setup"--}}
-{{--                                 style="background-image: url('{{ asset($banner->banner_img) }}');">--}}
-{{--                                <div class="left-banner-title">--}}
-{{--                                    <h1>{{$banner->banner_title_1}}</h1>--}}
-{{--                                    <p>{{$banner->banner_title_2}}</p>--}}
-{{--                                    <a href="{{$banner->banner_btn_link}}"--}}
-{{--                                       class="campaign_btns">{{$banner->banner_btn_name}} <i--}}
-{{--                                                class="fa-solid fa-arrow-right ms-2"></i></a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
+    {{--                        @foreach($smallBanners as $banner)--}}
+    {{--                            <div class="category-campaign-setup"--}}
+    {{--                                 style="background-image: url('{{ asset($banner->banner_img) }}');">--}}
+    {{--                                <div class="left-banner-title">--}}
+    {{--                                    <h1>{{$banner->banner_title_1}}</h1>--}}
+    {{--                                    <p>{{$banner->banner_title_2}}</p>--}}
+    {{--                                    <a href="{{$banner->banner_btn_link}}"--}}
+    {{--                                       class="campaign_btns">{{$banner->banner_btn_name}} <i--}}
+    {{--                                                class="fa-solid fa-arrow-right ms-2"></i></a>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        @endforeach--}}
 
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </section>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </section>--}}
 
-{{--    @endif--}}
+    {{--    @endif--}}
 
 
     <!-- Start Popular Products Section -->
@@ -199,7 +186,8 @@
             <div class="row">
                 <div class="header-titles">
                     <h1>Popular Products</h1>
-                    <a href="{{route('product.all')}}" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                    <a href="{{route('product.all')}}" class="link_btn">View All <i
+                                class="fa-solid fa-arrow-right ms-2"></i></a>
                 </div><!-- End. header-titles -->
 
                 <div class="products-container">
@@ -406,7 +394,8 @@
                 <div class="row">
                     <div class="header-titles">
                         <h1>Featured Products</h1>
-                        <a href="{{route('product.all')}}" class="link_btn">View All <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        <a href="{{route('product.all')}}" class="link_btn">View All <i
+                                    class="fa-solid fa-arrow-right ms-2"></i></a>
                     </div><!-- End. header-titles -->
 
                     <div class="products-container">
@@ -545,43 +534,43 @@
 
     <!-- End. featured-product-section -->
 
-    
+
 
 
     <!-- Start Business Logo Section -->
-{{--    <section class="business-logo-section">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12">--}}
-{{--                    <div class="owl-carousel owl-theme" id="businessLogo">--}}
-{{--                        <div class="company-logo-show">--}}
-{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-1.png') }}" alt="">--}}
-{{--                        </div>--}}
+    {{--    <section class="business-logo-section">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="row">--}}
+    {{--                <div class="col-lg-12">--}}
+    {{--                    <div class="owl-carousel owl-theme" id="businessLogo">--}}
+    {{--                        <div class="company-logo-show">--}}
+    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-1.png') }}" alt="">--}}
+    {{--                        </div>--}}
 
-{{--                        <div class="company-logo-show">--}}
-{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-2.png') }}" alt="">--}}
-{{--                        </div>--}}
+    {{--                        <div class="company-logo-show">--}}
+    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-2.png') }}" alt="">--}}
+    {{--                        </div>--}}
 
-{{--                        <div class="company-logo-show">--}}
-{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-3.png') }}" alt="">--}}
-{{--                        </div>--}}
+    {{--                        <div class="company-logo-show">--}}
+    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-3.png') }}" alt="">--}}
+    {{--                        </div>--}}
 
-{{--                        <div class="company-logo-show">--}}
-{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-4.png') }}" alt="">--}}
-{{--                        </div>--}}
+    {{--                        <div class="company-logo-show">--}}
+    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-4.png') }}" alt="">--}}
+    {{--                        </div>--}}
 
-{{--                        <div class="company-logo-show">--}}
-{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-5.png') }}" alt="">--}}
-{{--                        </div>--}}
+    {{--                        <div class="company-logo-show">--}}
+    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-5.png') }}" alt="">--}}
+    {{--                        </div>--}}
 
-{{--                        <div class="company-logo-show">--}}
-{{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-6.png') }}" alt="">--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section><!-- End. Business Logo Section -->--}}
+    {{--                        <div class="company-logo-show">--}}
+    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-6.png') }}" alt="">--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section><!-- End. Business Logo Section -->--}}
 
 
     <!-- Start Subscription Section -->

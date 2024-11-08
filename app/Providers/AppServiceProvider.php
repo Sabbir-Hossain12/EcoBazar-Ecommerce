@@ -27,26 +27,26 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View()->composer('frontend.include.header', function ($view) {
-            $basic_info = BasicInfo::first();
+//            $basic_info = BasicInfo::first();
             $frontCategories = Category::where('status', 1)->where('front_status', 1)->limit(9)->get();
             $navCategories = Category::where('status', 1)->where('front_status', 1)->limit(6)->get();
 
             $view->with([
-                'basic_info' => $basic_info, 'frontCategories' => $frontCategories, 'navCategories' => $navCategories
+                'frontCategories' => $frontCategories, 'navCategories' => $navCategories
             ]);
         });
 
 
-        View()->composer('frontend.include.footer', function ($view) {
-            $basic_info = BasicInfo::first();
-            $view->with('basic_info', $basic_info);
-        });
+//        View()->composer('frontend.include.footer', function ($view) {
+//            $basic_info = BasicInfo::first();
+//            $view->with('basic_info', $basic_info);
+//        });
 
-        View()->composer('backend.include.topbar', function ($view) {
-            $basic_info = BasicInfo::first();
-            $view->with('basic_info', $basic_info);
-        });
-        
+//        View()->composer('backend.include.topbar', function ($view) {
+//            $basic_info = BasicInfo::first();
+//            $view->with('basic_info', $basic_info);
+//        });
+//        
         View()->composer('*', function ($view)
         {
             $basic_info = BasicInfo::first();

@@ -124,6 +124,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/order/{status}', [OrderController::class, 'orderStatusData'])->name('admin.order.status.data');
     Route::post('/order-status-change', [OrderController::class, 'orderStatusChange'])->name('admin.order.status.change');
 
+    //____Invoice and Print Invoice___//
+    Route::get('/order-invoice/{id}', [OrderController::class, 'orderInvoice'])->name('admin.order.invoice');
     
     Route::post('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('admin.order.status');
     
