@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0   w-100 dataTable no-footer dtr-inline text-center" id="adminTable">
+                        <table class="table mb-0   w-100 dataTable no-footer dtr-inline text-center" id="orderTable">
                             <thead>
                             <tr>
                                 <th>SL</th>
@@ -100,14 +100,17 @@
                             <label for="email" class="col-form-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email">
                         </div>
+                        
                         <div class="mb-3">
                             <label for="phone" class="col-form-label">Phone</label>
                             <input type="text" class="form-control" id="phone" name="phone">
                         </div>
+                        
                         <div class="mb-3">
                             <label for="type" class="col-form-label">Role</label>
                             <input type="text" class="form-control" name="type" id="type">
                         </div>
+                        
                         <div class="mb-3">
                             <label for="password" class="col-form-label">Password</label>
                             <input type="password" class="form-control" name="password" id="password">
@@ -118,6 +121,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -185,7 +189,7 @@
             var token = $("input[name='_token']").val();
 
             //Show Data through Datatable 
-            let adminTable = $('#adminTable').DataTable({
+            let orderTable = $('#orderTable').DataTable({
                 order: [
                     [0, 'asc']
                 ],
@@ -233,6 +237,7 @@
                     },
                     {
                         data: 'order_status',
+                        orderable: false,
                         width: '15%',
                         render: function (data, type, row) {
                             let statuses = ['Pending', 'Processing', 'Shipped','Dropped_Off','Out_Delivery','Delivered', 'Cancelled']; // Example statuses
@@ -251,6 +256,7 @@
                     },
                     {
                         data: 'payment_status',
+                        orderable: false,
                         width: '15%',
                         render: function (data, type, row) {
                             let statuses = ['Paid','Pending']; // Example statuses
@@ -261,7 +267,7 @@
                                 options += `<option value="${status}" ${selected}>${status}</option>`;
                             });
 
-                            return `<select class="form-control form-select">
+                            return `<select class="form-control form-select" onchange="orderPaymentStatusChange(${row.id},this.value)">
                                     ${options}
                                     </select>`;
                         }
@@ -269,7 +275,8 @@
 
                     },
                     {
-                      data:'payment_method',
+                        data:'payment_method', 
+                        orderable: false,
                         render:function (data)
                         {
                           return `<span class="badge badge-lg bg-success px-2">${data}</span>`
@@ -306,7 +313,7 @@
                         if (res.message === 'success') {
                             $('#createAdminModal').modal('hide');
                             $('#createAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            orderTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Created !",
@@ -382,7 +389,7 @@
                         if (res.message === 'success') {
                             $('#editAdminModal').modal('hide');
                             $('#editAdmin')[0].reset();
-                            adminTable.ajax.reload()
+                            orderTable.ajax.reload()
                             swal.fire({
                                 title: "Success",
                                 text: "Admin Edited !",
@@ -436,7 +443,7 @@
                                         icon: "success"
                                     });
 
-                                    adminTable.ajax.reload();
+                                    orderTable.ajax.reload();
                                 },
                                 error: function (err) {
                                     console.log('error')
@@ -469,7 +476,7 @@
 
                         },
                         success: function (res) {
-                            adminTable.ajax.reload();
+                            orderTable.ajax.reload();
 
                             if (res.status == 1) {
 
@@ -519,6 +526,27 @@
                 }
             })
 
+        }
+        
+        function orderPaymentStatusChange(id,status)
+        {
+            $.ajax({
+                type: 'POST',
+
+                url: "{{ route('admin.payment.status.change') }}",
+                data: {
+                    order_id:id,
+                    order_payment_status:status
+                },
+                success: function (res) {
+                    toastr.success(res.message);
+                    orderTable.ajax.reload();
+                },
+                error: function (err) {
+                    console.log('error')
+                }
+            })
+            
         }
     </script>
 

@@ -252,8 +252,9 @@
                     {
                         data: 'payment_status',
                         width: '15%',
-                        render: function (data, type, row) {
-                            let statuses = ['Complete','Pending']; // Example statuses
+                        render: function (data, type, row) 
+                        {
+                            let statuses = ['Paid','Pending']; // Example statuses
                             let options = '';
 
                             statuses.forEach(function(status) {
@@ -261,7 +262,7 @@
                                 options += `<option value="${status}" ${selected}>${status}</option>`;
                             });
 
-                            return `<select class="form-control form-select">
+                            return `<select class="form-control form-select" onchange="orderPaymentStatusChange(${row.id},this.value)">
                                     ${options}
                                     </select>`;
                         }
@@ -472,6 +473,27 @@
                 },
                 success: function (res) {
                    
+                    toastr.success(res.message);
+                    orderTable.ajax.reload();
+                },
+                error: function (err) {
+                    console.log('error')
+                }
+            })
+
+        }
+
+        function orderPaymentStatusChange(id,status)
+        {
+            $.ajax({
+                type: 'POST',
+
+                url: "{{ route('admin.payment.status.change') }}",
+                data: {
+                    order_id:id,
+                    order_payment_status:status
+                },
+                success: function (res) {
                     toastr.success(res.message);
                     orderTable.ajax.reload();
                 },

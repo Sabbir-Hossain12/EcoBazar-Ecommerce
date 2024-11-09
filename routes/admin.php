@@ -123,7 +123,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/order-all-data', [OrderController::class, 'orderAllData'])->name('admin.order.all.data');
     Route::get('/order/{status}', [OrderController::class, 'orderStatusData'])->name('admin.order.status.data');
     Route::post('/order-status-change', [OrderController::class, 'orderStatusChange'])->name('admin.order.status.change');
-
+    Route::post('/order-payment-status-change', [OrderController::class, 'orderPaymentStatusChange'])->name('admin.payment.status.change');
+    
     //____Invoice and Print Invoice___//
     Route::get('/order-invoice/{id}', [OrderController::class, 'orderInvoice'])->name('admin.order.invoice');
     

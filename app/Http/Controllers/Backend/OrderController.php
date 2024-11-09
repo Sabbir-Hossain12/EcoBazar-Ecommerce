@@ -132,6 +132,8 @@ class OrderController extends Controller
                 ->escapeColumns([])
                 ->make(true);
         }
+        
+        
         return view('backend.pages.order.index', compact([
             'orders', 'allOrdersCount', 'pendingOrderCount', 'processingOrderCount', 'shippedOrderCount',
             'droppedOffOrderCount', 'outDeliveryOrderCount', 'deliveredOrderCount', 'cancelledOrderCount'
@@ -154,21 +156,26 @@ class OrderController extends Controller
                 ->addColumn('productInfo', function ($order) {
                     $productInfo = '';
                     foreach ($order->orderProducts as $orderProduct) {
-                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight) {
+                        if ($orderProduct->color && $orderProduct->size && $orderProduct->weight) 
+                        {
                             $productInfo .= $orderProduct->product_name.'<br>'.
                                 $orderProduct->quantity.' x '.$orderProduct->color.
                                 ' x '.$orderProduct->size.' x '.$orderProduct->weight.'<br>';
                         } else {
-                            if ($orderProduct->color && $orderProduct->size) {
+                            if ($orderProduct->color && $orderProduct->size) 
+                            {
                                 $productInfo .= $orderProduct->product_name.'<br>'.
                                     $orderProduct->quantity.' x '.$orderProduct->color.
                                     ' x '.$orderProduct->size.'<br>';
                             } else {
-                                if ($orderProduct->color) {
+                                if ($orderProduct->color) 
+                                {
                                     $productInfo .= $orderProduct->product_name.'<br>'.
                                         $orderProduct->quantity.' x '.$orderProduct->color.
                                         '<br>';
-                                } else {
+                                } 
+                                else 
+                                {
                                     if ($orderProduct->size) {
                                         $productInfo .= $orderProduct->product_name.'<br>'.
                                             $orderProduct->quantity.' x '.$orderProduct->size.
@@ -187,7 +194,7 @@ class OrderController extends Controller
                     return $productInfo;
                 })
                 ->addColumn('action', function ($order) {
-                    return '<div class="d-flex flex-column gap-2"><a class="viewButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target=""><i class="fas fa-print"></i></a>
+                    return '<div class="d-flex flex-column gap-2"><a class="viewButton btn btn-sm btn-primary" href="'. route('admin.order.invoice', $order->id).'"><i class="fas fa-print"></i></a>
                             <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$order->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
                                                              <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$order->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
                                                            </div>';
@@ -212,6 +219,19 @@ class OrderController extends Controller
         $order->update();
 
         return response()->json(['message' => 'Order Status Changed to '.$order_status], 200);
+    }
+
+
+    public function orderPaymentStatusChange(Request $request)
+    {
+        $order_payment_status = $request->order_payment_status;
+        $order_id = $request->order_id;
+
+        $order = Order::find($order_id);
+        $order->payment_status = $order_payment_status;
+        $order->update();
+
+        return response()->json(['message' => 'Payment Status Changed to '.$order_payment_status], 200);
     }
 
     public function orderInvoice(string $id)
