@@ -2,9 +2,8 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    Yajra\DataTables\DataTablesServiceProvider::class,
-    Spatie\Permission\PermissionServiceProvider::class,
+    App\Providers\testProvider::class,
     Jorenvh\Share\Providers\ShareServiceProvider::class,
-//    Brian2694\Toastr\ToastrServiceProvider::class,
-    
+    Spatie\Permission\PermissionServiceProvider::class,
+    Yajra\DataTables\DataTablesServiceProvider::class,
 ];

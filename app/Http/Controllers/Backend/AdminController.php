@@ -24,7 +24,7 @@ class AdminController extends Controller implements HasMiddleware
             new Middleware('permission:Create Admin,admin', only: ['store']),
             new Middleware('permission:Edit Admin,admin', only: ['update']),
             new Middleware('permission:Delete Admin,admin', only: ['destroy']),
-            new Middleware('permission:Delete Admin,admin', only: ['destroy']),
+            new Middleware('permission:Status Admin,admin', only: ['changeAdminStatus']),
             
         ];
     }
@@ -74,13 +74,29 @@ class AdminController extends Controller implements HasMiddleware
                 return '';
             })
             ->addColumn('action', function ($admin) {
-                if(Auth::guard('admin')->user()->can('Delete Admin'))
-                {
-                    
-                return '<div class="d-flex gap-3"> <a class="editButton btn btn-sm btn-primary" href="javascript:void(0)" data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal"><i class="fas fa-edit"></i></a>
-                                                             <a class="btn btn-sm btn-danger" href="javascript:void(0)" data-id="'.$admin->id.'" id="deleteAdminBtn""> <i class="fas fa-trash"></i></a>
-                                                           </div>';
+
+                $editAction = '';
+                $deleteAction = '';
+
+                if(Auth::guard('admin')->user()->can('Edit Admin')) {
+
+                    $editAction= '<a class="editButton btn btn-sm btn-primary" href="javascript:void(0)"
+                                    data-id="'.$admin->id.'" data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                    <i class="fas fa-edit"></i></a>';
+
                 }
+
+                if(Auth::guard('admin')->user()->can('Delete Admin')) {
+                    
+                    $deleteAction= '<a class="btn btn-sm btn-danger" href="javascript:void(0)"
+                                    data-id="'.$admin->id.'" id="deleteAdminBtn""> 
+                                    <i class="fas fa-trash"></i></a>';
+                    
+                }
+
+                    return '<div class="d-flex gap-3"> '.$editAction.$deleteAction.'</div>';
+                
+                
             })
             ->rawColumns(['action', 'status', 'role'])
             ->make(true);

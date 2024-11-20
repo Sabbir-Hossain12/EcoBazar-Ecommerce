@@ -86,6 +86,7 @@
 @endpush
 
 @section('body-content')
+    
 
     <!-- Start Banner Section -->
     <section class="banner-section">
@@ -107,7 +108,7 @@
     </section><!-- End. banner-section -->
 
 
-
+ 
 
 
     <!-- Start Category Section -->
@@ -151,35 +152,7 @@
         </div><!-- End. container -->
     </section><!-- End. category-section -->
 
-
-    <!-- Start Category Campaign Banner Section -->
-    {{--    @if(count($smallBanners)>0)--}}
-    {{--        <section class="category-campaign-banner">--}}
-    {{--            <div class="container">--}}
-    {{--                <div class="row">--}}
-    {{--                    <div class="category-campaign-container">--}}
-
-    {{--                        @foreach($smallBanners as $banner)--}}
-    {{--                            <div class="category-campaign-setup"--}}
-    {{--                                 style="background-image: url('{{ asset($banner->banner_img) }}');">--}}
-    {{--                                <div class="left-banner-title">--}}
-    {{--                                    <h1>{{$banner->banner_title_1}}</h1>--}}
-    {{--                                    <p>{{$banner->banner_title_2}}</p>--}}
-    {{--                                    <a href="{{$banner->banner_btn_link}}"--}}
-    {{--                                       class="campaign_btns">{{$banner->banner_btn_name}} <i--}}
-    {{--                                                class="fa-solid fa-arrow-right ms-2"></i></a>--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        @endforeach--}}
-
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </section>--}}
-
-    {{--    @endif--}}
-
-
+    
     <!-- Start Popular Products Section -->
     <section class="popular-products-section">
         <div class="container">
@@ -226,9 +199,22 @@
                                     <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                        class="product-title">{{ $popular_product->product_name }}</a>
                                     @if(count($popular_product->colors)>0)
-                                        <p>${{$popular_product->colors[0]->productSalePrice}}
+                                        <p>{{$basic_info->currency_symbol}}{{$popular_product->colors[0]->productSalePrice}}
                                             <del>
-                                                <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
+                                                <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->colors[0]->productRegularPrice}}</span>
+                                            </del>
+                                        </p>
+
+                                    @elseif(count($popular_product->weights)>0)
+                                        <p>{{$basic_info->currency_symbol}}{{$popular_product->weights[0]->productSalePrice}}
+                                            <del>
+                                                <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->weights[0]->productRegularPrice}}</span>
+                                            </del>
+                                        </p>
+                                    @else
+                                        <p>{{$basic_info->currency_symbol}}{{$popular_product->sizes[0]->productSalePrice}}
+                                            <del>
+                                                <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->sizes[0]->productRegularPrice}}</span>
                                             </del>
                                         </p>
                                     @endif
@@ -252,7 +238,7 @@
 
                 </div><!-- End. products-container -->
 
-                <!-- For responsive product-responsive -->
+                <!-- For responsive Popular product-responsive -->
                 <div class="owl-carousel owl-theme" id="popularSlider">
 
 
@@ -290,11 +276,29 @@
                                     <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                        class="product-title">{{ $popular_product->product_name }}</a>
                                     @if(count($popular_product->colors)>0)
-                                        <p>${{$popular_product->colors[0]->productSalePrice}}
+                                        
+                                        <p>{{$basic_info->currency}}{{$popular_product->colors[0]->productSalePrice}}
                                             <del>
-                                                <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
+                                                <span class="discount-price">{{$basic_info->currency}}{{$popular_product->colors[0]->productRegularPrice}}</span>
                                             </del>
                                         </p>
+
+                                     @elseif(count($popular_product->sizes)>0)
+                                        
+                                         <p>{{$basic_info->currency}}{{$popular_product->sizes[0]->productSalePrice}}
+                                              <del>
+                                                    <span class="discount-price">{{$basic_info->currency}}{{$popular_product->sizes[0]->productRegularPrice}}</span>
+                                              </del>
+                                         </p>
+                                        
+                                    @else
+                                        
+                                        <p>{{$basic_info->currency}}{{$popular_product->weights[0]->productSalePrice}}
+                                            <del>
+                                                <span class="discount-price">{{$basic_info->currency}}{{$popular_product->weights[0]->productRegularPrice}}</span>
+                                            </del>
+                                        </p>  
+                                        
                                     @endif
                                     <div class="product-review">
                                         <i class="fa-solid fa-star"></i>
@@ -317,51 +321,12 @@
 
             </div><!-- End. row -->
         </div><!-- End. container -->
-    </section><!-- End. popular-product-section -->
+    </section>
+    <!-- End. popular-product-section -->
 
-
-    <!-- Start Campaign Section -->
-    @if(count($mediumBanners)>0)
-        <section class="campaign-section">
-            <div class="container">
-                <div class="row">
-                    <div class="campaign-container">
-
-                        @forelse($mediumBanners as $mediumBanner)
-                            <div class="monthly-sales-campaign"
-                                 style="background-image: url('{{ asset('public/frontend/assets/images/campaign_image/monthly-sales-campaign.png') }}');">
-                                <h5>{{$mediumBanner->banner_title_1}}</h5>
-                                <h1>{{$mediumBanner->banner_title_2}}</h1>
-                                <p class="text-center mb-4">{{$mediumBanner->banner_title_3}}></p>
-                                <!-- End. counter-campaign -->
-                                <div class="text-center">
-                                    <a href="{{$mediumBanner->banner_btn_link}}"
-                                       class="btns shop_btn2">{{$mediumBanner->banner_btn_name}} <i
-                                                class="fa-solid fa-arrow-right ms-2"></i>
-                                    </a>
-                                </div>
-                            </div><!-- End. monthly-sales-campaign -->
-                        @empty
-                        @endforelse
-                    </div>
-                </div><!-- End. row -->
-            </div><!-- End. container -->
-        </section><!-- End. campaign-section -->
-
-    @endif
-    <!-- Note: Start Hot Deals Section -->
-
-    <section class="hot-deals-section">
-        <div class="container">
-            <div class="row">
-                <div class="hot-deals-container">
-
-                </div>
-            </div><!-- End. row -->
-        </div><!-- End. container -->
-    </section><!-- End. hot-deals-section -->
-
-
+    
+    
+    
     <!-- Start Campaign Banner Section -->
 
     <section class="campaign-banner-section">
@@ -384,7 +349,9 @@
                 </div>
             </div><!-- End. row -->
         </div><!-- End. container -->
-    </section><!-- End. campaign-section -->
+    </section>
+    
+    <!-- End. campaign-section -->
 
 
     <!-- Start Featured Products Section -->
@@ -435,9 +402,22 @@
                                         <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                            class="product-title">{{ $popular_product->product_name }}</a>
                                         @if(count($popular_product->colors)>0)
-                                            <p>${{$popular_product->colors[0]->productSalePrice}}
+                                            <p>{{$basic_info->currency_symbol}}{{$popular_product->colors[0]->productSalePrice}}
                                                 <del>
-                                                    <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
+                                                    <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->colors[0]->productRegularPrice}}</span>
+                                                </del>
+                                            </p>
+
+                                        @elseif(count($popular_product->weights)>0)
+                                            <p>{{$basic_info->currency_symbol}}{{$popular_product->weights[0]->productSalePrice}}
+                                                <del>
+                                                    <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->weights[0]->productRegularPrice}}</span>
+                                                </del>
+                                            </p>
+                                        @else
+                                            <p>{{$basic_info->currency_symbol}}{{$popular_product->sizes[0]->productSalePrice}}
+                                                <del>
+                                                    <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->sizes[0]->productRegularPrice}}</span>
                                                 </del>
                                             </p>
                                         @endif
@@ -500,9 +480,22 @@
                                         <a href="{{url('/product-details/'.$popular_product->slug)}}"
                                            class="product-title">{{ $popular_product->product_name }}</a>
                                         @if(count($popular_product->colors)>0)
-                                            <p>${{$popular_product->colors[0]->productSalePrice}}
+                                            <p>{{$basic_info->currency_symbol}}{{$popular_product->colors[0]->productSalePrice}}
                                                 <del>
-                                                    <span class="discount-price">${{$popular_product->colors[0]->productRegularPrice}}</span>
+                                                    <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->colors[0]->productRegularPrice}}</span>
+                                                </del>
+                                            </p>
+
+                                        @elseif(count($popular_product->weights)>0)
+                                            <p>{{$basic_info->currency_symbol}}{{$popular_product->weights[0]->productSalePrice}}
+                                                <del>
+                                                    <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->weights[0]->productRegularPrice}}</span>
+                                                </del>
+                                            </p>
+                                        @else
+                                            <p>{{$basic_info->currency_symbol}}{{$popular_product->sizes[0]->productSalePrice}}
+                                                <del>
+                                                    <span class="discount-price">{{$basic_info->currency_symbol}}{{$popular_product->sizes[0]->productRegularPrice}}</span>
                                                 </del>
                                             </p>
                                         @endif
@@ -530,49 +523,9 @@
         </section>
 
     @endif
-
-
     <!-- End. featured-product-section -->
-
-
-
-
-    <!-- Start Business Logo Section -->
-    {{--    <section class="business-logo-section">--}}
-    {{--        <div class="container">--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-lg-12">--}}
-    {{--                    <div class="owl-carousel owl-theme" id="businessLogo">--}}
-    {{--                        <div class="company-logo-show">--}}
-    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-1.png') }}" alt="">--}}
-    {{--                        </div>--}}
-
-    {{--                        <div class="company-logo-show">--}}
-    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-2.png') }}" alt="">--}}
-    {{--                        </div>--}}
-
-    {{--                        <div class="company-logo-show">--}}
-    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-3.png') }}" alt="">--}}
-    {{--                        </div>--}}
-
-    {{--                        <div class="company-logo-show">--}}
-    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-4.png') }}" alt="">--}}
-    {{--                        </div>--}}
-
-    {{--                        <div class="company-logo-show">--}}
-    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-5.png') }}" alt="">--}}
-    {{--                        </div>--}}
-
-    {{--                        <div class="company-logo-show">--}}
-    {{--                            <img src="{{ asset('public/frontend/assets/images/business_logo/logo-6.png') }}" alt="">--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </section><!-- End. Business Logo Section -->--}}
-
-
+    
+    
     <!-- Start Subscription Section -->
     <section class="subscription-section">
         <div class="container">
@@ -592,9 +545,9 @@
                 </div><!-- End. subscription -->
             </div><!-- End. row -->
         </div><!-- End. container -->
-    </section><!-- End. subscription-section -->
-
-
+    </section>
+    <!-- End. subscription-section -->
+    
     <!-- Subscription include -->
     @include('frontend.include.subscription')
 

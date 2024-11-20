@@ -50,12 +50,12 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0  nowrap w-100 dataTable no-footer dtr-inline text-center" id="productTable">
+                        <table class="table mb-0 w-100 dataTable no-footer dtr-inline" id="productTable">
                             <thead>
                             <tr>
-                                <th>SL</th>
-                                <th>Image</th>
-                                <th>Product Name</th>
+                                <th >SL</th>
+                                <th >Image</th>
+                                <th >Product Name</th>
                                 <th>SKU</th>
                                 
                                 <th>Available Stock</th>
@@ -124,7 +124,7 @@
                     },
                     {
                         data: 'product_name',
-                        width: '10%',
+                        width: '20%',
 
                     },  
                     {
@@ -134,10 +134,11 @@
                     
                     {
                         data: 'available_qty',
+                        width: '5%'
 
                     },  {
                         data: 'sold_qty',
-
+                        width: '5%'
                     },
                     {
                         data: 'isPopular',

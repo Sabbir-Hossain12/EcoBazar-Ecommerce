@@ -552,7 +552,7 @@
                                         @elseif(count($product->weights)>0)
                                             <span class="badges sale_badge product-badges">Sale {{$product->weights[0]->discount_percentage}}%</span>
                                         @else
-                                            <span class="badges new_badge product-badges">Sale {{$product->sizes[0]->discount_percentage}}%</span>
+                                            <span class="badges sale_badge product-badges">Sale {{$product->sizes[0]->discount_percentage}}%</span>
 
                                         @endif
 
